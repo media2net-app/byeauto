@@ -189,13 +189,9 @@ export default function QuotePage() {
   const getSystemMaintenance = () => Math.round(getSystemTotal() * 0.15);
   const getSystemTotalIncludingMaintenance = () => getSystemTotal() + getSystemMaintenance();
 
-  const getBmwUpgradesTotal = () => {
-    return bmwProject.upgrades.reduce((total, category) => {
-      return total + category.items.reduce((sum, item) => sum + item.price, 0);
-    }, 0);
-  };
 
-  const getCombinedTotal = () => getSystemTotalIncludingMaintenance() + getBmwUpgradesTotal();
+
+
 
   const translations = {
     en: {
@@ -203,7 +199,7 @@ export default function QuotePage() {
       subtitle: "System Development + BMW F32 420d N47 Stage 2+ Project",
       systemTab: "System Development",
       bmwTab: "BMW Project",
-      combinedTab: "Combined Offer",
+
       systemTitle: "BMW Service Management System",
       bmwTitle: "BMW F32 420d N47 – STAGE 2+ / MAX PERFORMANCE BUILD",
       vehicle: "Vehicle",
@@ -220,7 +216,7 @@ export default function QuotePage() {
       totalPrice: "Total Price",
       maintenance: "Annual Maintenance",
       totalInvestment: "Total Investment",
-      combinedTotal: "Combined Total Investment",
+
       techStack: "Technology Stack",
       deployment: "Deployment",
       support: "Support & Maintenance"
@@ -230,7 +226,7 @@ export default function QuotePage() {
       subtitle: "Systeem Ontwikkeling + BMW F32 420d N47 Stage 2+ Project",
       systemTab: "Systeem Ontwikkeling",
       bmwTab: "BMW Project",
-      combinedTab: "Gecombineerde Aanbieding",
+
       systemTitle: "BMW Service Management Systeem",
       bmwTitle: "BMW F32 420d N47 – STAGE 2+ / MAX PERFORMANCE BUILD",
       vehicle: "Voertuig",
@@ -247,7 +243,7 @@ export default function QuotePage() {
       totalPrice: "Totale Prijs",
       maintenance: "Jaarlijks Onderhoud",
       totalInvestment: "Totale Investering",
-      combinedTotal: "Gecombineerde Totale Investering",
+
       techStack: "Technologie Stack",
       deployment: "Implementatie",
       support: "Ondersteuning & Onderhoud"
@@ -313,16 +309,6 @@ export default function QuotePage() {
             }`}
           >
             {t.bmwTab}
-          </button>
-          <button
-            onClick={() => setActiveTab("combined")}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-              activeTab === "combined"
-                ? "bg-purple-600 text-white"
-                : "text-gray-300 hover:text-white hover:bg-gray-700"
-            }`}
-          >
-            {t.combinedTab}
           </button>
         </div>
 
@@ -550,111 +536,7 @@ export default function QuotePage() {
           </div>
         )}
 
-        {/* Combined Offer Tab */}
-        {activeTab === "combined" && (
-          <div className="space-y-8">
-            <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8">
-              <h3 className="text-xl font-semibold text-white mb-6">Complete BYE Auto Solution</h3>
-              <p className="text-gray-400 mb-6">
-                Get both the professional BMW service management system and the complete BMW F32 420d N47 Stage 2+ performance build.
-              </p>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* System Summary */}
-                <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
-                  <h4 className="text-lg font-medium text-white mb-4">{t.systemTitle}</h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-white font-medium">Complete System (including maintenance):</span>
-                      <span className="text-purple-400 font-bold">€{getSystemTotalIncludingMaintenance().toLocaleString()}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* BMW Project Summary */}
-                <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
-                  <h4 className="text-lg font-medium text-white mb-4">BMW F32 420d N47 Stage 2+</h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Performance Upgrades:</span>
-                      <span className="text-white font-medium">€{bmwProject.upgrades[0].items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Preventive Work:</span>
-                      <span className="text-white font-medium">€{bmwProject.upgrades[1].items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}</span>
-                    </div>
-                    <hr className="border-gray-700" />
-                    <div className="flex justify-between">
-                      <span className="text-white font-medium">Total BMW Project:</span>
-                      <span className="text-purple-400 font-bold">€{getBmwUpgradesTotal().toLocaleString()}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Combined Total */}
-              <div className="mt-8 bg-purple-900 border border-purple-700 rounded-lg p-6">
-                <div className="text-center">
-                  <h4 className="text-xl font-bold text-white mb-2">{t.combinedTotal}</h4>
-                  <div className="text-3xl font-bold text-purple-300">€{getCombinedTotal().toLocaleString()}</div>
-                  <p className="text-purple-200 mt-2">Complete solution: System + BMW Performance Build</p>
-                </div>
-              </div>
-
-              {/* Benefits */}
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white text-xl">⚡</span>
-                  </div>
-                  <h5 className="text-white font-medium mb-2">Performance</h5>
-                  <p className="text-sm text-gray-400">270-280 hp BMW with professional management system</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white text-xl">🛠️</span>
-                  </div>
-                  <h5 className="text-white font-medium mb-2">Professional</h5>
-                  <p className="text-sm text-gray-400">Complete business solution with quality parts</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white text-xl">📈</span>
-                  </div>
-                  <h5 className="text-white font-medium mb-2">Growth</h5>
-                  <p className="text-sm text-gray-400">Scale your BMW service business efficiently</p>
-                </div>
-              </div>
-
-              {/* Investment Trade-off */}
-              <div className="mt-8 bg-gradient-to-r from-purple-900 to-blue-900 border border-purple-700 rounded-lg p-6">
-                <h4 className="text-xl font-bold text-white mb-4 text-center">Investment Trade-off</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-2xl">💻</span>
-                    </div>
-                    <h5 className="text-white font-medium mb-2">System Investment</h5>
-                    <p className="text-2xl font-bold text-purple-300 mb-2">€{getSystemTotalIncludingMaintenance().toLocaleString()}</p>
-                    <p className="text-sm text-gray-300">Professional BMW service management system</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-2xl">🏎️</span>
-                    </div>
-                    <h5 className="text-white font-medium mb-2">Car Tuning Investment</h5>
-                    <p className="text-2xl font-bold text-blue-300 mb-2">€{getBmwUpgradesTotal().toLocaleString()}</p>
-                    <p className="text-sm text-gray-300">BMW F32 420d Stage 2+ performance build</p>
-                  </div>
-                </div>
-                <div className="mt-6 text-center">
-                  <p className="text-lg text-white font-medium mb-2">Choose Your Priority</p>
-                  <p className="text-gray-300">Invest in your business system or invest in your car&apos;s performance - both will enhance your BMW expertise!</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
