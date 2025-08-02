@@ -42,10 +42,10 @@ export default function HomePage() {
   ];
 
   const stats = [
-    { number: "500+", label: "Happy Customers" },
-    { number: "1000+", label: "Services Completed" },
-    { number: "5+", label: "Years Experience" },
-    { number: "24/7", label: "Support Available" }
+    { number: "100+", label: "Happy Customers" },
+    { number: "500+", label: "Services Completed" },
+    { number: "3+", label: "Years Experience" },
+    { number: "4.8★", label: "Customer Rating" }
   ];
 
   return (
@@ -135,7 +135,7 @@ export default function HomePage() {
               BMW Service & Performance
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
-              Professional BMW service, repair, and performance tuning. From routine maintenance to stage 3+ builds, we keep your BMW running at its best.
+              Professional BMW service, repair, and performance tuning in Dragodana. From routine maintenance to stage 3+ builds, we keep your BMW running at its best.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
               <a 
@@ -204,21 +204,21 @@ export default function HomePage() {
             <div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">About BYE AUTO</h2>
               <p className="text-gray-400 text-base sm:text-lg mb-4 sm:mb-6">
-                We are passionate BMW enthusiasts and certified technicians with years of experience in BMW service, repair, and performance tuning.
+                We are passionate BMW enthusiasts and certified technicians with years of experience in BMW service, repair, and performance tuning, serving Dragodana and surrounding areas.
               </p>
               <p className="text-gray-400 text-base sm:text-lg mb-6 sm:mb-8">
-                From routine maintenance to complete stage 3+ builds, we provide professional service with attention to detail and quality workmanship.
+                From routine maintenance to complete stage 3+ builds, we provide professional service with attention to detail and quality workmanship at our location in Dragodana.
               </p>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center">
-                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                  <span className="ml-2 text-gray-300 text-sm sm:text-base">5.0 Rating</span>
+                              <div className="flex items-center space-x-4">
+                  <div className="flex items-center">
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                    <span className="ml-2 text-gray-300 text-sm sm:text-base">4.8 Rating (16 reviews)</span>
+                  </div>
                 </div>
-              </div>
             </div>
             <div className="bg-gray-800 border border-gray-700 rounded-lg p-6 sm:p-8">
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Why Choose BYE AUTO?</h3>
@@ -263,21 +263,21 @@ export default function HomePage() {
                 <Phone className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-1 sm:mb-2">Call Us</h3>
-              <p className="text-gray-400 text-sm sm:text-base">+40 721 123 456</p>
+              <p className="text-gray-400 text-sm sm:text-base">0764 755 733</p>
             </div>
             <div className="text-center">
               <div className="bg-purple-600 w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-1 sm:mb-2">Visit Us</h3>
-              <p className="text-gray-400 text-sm sm:text-base">Bucharest, Romania</p>
+              <p className="text-gray-400 text-sm sm:text-base">Cimitirului nr 95, Dragodana 137201</p>
             </div>
             <div className="text-center sm:col-span-2 lg:col-span-1">
               <div className="bg-purple-600 w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <Clock className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-1 sm:mb-2">Business Hours</h3>
-              <p className="text-gray-400 text-sm sm:text-base">Mon-Fri: 8AM-6PM</p>
+              <p className="text-gray-400 text-sm sm:text-base">Mon-Fri: 8:30AM-6PM</p>
             </div>
           </div>
 
@@ -312,9 +312,9 @@ export default function HomePage() {
             <div>
               <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Contact</h4>
               <ul className="space-y-1 sm:space-y-2 text-gray-400 text-sm sm:text-base">
-                <li>+40 721 123 456</li>
-                <li>Bucharest, Romania</li>
-                <li>Mon-Fri: 8AM-6PM</li>
+                <li>0764 755 733</li>
+                <li>Cimitirului nr 95, Dragodana 137201</li>
+                <li>Mon-Fri: 8:30AM-6PM</li>
               </ul>
             </div>
             <div>
