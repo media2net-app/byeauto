@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
 import RepairModal from "@/components/RepairModal";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
-import NotificationPanel, { useNotifications } from "@/components/NotificationPanel";
+
 
 interface VehicleData {
   id: string;
@@ -37,24 +37,13 @@ export default function Dashboard() {
   const { t } = useLanguage();
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { notifications, addNotification, dismissNotification } = useNotifications();
+
 
   const handleLogout = () => {
     router.push("/");
   };
 
-  // Demo notifications - you can remove these in production
-  useEffect(() => {
-    // Add demo notification only once
-    setTimeout(() => {
-      addNotification({
-        type: 'info',
-        title: t('new_messages'),
-        message: t('new_messages_text'),
-        duration: 8000
-      });
-    }, 2000);
-  }, [addNotification, t]);
+
 
   const handleVehicleClick = (vehicleId: string) => {
     // Simulate fetching vehicle data
@@ -149,17 +138,6 @@ export default function Dashboard() {
                 <h1 className="text-xl sm:text-2xl font-bold text-white">{t('dashboard')}</h1>
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                <button
-                  onClick={() => addNotification({
-                    type: 'info',
-                    title: t('test_notification'),
-                    message: t('test_notification_message'),
-                    duration: 5000
-                  })}
-                  className="bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 transition-colors w-full sm:w-auto"
-                >
-                  {t('test_notifications')}
-                </button>
                 <div className="text-sm text-gray-400 text-center sm:text-left">
                   {t('welcome_back_bye_auto')}
                 </div>
@@ -286,11 +264,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Notification Panel */}
-      <NotificationPanel 
-        notifications={notifications} 
-        onDismiss={dismissNotification} 
-      />
+
 
       {/* Repair Modal */}
       <RepairModal
