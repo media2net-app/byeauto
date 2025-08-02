@@ -125,7 +125,7 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center space-x-4">
                 <div className="text-sm text-gray-400">
-                  Welcome back, John Doe
+                  Welcome back, BYE AUTO
                 </div>
               </div>
             </div>

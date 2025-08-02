@@ -11,7 +11,6 @@ import {
   TrendingUp, 
   Settings, 
   Zap, 
-  DollarSign, 
   CreditCard,
   Menu,
   X,
@@ -72,12 +71,6 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       href: "/tune",
       icon: Zap,
       current: pathname === "/tune"
-    },
-    {
-      name: "System Quote",
-      href: "/quote",
-      icon: DollarSign,
-      current: pathname === "/quote"
     },
     {
       name: "I want this system, what does it cost?",
@@ -187,11 +180,11 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-            <span className="text-white text-sm font-medium">JD</span>
+            <span className="text-white text-sm font-medium">BA</span>
           </div>
           {!isCollapsed && (
             <div className="flex-1">
-              <p className="text-sm font-medium text-white">John Doe</p>
+              <p className="text-sm font-medium text-white">BYE AUTO</p>
               <p className="text-xs text-gray-400">Administrator</p>
             </div>
           )}
@@ -210,6 +203,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       <button
         onClick={() => setIsMobileOpen(true)}
         className="fixed top-4 left-4 z-30 p-2 bg-gray-900 text-white rounded-lg lg:hidden"
+        style={{ marginLeft: '1rem' }}
       >
         <Menu className="w-5 h-5" />
       </button>
