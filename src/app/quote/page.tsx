@@ -26,6 +26,7 @@ interface BmwUpgradeCategory {
 export default function QuotePage() {
   const [language, setLanguage] = useState("en");
   const [activeTab, setActiveTab] = useState("system");
+  const [showProposalModal, setShowProposalModal] = useState(false);
 
   // System Development Features
   const systemFeatures: SystemFeature[] = [
@@ -286,6 +287,12 @@ export default function QuotePage() {
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t.title}</h2>
           <p className="text-gray-400 text-sm sm:text-base">{t.subtitle}</p>
+          <button
+            onClick={() => setShowProposalModal(true)}
+            className="mt-4 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium"
+          >
+            🤝 View Special Proposal
+          </button>
         </div>
 
         {/* Tab Navigation */}
@@ -536,6 +543,110 @@ export default function QuotePage() {
           </div>
         )}
 
+        {/* Proposal Modal */}
+        {showProposalModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                {/* Header */}
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-2xl font-bold text-white">🤝 Special Partnership Proposal</h3>
+                  <button
+                    onClick={() => setShowProposalModal(false)}
+                    className="text-gray-400 hover:text-white text-2xl"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {/* Content */}
+                <div className="space-y-6">
+                  {/* Introduction */}
+                  <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
+                    <h4 className="text-lg font-semibold text-white mb-3">📋 What You&apos;re Looking At</h4>
+                    <p className="text-gray-300 mb-3">
+                      This quote page contains <strong>two separate proposals</strong>:
+                    </p>
+                    <ul className="text-gray-300 space-y-2 ml-4">
+                      <li>• <strong>System Development</strong> - Complete BMW service management system (normally €{getSystemTotalIncludingMaintenance().toLocaleString()})</li>
+                      <li>• <strong>BMW F32 420d Project</strong> - Stage 2+ performance build for your car (normally €{bmwProject.budget.min.toLocaleString()} - €{bmwProject.budget.max.toLocaleString()})</li>
+                    </ul>
+                  </div>
+
+                  {/* Proposal */}
+                  <div className="bg-purple-900 border border-purple-700 rounded-lg p-4">
+                    <h4 className="text-lg font-semibold text-white mb-3">💡 Our Special Proposal</h4>
+                    <p className="text-gray-300 mb-4">
+                      Instead of paying for each service separately, we propose a <strong>mutual exchange</strong>:
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
+                        <h5 className="font-semibold text-white mb-2">🎯 What I Do For You</h5>
+                        <p className="text-gray-300 text-sm">
+                          Develop and deploy the complete BMW service management system <strong>FREE OF CHARGE</strong>
+                        </p>
+                      </div>
+                      <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
+                        <h5 className="font-semibold text-white mb-2">🚗 What You Do For Me</h5>
+                        <p className="text-gray-300 text-sm">
+                          Perform the complete BMW F32 420d Stage 2+ build <strong>FREE OF CHARGE</strong>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Benefits */}
+                  <div className="bg-green-900 border border-green-700 rounded-lg p-4">
+                    <h4 className="text-lg font-semibold text-white mb-3">✅ Win-Win Benefits</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <h5 className="font-semibold text-white mb-2">For BYE AUTO:</h5>
+                        <ul className="text-gray-300 text-sm space-y-1">
+                          <li>• Professional system worth €{getSystemTotalIncludingMaintenance().toLocaleString()}</li>
+                          <li>• Complete business automation</li>
+                          <li>• Competitive advantage</li>
+                          <li>• Long-term business growth</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-white mb-2">For You:</h5>
+                        <ul className="text-gray-300 text-sm space-y-1">
+                          <li>• BMW Stage 2+ build worth €{bmwProject.budget.min.toLocaleString()}</li>
+                          <li>• Maximum performance upgrade</li>
+                          <li>• Professional tuning service</li>
+                          <li>• Quality parts and workmanship</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Call to Action */}
+                  <div className="bg-blue-900 border border-blue-700 rounded-lg p-4 text-center">
+                    <h4 className="text-lg font-semibold text-white mb-3">🤝 Ready to Shake Hands?</h4>
+                    <p className="text-gray-300 mb-4">
+                      This is a <strong>partnership proposal</strong> where both parties benefit equally. 
+                      No money changes hands - just mutual value exchange.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <button
+                        onClick={() => setShowProposalModal(false)}
+                        className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium"
+                      >
+                        Accept Proposal
+                      </button>
+                      <button
+                        onClick={() => setShowProposalModal(false)}
+                        className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
