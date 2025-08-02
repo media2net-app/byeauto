@@ -60,8 +60,8 @@ export default function NotificationPanel({ notifications, onDismiss }: Notifica
   if (notifications.length === 0) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 space-y-2 max-w-sm w-full">
-      {notifications.map((notification) => (
+    <div className="fixed bottom-4 right-4 z-50 space-y-2 max-w-sm w-full">
+      {notifications.slice(-3).reverse().map((notification) => (
         <div
           key={notification.id}
           className={`${getBackgroundColor(notification.type)} border rounded-lg shadow-lg p-4 transform transition-all duration-300 ease-in-out`}
@@ -107,7 +107,11 @@ export function useNotifications() {
       timestamp: new Date(),
     };
 
-    setNotifications(prev => [...prev, newNotification]);
+    setNotifications(prev => {
+      const updated = [...prev, newNotification];
+      // Keep only the last 3 notifications
+      return updated.slice(-3);
+    });
 
     // Auto-dismiss if duration is specified
     if (notification.duration) {

@@ -45,16 +45,7 @@ export default function Dashboard() {
 
   // Demo notifications - you can remove these in production
   useEffect(() => {
-    // Add some demo notifications
-    setTimeout(() => {
-      addNotification({
-        type: 'success',
-        title: t('system_online'),
-        message: t('system_online_message'),
-        duration: 5000
-      });
-    }, 1000);
-
+    // Add demo notification only once
     setTimeout(() => {
       addNotification({
         type: 'info',
@@ -62,17 +53,8 @@ export default function Dashboard() {
         message: t('new_messages_text'),
         duration: 8000
       });
-    }, 3000);
-
-    setTimeout(() => {
-      addNotification({
-        type: 'warning',
-        title: t('maintenance_due'),
-        message: t('maintenance_due_message'),
-        duration: 10000
-      });
-    }, 5000);
-  }, [addNotification]);
+    }, 2000);
+  }, [addNotification, t]);
 
   const handleVehicleClick = (vehicleId: string) => {
     // Simulate fetching vehicle data
