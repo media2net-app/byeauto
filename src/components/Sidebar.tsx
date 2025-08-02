@@ -10,6 +10,7 @@ interface SidebarProps {
 
 export default function Sidebar({ onLogout }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
 
   const navigation = [
@@ -73,9 +74,19 @@ export default function Sidebar({ onLogout }: SidebarProps) {
   ];
 
   return (
-    <div className={`bg-gray-900 border-r border-gray-700 transition-all duration-300 ${
-      isCollapsed ? "w-16" : "w-64"
-    }`}>
+    <>
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+      
+      {/* Sidebar */}
+      <div className={`fixed lg:relative inset-y-0 left-0 z-50 bg-gray-900 border-r border-gray-700 transition-all duration-300 ${
+        isCollapsed ? "w-16" : "w-64"
+      } ${isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-700">
         {!isCollapsed && (
@@ -89,12 +100,20 @@ export default function Sidebar({ onLogout }: SidebarProps) {
             </div>
           </div>
         )}
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-        >
-          {isCollapsed ? "→" : "←"}
-        </button>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors hidden lg:block"
+          >
+            {isCollapsed ? "→" : "←"}
+          </button>
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors lg:hidden"
+          >
+            ✕
+          </button>
+        </div>
       </div>
 
       {/* Navigation */}
@@ -171,6 +190,14 @@ export default function Sidebar({ onLogout }: SidebarProps) {
           </button>
         </div>
       </div>
-    </div>
+      
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setIsMobileOpen(true)}
+        className="fixed top-4 left-4 z-30 p-2 bg-gray-900 text-white rounded-lg lg:hidden"
+      >
+        ☰
+      </button>
+    </>
   );
 } 

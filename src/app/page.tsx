@@ -31,12 +31,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
       {/* Language Switcher */}
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4 z-10">
         <LanguageSwitcher />
       </div>
       
-      <div className="max-w-md w-full space-y-8">
-        <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-xl p-8">
+      <div className="w-full max-w-md space-y-6">
+        <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-xl p-6 sm:p-8">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">BYE AUTO</h1>

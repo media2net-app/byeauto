@@ -116,8 +116,8 @@ export default function Dashboard() {
             <p className="text-gray-300 mt-2">Welcome back! Here&apos;s what&apos;s happening with your fleet.</p>
           </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                  {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {stats.map((stat) => (
               <div key={stat.name} className="bg-gray-900 border border-gray-700 rounded-lg shadow p-6">
                 <div className="flex items-center justify-between">
@@ -143,7 +143,7 @@ export default function Dashboard() {
                 <p className="text-sm text-gray-400 mt-1">Service auto dedicat BMW cu experiența - reparatii, întreținere - electrica și mecanică!</p>
               </div>
               <div className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                                   {vehicles.map((vehicle) => (
                   <div 
                     key={vehicle.id} 
@@ -177,8 +177,8 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Recent Activity */}
             <div className="lg:col-span-2">
               <div className="bg-gray-900 border border-gray-700 rounded-lg shadow">

@@ -143,17 +143,17 @@ export default function TunePage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Page Title */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-white mb-2">BMW Tuning Services</h2>
-          <p className="text-gray-400">Professional ECU tuning and performance upgrades</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">BMW Tuning Services</h2>
+          <p className="text-gray-400 text-sm sm:text-base">Professional ECU tuning and performance upgrades</p>
         </div>
 
         {/* Search Section */}
-        <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-8 mb-8">
+        <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8 mb-6 sm:mb-8">
           <div className="max-w-2xl mx-auto">
-            <h3 className="text-xl font-semibold text-white mb-6">Find Your Vehicle</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">Find Your Vehicle</h3>
             
             <form onSubmit={handleSearch} className="space-y-4">
               <div>
@@ -205,7 +205,7 @@ export default function TunePage() {
             <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-8">
               <h3 className="text-xl font-semibold text-white mb-6">Vehicle Information</h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                   <p className="text-sm text-gray-400">Vehicle</p>
                   <p className="text-white font-medium">{searchResult.vehicle}</p>
@@ -243,10 +243,10 @@ export default function TunePage() {
 
             {/* Tuning Options */}
             {searchResult.tuningParts && (
-              <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-8">
-                <h3 className="text-xl font-semibold text-white mb-6">Tuning Packages</h3>
+              <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8">
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">Tuning Packages</h3>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                   {searchResult.tuningParts.map((tune: any) => (
                     <div
                       key={tune.id}
@@ -304,10 +304,10 @@ export default function TunePage() {
 
             {/* Performance Summary */}
             {selectedTune && (
-              <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-8">
-                <h3 className="text-xl font-semibold text-white mb-6">Performance Summary</h3>
+              <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8">
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">Performance Summary</h3>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="text-center p-6 bg-gray-800 rounded-lg">
                     <p className="text-sm text-gray-400 mb-2">Current Power</p>
                     <p className="text-2xl font-bold text-white">{searchResult.currentPower}</p>
@@ -328,10 +328,10 @@ export default function TunePage() {
 
             {/* Additional Parts */}
             {searchResult.additionalParts && (
-              <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-8">
-                <h3 className="text-xl font-semibold text-white mb-6">Additional Performance Parts</h3>
+              <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8">
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">Additional Performance Parts</h3>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                   {searchResult.additionalParts.map((part: any) => (
                     <div key={part.id} className="border border-gray-700 bg-gray-800 rounded-lg p-6">
                       <h4 className="text-lg font-semibold text-white mb-2">{part.name}</h4>

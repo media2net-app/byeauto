@@ -65,8 +65,8 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
           <div>
@@ -82,8 +82,8 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
         </div>
 
         {/* Vehicle Info */}
-        <div className="px-6 py-4 border-b border-gray-700">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-700">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             <div>
               <p className="text-sm text-gray-400">License Plate</p>
               <p className="text-white font-medium">{vehicle.licensePlate}</p>
@@ -104,7 +104,7 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
         </div>
 
         {/* Repairs List */}
-        <div className="px-6 py-4">
+        <div className="px-4 sm:px-6 py-4">
           <h3 className="text-lg font-semibold text-white mb-4">Repair Details</h3>
           <div className="space-y-4">
             {vehicle.repairs.map((repair) => (
@@ -149,7 +149,7 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                       <div className="text-center p-3 bg-gray-700 rounded-lg">
                         <p className="text-xs text-gray-400">Material Cost</p>
                         <p className="text-white font-bold">€{repair.cost}</p>
@@ -171,9 +171,9 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
         </div>
 
         {/* Summary */}
-        <div className="px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <div className="px-4 sm:px-6 py-4 border-t border-gray-700 bg-gray-800">
           <h3 className="text-lg font-semibold text-white mb-4">Financial Summary</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             <div className="text-center p-3 bg-gray-700 rounded-lg">
               <p className="text-xs text-gray-400">Total Cost</p>
               <p className="text-white font-bold">€{vehicle.totalCost}</p>
@@ -194,7 +194,7 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
         </div>
 
         {/* Actions */}
-        <div className="px-6 py-4 border-t border-gray-700 flex justify-end space-x-3">
+        <div className="px-4 sm:px-6 py-4 border-t border-gray-700 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
           <button
             onClick={onClose}
             className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
