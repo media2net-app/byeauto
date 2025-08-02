@@ -25,12 +25,11 @@ export default function VehiclesPage() {
   const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-
-  const handleLogout = () => {
-    router.push("/");
-  };
-
-  const vehicles: Vehicle[] = [
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([
     {
       id: "1",
       licensePlate: "B-123-ABC",
@@ -79,7 +78,13 @@ export default function VehiclesPage() {
       nextService: "2024-07-05",
       mileage: "67,000 km"
     }
-  ];
+  ]);
+
+  const handleLogout = () => {
+    router.push("/");
+  };
+
+
 
   const filteredVehicles = vehicles.filter(vehicle => {
     const matchesSearch = vehicle.licensePlate.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -99,6 +104,42 @@ export default function VehiclesPage() {
     }
   };
 
+  // Function handlers
+  const handleAddVehicle = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleViewVehicle = (vehicle: Vehicle) => {
+    setSelectedVehicle(vehicle);
+    setIsViewModalOpen(true);
+  };
+
+  const handleEditVehicle = (vehicle: Vehicle) => {
+    setSelectedVehicle(vehicle);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDeleteVehicle = (vehicleId: string) => {
+    if (confirm("Are you sure you want to delete this vehicle?")) {
+      setVehicles(vehicles.filter(v => v.id !== vehicleId));
+    }
+  };
+
+  const handleSaveVehicle = (vehicleData: Omit<Vehicle, 'id'>) => {
+    const newVehicle: Vehicle = {
+      ...vehicleData,
+      id: Date.now().toString() // Simple ID generation
+    };
+    setVehicles([...vehicles, newVehicle]);
+    setIsAddModalOpen(false);
+  };
+
+  const handleUpdateVehicle = (vehicleData: Vehicle) => {
+    setVehicles(vehicles.map(v => v.id === vehicleData.id ? vehicleData : v));
+    setIsEditModalOpen(false);
+    setSelectedVehicle(null);
+  };
+
   return (
     <div className="min-h-screen bg-black flex">
       <Sidebar onLogout={handleLogout} />
@@ -113,7 +154,10 @@ export default function VehiclesPage() {
                 </div>
                 <div className="flex items-center space-x-4">
                   <LanguageSwitcher />
-                  <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2">
+                  <button 
+                    onClick={handleAddVehicle}
+                    className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2"
+                  >
                     <Plus className="w-4 h-4" />
                     <span>Add Vehicle</span>
                   </button>
@@ -191,15 +235,24 @@ export default function VehiclesPage() {
                 </div>
 
                 <div className="flex space-x-2">
-                  <button className="flex-1 bg-blue-600 text-white py-2 px-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-1">
+                  <button 
+                    onClick={() => handleViewVehicle(vehicle)}
+                    className="flex-1 bg-blue-600 text-white py-2 px-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-1"
+                  >
                     <Eye className="w-4 h-4" />
                     <span>View</span>
                   </button>
-                  <button className="flex-1 bg-yellow-600 text-white py-2 px-3 rounded-lg hover:bg-yellow-700 transition-colors flex items-center justify-center space-x-1">
+                  <button 
+                    onClick={() => handleEditVehicle(vehicle)}
+                    className="flex-1 bg-yellow-600 text-white py-2 px-3 rounded-lg hover:bg-yellow-700 transition-colors flex items-center justify-center space-x-1"
+                  >
                     <Edit className="w-4 h-4" />
                     <span>Edit</span>
                   </button>
-                  <button className="bg-red-600 text-white py-2 px-3 rounded-lg hover:bg-red-700 transition-colors">
+                  <button 
+                    onClick={() => handleDeleteVehicle(vehicle.id)}
+                    className="bg-red-600 text-white py-2 px-3 rounded-lg hover:bg-red-700 transition-colors"
+                  >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
@@ -215,6 +268,255 @@ export default function VehiclesPage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Add Vehicle Modal */}
+      {isAddModalOpen && (
+        <VehicleModal
+          isOpen={isAddModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
+          onSave={handleSaveVehicle}
+          mode="add"
+        />
+      )}
+
+      {/* View Vehicle Modal */}
+      {isViewModalOpen && selectedVehicle && (
+        <VehicleModal
+          isOpen={isViewModalOpen}
+          onClose={() => setIsViewModalOpen(false)}
+          vehicle={selectedVehicle}
+          mode="view"
+        />
+      )}
+
+      {/* Edit Vehicle Modal */}
+      {isEditModalOpen && selectedVehicle && (
+        <VehicleModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          onUpdate={handleUpdateVehicle}
+          vehicle={selectedVehicle}
+          mode="edit"
+        />
+      )}
+    </div>
+  );
+}
+
+// Vehicle Modal Component
+interface VehicleModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave?: (vehicle: Omit<Vehicle, 'id'>) => void;
+  onUpdate?: (vehicle: Vehicle) => void;
+  vehicle?: Vehicle;
+  mode: 'add' | 'edit' | 'view';
+}
+
+function VehicleModal({ isOpen, onClose, onSave, onUpdate, vehicle, mode }: VehicleModalProps) {
+  const [formData, setFormData] = useState({
+    licensePlate: vehicle?.licensePlate || '',
+    make: vehicle?.make || '',
+    model: vehicle?.model || '',
+    year: vehicle?.year || '',
+    client: vehicle?.client || '',
+    status: vehicle?.status || 'active' as Vehicle['status'],
+    lastService: vehicle?.lastService || '',
+    nextService: vehicle?.nextService || '',
+    mileage: vehicle?.mileage || ''
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (mode === 'add' && onSave) {
+      onSave(formData);
+    } else if (mode === 'edit' && onUpdate && vehicle) {
+      onUpdate({ ...formData, id: vehicle.id });
+    }
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 w-full max-w-md mx-4">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold text-white">
+            {mode === 'add' ? 'Add New Vehicle' : mode === 'edit' ? 'Edit Vehicle' : 'Vehicle Details'}
+          </h3>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white"
+          >
+            ✕
+          </button>
+        </div>
+
+        {mode === 'view' ? (
+          // View Mode
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">License Plate</label>
+              <p className="text-white">{vehicle?.licensePlate}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Make</label>
+              <p className="text-white">{vehicle?.make}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Model</label>
+              <p className="text-white">{vehicle?.model}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Year</label>
+              <p className="text-white">{vehicle?.year}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Client</label>
+              <p className="text-white">{vehicle?.client}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Status</label>
+              <p className="text-white">{vehicle?.status}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Last Service</label>
+              <p className="text-white">{vehicle?.lastService}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Next Service</label>
+              <p className="text-white">{vehicle?.nextService}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Mileage</label>
+              <p className="text-white">{vehicle?.mileage}</p>
+            </div>
+            <button
+              onClick={onClose}
+              className="w-full bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        ) : (
+          // Add/Edit Mode
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">License Plate</label>
+              <input
+                type="text"
+                value={formData.licensePlate}
+                onChange={(e) => handleInputChange('licensePlate', e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Make</label>
+              <input
+                type="text"
+                value={formData.make}
+                onChange={(e) => handleInputChange('make', e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Model</label>
+              <input
+                type="text"
+                value={formData.model}
+                onChange={(e) => handleInputChange('model', e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Year</label>
+              <input
+                type="text"
+                value={formData.year}
+                onChange={(e) => handleInputChange('year', e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Client</label>
+              <input
+                type="text"
+                value={formData.client}
+                onChange={(e) => handleInputChange('client', e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Status</label>
+              <select
+                value={formData.status}
+                onChange={(e) => handleInputChange('status', e.target.value as Vehicle['status'])}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                <option value="active">Active</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="completed">Completed</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Last Service</label>
+              <input
+                type="date"
+                value={formData.lastService}
+                onChange={(e) => handleInputChange('lastService', e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Next Service</label>
+              <input
+                type="date"
+                value={formData.nextService}
+                onChange={(e) => handleInputChange('nextService', e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Mileage</label>
+              <input
+                type="text"
+                value={formData.mileage}
+                onChange={(e) => handleInputChange('mileage', e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                placeholder="e.g., 45,000 km"
+                required
+              />
+            </div>
+            <div className="flex space-x-3">
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                {mode === 'add' ? 'Add Vehicle' : 'Update Vehicle'}
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
