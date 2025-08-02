@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { t } = useLanguage();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,20 +30,25 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
+      {/* Language Switcher */}
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
+      
       <div className="max-w-md w-full space-y-8">
         <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-xl p-8">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">BYE AUTO</h1>
             <p className="text-gray-300">CARS & SERVICE</p>
-            <p className="text-gray-400 mt-2">Welcome back! Please sign in to your account.</p>
+            <p className="text-gray-400 mt-2">{t('welcome_back')}</p>
           </div>
 
           {/* Login Form */}
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
-                Username
+                {t('username')}
               </label>
               <input
                 id="username"
@@ -57,7 +65,7 @@ export default function LoginPage() {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
-                Password
+                {t('password')}
               </label>
               <input
                 id="password"
@@ -81,11 +89,11 @@ export default function LoginPage() {
                   className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-600 rounded bg-gray-800"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
-                  Remember me
+                  {t('remember_me')}
                 </label>
               </div>
               <a href="#" className="text-sm text-purple-400 hover:text-purple-300">
-                Forgot password?
+                {t('forgot_password')}
               </a>
             </div>
 
@@ -99,15 +107,15 @@ export default function LoginPage() {
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                   Signing in...
                 </div>
-              ) : (
-                "Sign in"
-              )}
+                              ) : (
+                  t('sign_in')
+                )}
             </button>
           </form>
 
           {/* Demo Credentials */}
           <div className="mt-6 p-4 bg-gray-800 border border-gray-700 rounded-lg">
-            <p className="text-sm font-medium text-purple-400 mb-2">Demo Credentials:</p>
+            <p className="text-sm font-medium text-purple-400 mb-2">{t('demo_credentials')}</p>
             <p className="text-sm text-gray-300">
               Username: <code className="bg-gray-700 px-1 rounded text-white">admin</code> | 
               Password: <code className="bg-gray-700 px-1 rounded text-white">password</code>
