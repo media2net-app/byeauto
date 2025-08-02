@@ -7,7 +7,7 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("password");
+  const [password, setPassword] = useState("BYE9438x_#");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { t } = useLanguage();
@@ -16,15 +16,15 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
     
-    // Demo credentials check
-    if (username === "admin" && password === "password") {
+              // Demo credentials check
+          if (username === "admin" && password === "BYE9438x_#") {
       setTimeout(() => {
         setIsLoading(false);
         router.push("/dashboard");
       }, 1000);
     } else {
       setIsLoading(false);
-      alert("Invalid credentials. Use admin/password for demo.");
+                  alert("Invalid credentials. Use admin/BYE9438x_# for demo.");
     }
   };
 
@@ -116,10 +116,10 @@ export default function LoginPage() {
           {/* Demo Credentials */}
           <div className="mt-6 p-4 bg-gray-800 border border-gray-700 rounded-lg">
             <p className="text-sm font-medium text-purple-400 mb-2">{t('demo_credentials')}</p>
-            <p className="text-sm text-gray-300">
-              Username: <code className="bg-gray-700 px-1 rounded text-white">admin</code> | 
-              Password: <code className="bg-gray-700 px-1 rounded text-white">password</code>
-            </p>
+                            <p className="text-sm text-gray-300">
+                  Username: <code className="bg-gray-700 px-1 rounded text-white">admin</code> |
+                  Password: <code className="bg-gray-700 px-1 rounded text-white">BYE9438x_#</code>
+                </p>
           </div>
         </div>
       </div>
