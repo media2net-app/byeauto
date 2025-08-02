@@ -59,6 +59,12 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       current: pathname === "/client"
     },
     {
+      name: "Tuning Services",
+      href: "/tune",
+      icon: "🏎️",
+      current: pathname === "/tune"
+    },
+    {
       name: "System Quote",
       href: "/quote",
       icon: "💰",
