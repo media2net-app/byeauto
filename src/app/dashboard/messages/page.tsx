@@ -366,9 +366,9 @@ export default function MessagesPage() {
           </div>
         </header>
 
-        <div className="flex-1 flex">
+        <div className="flex-1 flex flex-col lg:flex-row">
           {/* Contacts List */}
-          <div className="w-1/3 border-r border-gray-700 flex flex-col">
+          <div className="w-full lg:w-1/3 border-b lg:border-b-0 lg:border-r border-gray-700 flex flex-col">
             {/* Search */}
             <div className="p-4 border-b border-gray-700">
               <div className="relative">
@@ -442,7 +442,7 @@ export default function MessagesPage() {
           </div>
 
           {/* Chat Area */}
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col min-h-0">
             {selectedContact ? (
               <>
                 {/* Chat Header */}

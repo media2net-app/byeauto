@@ -255,15 +255,15 @@ export default function TunePage() {
       {/* Header */}
       <header className="bg-gray-900 shadow-sm border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex flex-col sm:flex-row justify-between items-center py-4 sm:h-16 space-y-2 sm:space-y-0">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-white">BYE AUTO</h1>
+              <h1 className="text-xl sm:text-2xl font-bold text-white">BYE AUTO</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/dashboard" className="text-sm text-gray-400 hover:text-white">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <Link href="/dashboard" className="text-xs sm:text-sm text-gray-400 hover:text-white">
                 Dashboard
               </Link>
-              <Link href="/" className="text-sm text-gray-400 hover:text-white">
+              <Link href="/" className="text-xs sm:text-sm text-gray-400 hover:text-white">
                 Logout
               </Link>
             </div>
@@ -536,8 +536,8 @@ export default function TunePage() {
 
         {/* BMW Tuning Wizard Modal */}
         {showBmwWizard && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+            <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-6">
