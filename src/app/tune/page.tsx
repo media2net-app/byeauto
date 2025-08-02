@@ -366,7 +366,7 @@ export default function TunePage() {
                   <div className="text-center p-6 bg-green-900 rounded-lg">
                     <p className="text-sm text-green-300 mb-2">Power Gain</p>
                     <p className="text-2xl font-bold text-green-300">
-                      {searchResult.tuningParts.find((t: TuningPart) => t.id === selectedTune)?.powerGain}
+                      {searchResult.tuningParts?.find((t: TuningPart) => t.id === selectedTune)?.powerGain}
                     </p>
                   </div>
                 </div>

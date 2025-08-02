@@ -3,12 +3,32 @@
 import { useState } from "react";
 import Link from "next/link";
 
+interface SystemFeature {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+}
+
+interface BmwUpgradeItem {
+  name: string;
+  price: number;
+  description?: string;
+  details?: string;
+}
+
+interface BmwUpgradeCategory {
+  category: string;
+  items: BmwUpgradeItem[];
+}
+
 export default function QuotePage() {
   const [language, setLanguage] = useState("en");
   const [activeTab, setActiveTab] = useState("system");
 
   // System Development Features
-  const systemFeatures = [
+  const systemFeatures: SystemFeature[] = [
     {
       id: "dashboard",
       name: "BMW Service Dashboard",
@@ -68,7 +88,22 @@ export default function QuotePage() {
   ];
 
   // BMW F32 420d N47 Stage 2+ Project
-  const bmwProject = {
+  const bmwProject: {
+    vehicle: string;
+    goal: string;
+    upgrades: BmwUpgradeCategory[];
+    expectedResults: {
+      power: string;
+      torque: string;
+      acceleration: string;
+      reliability: string;
+    };
+    budget: {
+      min: number;
+      max: number;
+      note: string;
+    };
+  } = {
     vehicle: "BMW 420d F32 (N47 engine, 184 hp stock)",
     goal: "Reliable Stage 2+/3 upgrade to ±270–280 hp / ±580–600 Nm",
     upgrades: [
@@ -152,7 +187,7 @@ export default function QuotePage() {
 
   const getSystemTotal = () => systemFeatures.reduce((sum, f) => sum + f.price, 0);
   const getSystemMaintenance = () => Math.round(getSystemTotal() * 0.15);
-  const getSystemTotalWithMaintenance = () => getSystemTotal() + getSystemMaintenance();
+  const getSystemTotalIncludingMaintenance = () => getSystemTotal() + getSystemMaintenance();
 
   const getBmwUpgradesTotal = () => {
     return bmwProject.upgrades.reduce((total, category) => {
@@ -160,7 +195,7 @@ export default function QuotePage() {
     }, 0);
   };
 
-  const getCombinedTotal = () => getSystemTotalWithMaintenance() + getBmwUpgradesTotal();
+  const getCombinedTotal = () => getSystemTotalIncludingMaintenance() + getBmwUpgradesTotal();
 
   const translations = {
     en: {
@@ -406,21 +441,10 @@ export default function QuotePage() {
                 
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-400">{t.totalPrice}:</span>
-                    <span className="text-2xl font-bold text-purple-400">€{getSystemTotal().toLocaleString()}</span>
-                  </div>
-                  
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">{t.maintenance}:</span>
-                    <span className="text-lg font-semibold text-white">€{getSystemMaintenance().toLocaleString()}</span>
-                  </div>
-                  
-                  <hr className="border-gray-700" />
-                  
-                  <div className="flex justify-between items-center">
                     <span className="text-lg font-medium text-white">{t.totalInvestment}:</span>
-                    <span className="text-2xl font-bold text-green-400">€{getSystemTotalWithMaintenance().toLocaleString()}</span>
+                    <span className="text-2xl font-bold text-green-400">€{getSystemTotalIncludingMaintenance().toLocaleString()}</span>
                   </div>
+                  <p className="text-sm text-gray-400 italic">Includes annual maintenance and support</p>
                 </div>
               </div>
             </div>
@@ -481,15 +505,15 @@ export default function QuotePage() {
                           <div className="mt-1 h-4 w-4 bg-purple-600 rounded flex items-center justify-center">
                             <span className="text-white text-xs">✓</span>
                           </div>
-                          <div>
-                            <div className="font-medium text-white">{item.name}</div>
-                            {item.description && (
-                              <p className="text-sm text-gray-400 mt-1">{item.description}</p>
-                            )}
-                            {item.details && (
-                              <p className="text-sm text-gray-500 mt-1 italic">{item.details}</p>
-                            )}
-                          </div>
+                                                      <div>
+                              <div className="font-medium text-white">{item.name}</div>
+                              {'description' in item && item.description && (
+                                <p className="text-sm text-gray-400 mt-1">{item.description}</p>
+                              )}
+                              {'details' in item && item.details && (
+                                <p className="text-sm text-gray-500 mt-1 italic">{item.details}</p>
+                              )}
+                            </div>
                         </div>
                         <span className="text-lg font-bold text-purple-400">€{item.price.toLocaleString()}</span>
                       </div>
@@ -541,17 +565,8 @@ export default function QuotePage() {
                   <h4 className="text-lg font-medium text-white mb-4">{t.systemTitle}</h4>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-400">System Development:</span>
-                      <span className="text-white font-medium">€{getSystemTotal().toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Annual Maintenance:</span>
-                      <span className="text-white font-medium">€{getSystemMaintenance().toLocaleString()}</span>
-                    </div>
-                    <hr className="border-gray-700" />
-                    <div className="flex justify-between">
-                      <span className="text-white font-medium">Total System:</span>
-                      <span className="text-purple-400 font-bold">€{getSystemTotalWithMaintenance().toLocaleString()}</span>
+                      <span className="text-white font-medium">Complete System (including maintenance):</span>
+                      <span className="text-purple-400 font-bold">€{getSystemTotalIncludingMaintenance().toLocaleString()}</span>
                     </div>
                   </div>
                 </div>
@@ -608,6 +623,33 @@ export default function QuotePage() {
                   </div>
                   <h5 className="text-white font-medium mb-2">Growth</h5>
                   <p className="text-sm text-gray-400">Scale your BMW service business efficiently</p>
+                </div>
+              </div>
+
+              {/* Investment Trade-off */}
+              <div className="mt-8 bg-gradient-to-r from-purple-900 to-blue-900 border border-purple-700 rounded-lg p-6">
+                <h4 className="text-xl font-bold text-white mb-4 text-center">Investment Trade-off</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-2xl">💻</span>
+                    </div>
+                    <h5 className="text-white font-medium mb-2">System Investment</h5>
+                    <p className="text-2xl font-bold text-purple-300 mb-2">€{getSystemTotalIncludingMaintenance().toLocaleString()}</p>
+                    <p className="text-sm text-gray-300">Professional BMW service management system</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-2xl">🏎️</span>
+                    </div>
+                    <h5 className="text-white font-medium mb-2">Car Tuning Investment</h5>
+                    <p className="text-2xl font-bold text-blue-300 mb-2">€{getBmwUpgradesTotal().toLocaleString()}</p>
+                    <p className="text-sm text-gray-300">BMW F32 420d Stage 2+ performance build</p>
+                  </div>
+                </div>
+                <div className="mt-6 text-center">
+                  <p className="text-lg text-white font-medium mb-2">Choose Your Priority</p>
+                  <p className="text-gray-300">Invest in your business system or invest in your car&apos;s performance - both will enhance your BMW expertise!</p>
                 </div>
               </div>
             </div>
