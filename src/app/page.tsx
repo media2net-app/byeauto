@@ -24,7 +24,7 @@ export default function LoginPage() {
       }, 1000);
     } else {
       setIsLoading(false);
-                  alert("Invalid credentials. Use admin/BYE9438x_# for demo.");
+                  alert(t('invalid_credentials'));
     }
   };
 
@@ -40,7 +40,7 @@ export default function LoginPage() {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">BYE AUTO</h1>
-            <p className="text-gray-300">CARS & SERVICE</p>
+            <p className="text-gray-300">{t('cars_service')}</p>
             <p className="text-gray-400 mt-2">{t('welcome_back')}</p>
           </div>
 
@@ -59,7 +59,7 @@ export default function LoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-white placeholder-gray-400"
-                placeholder="Enter your username"
+                placeholder={t('username_placeholder')}
               />
             </div>
 
@@ -76,7 +76,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-white placeholder-gray-400"
-                placeholder="Enter your password"
+                placeholder={t('password_placeholder')}
               />
             </div>
 
@@ -105,7 +105,7 @@ export default function LoginPage() {
               {isLoading ? (
                 <div className="flex items-center">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Signing in...
+                  {t('signing_in')}
                 </div>
                               ) : (
                   t('sign_in')
@@ -117,8 +117,8 @@ export default function LoginPage() {
           <div className="mt-6 p-4 bg-gray-800 border border-gray-700 rounded-lg">
             <p className="text-sm font-medium text-purple-400 mb-2">{t('demo_credentials')}</p>
                             <p className="text-sm text-gray-300">
-                  Username: <code className="bg-gray-700 px-1 rounded text-white">admin</code> |
-                  Password: <code className="bg-gray-700 px-1 rounded text-white">BYE9438x_#</code>
+                  {t('demo_username')}: <code className="bg-gray-700 px-1 rounded text-white">admin</code> |
+                  {t('demo_password')}: <code className="bg-gray-700 px-1 rounded text-white">BYE9438x_#</code>
                 </p>
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface SystemFeature {
   id: string;
@@ -24,7 +25,7 @@ interface BmwUpgradeCategory {
 }
 
 export default function QuotePage() {
-  const [language, setLanguage] = useState("en");
+  const { language, setLanguage, t } = useLanguage();
   const [activeTab, setActiveTab] = useState("system");
   const [showProposalModal, setShowProposalModal] = useState(false);
 
@@ -226,66 +227,7 @@ export default function QuotePage() {
 
 
 
-  const translations = {
-    en: {
-      title: "BYE Auto - Complete Solution Proposal",
-      subtitle: "System Development + BMW F32 420d N47 Stage 2+ Project",
-      systemTab: "System Development",
-      bmwTab: "BMW Project",
 
-      systemTitle: "BMW Service Management System",
-      bmwTitle: "BMW F32 420d N47 – STAGE 2+ / MAX PERFORMANCE BUILD",
-      vehicle: "Vehicle",
-      goal: "Goal",
-      upgrades: "Required Upgrades",
-      expectedResults: "Expected Results",
-      budget: "Estimated Budget",
-      clientNotes: "Client Notes",
-      core: "Core Features",
-      advanced: "Advanced Features",
-      enhancement: "Enhancements",
-      performanceUpgrades: "Performance Upgrades",
-      preventiveWork: "Preventive Work",
-      m4LookQuad: "M4-Look & Quad Exhaust",
-      totalPrice: "Total Price",
-      maintenance: "Annual Maintenance",
-      totalInvestment: "Total Investment",
-
-      techStack: "Technology Stack",
-      deployment: "Deployment",
-      support: "Support & Maintenance"
-    },
-    nl: {
-      title: "BYE Auto - Complete Oplossing Voorstel",
-      subtitle: "Systeem Ontwikkeling + BMW F32 420d N47 Stage 2+ Project",
-      systemTab: "Systeem Ontwikkeling",
-      bmwTab: "BMW Project",
-
-      systemTitle: "BMW Service Management Systeem",
-      bmwTitle: "BMW F32 420d N47 – STAGE 2+ / MAX PERFORMANCE BUILD",
-      vehicle: "Voertuig",
-      goal: "Doel",
-      upgrades: "Benodigde Upgrades",
-      expectedResults: "Verwachte Resultaten",
-      budget: "Geschatte Begroting",
-      clientNotes: "Klantnotities",
-      core: "Kernfuncties",
-      advanced: "Geavanceerde Functies",
-      enhancement: "Verbeteringen",
-      performanceUpgrades: "Prestatie Upgrades",
-      preventiveWork: "Preventief Werk",
-      m4LookQuad: "M4-Look & Quad Uitlaat",
-      totalPrice: "Totale Prijs",
-      maintenance: "Jaarlijks Onderhoud",
-      totalInvestment: "Totale Investering",
-
-      techStack: "Technologie Stack",
-      deployment: "Implementatie",
-      support: "Ondersteuning & Onderhoud"
-    }
-  };
-
-  const t = translations[language as keyof typeof translations];
 
   return (
     <div className="min-h-screen bg-black">
@@ -297,19 +239,11 @@ export default function QuotePage() {
               <h1 className="text-xl sm:text-2xl font-bold text-white">BYE Auto</h1>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                className="text-xs sm:text-sm bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white"
-              >
-                <option value="en">English</option>
-                <option value="nl">Nederlands</option>
-              </select>
               <Link href="/dashboard" className="text-xs sm:text-sm text-gray-400 hover:text-white">
-                Dashboard
+                {t('dashboard')}
               </Link>
               <Link href="/" className="text-xs sm:text-sm text-gray-400 hover:text-white">
-                Logout
+                {t('logout')}
               </Link>
             </div>
           </div>
@@ -319,13 +253,13 @@ export default function QuotePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Page Title */}
         <div className="text-center mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t.title}</h2>
-          <p className="text-gray-400 text-sm sm:text-base">{t.subtitle}</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('complete_solution_proposal')}</h2>
+          <p className="text-gray-400 text-sm sm:text-base">{t('system_development_bmw_project')}</p>
           <button
             onClick={() => setShowProposalModal(true)}
             className="mt-4 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium"
           >
-            🤝 View Special Proposal
+            🤝 {t('view_special_proposal')}
           </button>
         </div>
 
@@ -339,7 +273,7 @@ export default function QuotePage() {
                 : "text-gray-300 hover:text-white hover:bg-gray-700"
             }`}
           >
-            {t.systemTab}
+            {t('system_development')}
           </button>
           <button
             onClick={() => setActiveTab("bmw")}
@@ -349,7 +283,7 @@ export default function QuotePage() {
                 : "text-gray-300 hover:text-white hover:bg-gray-700"
             }`}
           >
-            {t.bmwTab}
+            {t('bmw_project')}
           </button>
         </div>
 
@@ -358,11 +292,11 @@ export default function QuotePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8 mb-8">
-                <h3 className="text-xl font-semibold text-white mb-6">{t.systemTitle}</h3>
+                <h3 className="text-xl font-semibold text-white mb-6">{t('bmw_service_management_system')}</h3>
                 
                 {/* Core Features */}
                 <div className="mb-8">
-                  <h4 className="text-lg font-medium text-white mb-4">{t.core}</h4>
+                  <h4 className="text-lg font-medium text-white mb-4">{t('core_features')}</h4>
                   <div className="space-y-4">
                     {systemFeatures.filter(f => f.category === "Core").map((feature) => (
                       <div key={feature.id} className="border border-gray-700 bg-gray-800 rounded-lg p-4">
@@ -385,7 +319,7 @@ export default function QuotePage() {
 
                 {/* Advanced Features */}
                 <div className="mb-8">
-                  <h4 className="text-lg font-medium text-white mb-4">{t.advanced}</h4>
+                  <h4 className="text-lg font-medium text-white mb-4">{t('advanced_features')}</h4>
                   <div className="space-y-4">
                     {systemFeatures.filter(f => f.category === "Advanced").map((feature) => (
                       <div key={feature.id} className="border border-gray-700 bg-gray-800 rounded-lg p-4">
@@ -408,7 +342,7 @@ export default function QuotePage() {
 
                 {/* Enhancements */}
                 <div className="mb-8">
-                  <h4 className="text-lg font-medium text-white mb-4">{t.enhancement}</h4>
+                  <h4 className="text-lg font-medium text-white mb-4">{t('enhancements')}</h4>
                   <div className="space-y-4">
                     {systemFeatures.filter(f => f.category === "Enhancement").map((feature) => (
                       <div key={feature.id} className="border border-gray-700 bg-gray-800 rounded-lg p-4">
@@ -431,7 +365,7 @@ export default function QuotePage() {
 
                 {/* Technical Specifications */}
                 <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
-                  <h4 className="text-lg font-medium text-white mb-4">{t.techStack}</h4>
+                  <h4 className="text-lg font-medium text-white mb-4">{t('technology_stack')}</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <h5 className="text-md font-medium text-white mb-2">Technology</h5>
@@ -446,7 +380,7 @@ export default function QuotePage() {
                       </ul>
                     </div>
                     <div>
-                      <h5 className="text-md font-medium text-white mb-2">{t.deployment}</h5>
+                      <h5 className="text-md font-medium text-white mb-2">{t('deployment')}</h5>
                       <ul className="space-y-1 text-sm text-gray-400">
                         <li>• Vercel (Hosting)</li>
                         <li>• Automatic Deployments</li>
@@ -464,14 +398,14 @@ export default function QuotePage() {
             {/* Pricing Calculator */}
             <div className="lg:col-span-1">
               <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sticky top-8">
-                <h3 className="text-xl font-semibold text-white mb-6">{t.totalInvestment}</h3>
+                <h3 className="text-xl font-semibold text-white mb-6">{t('total_investment')}</h3>
                 
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-medium text-white">{t.totalInvestment}:</span>
+                    <span className="text-lg font-medium text-white">{t('total_investment')}:</span>
                     <span className="text-2xl font-bold text-green-400">€{getSystemTotalIncludingMaintenance().toLocaleString()}</span>
                   </div>
-                  <p className="text-sm text-gray-400 italic">Includes annual maintenance and support</p>
+                  <p className="text-sm text-gray-400 italic">{t('includes_maintenance')}</p>
                 </div>
               </div>
             </div>
@@ -483,22 +417,22 @@ export default function QuotePage() {
           <div className="space-y-8">
             {/* Project Overview */}
             <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8">
-              <h3 className="text-xl font-semibold text-white mb-6">{t.bmwTitle}</h3>
+              <h3 className="text-xl font-semibold text-white mb-6">{t('bmw_f32_stage2_title')}</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <h4 className="text-lg font-medium text-white mb-2">{t.vehicle}</h4>
+                  <h4 className="text-lg font-medium text-white mb-2">{t('vehicle')}</h4>
                   <p className="text-gray-400">{bmwProject.vehicle}</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-medium text-white mb-2">{t.goal}</h4>
+                  <h4 className="text-lg font-medium text-white mb-2">{t('goal')}</h4>
                   <p className="text-gray-400">{bmwProject.goal}</p>
                 </div>
               </div>
 
               {/* Expected Results */}
               <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 mb-6">
-                <h4 className="text-lg font-medium text-white mb-3">{t.expectedResults}</h4>
+                <h4 className="text-lg font-medium text-white mb-3">{t('expected_results')}</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div>
                     <p className="text-sm text-gray-400">Power</p>
@@ -553,7 +487,7 @@ export default function QuotePage() {
             {/* Budget and Notes */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6">
-                <h4 className="text-lg font-medium text-white mb-4">{t.budget}</h4>
+                <h4 className="text-lg font-medium text-white mb-4">{t('estimated_budget')}</h4>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400">Total (including installation):</span>
@@ -564,7 +498,7 @@ export default function QuotePage() {
               </div>
 
               <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6">
-                <h4 className="text-lg font-medium text-white mb-4">{t.clientNotes}</h4>
+                <h4 className="text-lg font-medium text-white mb-4">{t('client_notes')}</h4>
                 <ul className="space-y-2 text-sm text-gray-400">
                   <li>• Car will be mainly used in Romania</li>
                   <li>• APK and emissions are not a concern for this build</li>

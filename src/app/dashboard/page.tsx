@@ -49,8 +49,8 @@ export default function Dashboard() {
     setTimeout(() => {
       addNotification({
         type: 'success',
-        title: 'System Online',
-        message: 'BMW Service Management System is running smoothly',
+        title: t('system_online'),
+        message: t('system_online_message'),
         duration: 5000
       });
     }, 1000);
@@ -58,8 +58,8 @@ export default function Dashboard() {
     setTimeout(() => {
       addNotification({
         type: 'info',
-        title: 'New Messages',
-        message: 'You have 2 unread messages in your inbox',
+        title: t('new_messages'),
+        message: t('new_messages_text'),
         duration: 8000
       });
     }, 3000);
@@ -67,8 +67,8 @@ export default function Dashboard() {
     setTimeout(() => {
       addNotification({
         type: 'warning',
-        title: 'Maintenance Due',
-        message: 'Vehicle B-123-ABC needs service in 3 days',
+        title: t('maintenance_due'),
+        message: t('maintenance_due_message'),
         duration: 10000
       });
     }, 5000);
@@ -133,16 +133,16 @@ export default function Dashboard() {
   ];
 
   const recentActivity = [
-    { id: 1, action: "BMW X5 Repair Completed", vehicle: "Engine diagnostic and electrical system repair finished", time: "1 hour ago" },
-    { id: 2, action: "New BMW 320i Arrived", vehicle: "Client Maria Ionescu - brake system inspection needed", time: "3 hours ago" },
-    { id: 3, action: "Urgent Repair Alert", vehicle: "BMW X3 requires immediate transmission inspection", time: "5 hours ago" },
+    { id: 1, action: t('bmw_x5_repair_completed'), vehicle: t('engine_diagnostic_finished'), time: t('1_hour_ago') },
+    { id: 2, action: t('new_bmw_320i_arrived'), vehicle: t('client_maria_brake_inspection'), time: t('3_hours_ago') },
+    { id: 3, action: t('urgent_repair_alert'), vehicle: t('bmw_x3_transmission_inspection'), time: t('5_hours_ago') },
   ];
 
   const vehicles = [
-    { id: "bmw1", name: "BMW X5 2020", client: "Ion Popescu", status: "În Service", priority: "Înaltă", indicator: "Reparații Active", type: "active" },
-    { id: "bmw2", name: "BMW 320i 2019", client: "Maria Ionescu", status: "În Așteptare", priority: "Medie", indicator: "Programat", type: "maintenance" },
-    { id: "bmw3", name: "BMW 520d 2021", client: "Alexandru Dumitrescu", status: "Finalizat", priority: "Scăzută", indicator: "Gata de Livrare", type: "completed" },
-    { id: "bmw4", name: "BMW X3 2018", client: "Elena Vasilescu", status: "Diagnostic", priority: "Înaltă", indicator: "Urgent", type: "urgent" },
+    { id: "bmw1", name: "BMW X5 2020", client: "Ion Popescu", status: t('in_service'), priority: t('high_priority'), indicator: t('active_repairs'), type: "active" },
+    { id: "bmw2", name: "BMW 320i 2019", client: "Maria Ionescu", status: t('waiting'), priority: t('medium_priority'), indicator: t('scheduled'), type: "maintenance" },
+    { id: "bmw3", name: "BMW 520d 2021", client: "Alexandru Dumitrescu", status: t('completed'), priority: t('low_priority'), indicator: t('ready_for_delivery'), type: "completed" },
+    { id: "bmw4", name: "BMW X3 2018", client: "Elena Vasilescu", status: t('diagnostic'), priority: t('high_priority'), indicator: t('urgent'), type: "urgent" },
   ];
 
   return (
@@ -164,16 +164,16 @@ export default function Dashboard() {
                 <button
                   onClick={() => addNotification({
                     type: 'info',
-                    title: 'Test Notification',
-                    message: 'This is a test notification from the dashboard',
+                    title: t('test_notification'),
+                    message: t('test_notification_message'),
                     duration: 5000
                   })}
                   className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors"
                 >
-                  Test Notifications
+                  {t('test_notifications')}
                 </button>
                 <div className="text-sm text-gray-400">
-                  Welcome back, BYE AUTO
+                  {t('welcome_back_bye_auto')}
                 </div>
               </div>
             </div>

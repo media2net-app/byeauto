@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface TuningPart {
   id: string;
@@ -43,6 +44,7 @@ interface SearchResult {
 }
 
 export default function TunePage() {
+  const { t } = useLanguage();
   const [licensePlate, setLicensePlate] = useState("");
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
   const [isSearching, setIsSearching] = useState(false);
@@ -297,7 +299,7 @@ export default function TunePage() {
                          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400"
                          required
                        />
-                       <p className="text-sm text-gray-500 mt-1">Enter your license plate to find tuning options</p>
+                       <p className="text-sm text-gray-500 mt-1">{t('license_help')}</p>
               </div>
 
               <button
@@ -308,17 +310,17 @@ export default function TunePage() {
                 {isSearching ? (
                   <div className="flex items-center justify-center">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Searching...
+                    {t('searching')}
                   </div>
                 ) : (
-                  "Find Tuning Options"
+                  t('find_tuning_options')
                 )}
               </button>
             </form>
 
                                {/* Example */}
                    <div className="mt-6 p-4 bg-gray-800 border border-gray-700 rounded-lg">
-                     <p className="text-sm font-medium text-purple-400 mb-2">Example:</p>
+                     <p className="text-sm font-medium text-purple-400 mb-2">{t('example')}:</p>
                      <p className="text-sm text-gray-300">
                        Try: <code className="bg-gray-700 px-1 rounded text-white">DB99BYE</code> (BMW M8 Competition)
                      </p>
@@ -327,15 +329,15 @@ export default function TunePage() {
                    {/* BMW Tuning Wizard */}
                    <div className="mt-6 p-4 bg-blue-900 border border-blue-700 rounded-lg">
                      <div className="text-center">
-                       <h4 className="text-lg font-semibold text-white mb-2">🚗 BMW Tuning Wizard</h4>
+                       <h4 className="text-lg font-semibold text-white mb-2">🚗 {t('bmw_tuning_wizard')}</h4>
                        <p className="text-sm text-gray-300 mb-4">
-                         Don&apos;t have a license plate? Use our step-by-step BMW tuning wizard to find the perfect upgrade for your BMW.
+                         {t('bmw_wizard_description')}
                        </p>
                        <button
                          onClick={() => setShowBmwWizard(true)}
                          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
                        >
-                         Start BMW Tuning Wizard
+                         {t('start_bmw_wizard')}
                        </button>
                      </div>
                    </div>
@@ -347,7 +349,7 @@ export default function TunePage() {
           <div className="space-y-8">
             {/* Vehicle Information */}
             <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-8">
-              <h3 className="text-xl font-semibold text-white mb-6">Vehicle Information</h3>
+              <h3 className="text-xl font-semibold text-white mb-6">{t('vehicle_information')}</h3>
               
               {searchResult.message ? (
                 <div className="text-center py-8">
