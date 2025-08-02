@@ -150,7 +150,7 @@ export default function VehiclesPage() {
                           <div className="flex justify-between items-center">
                 <div>
                   <h1 className="text-2xl font-bold text-white">{t('vehicles')}</h1>
-                  <p className="text-gray-400 mt-1">Manage your BMW fleet</p>
+                  <p className="text-gray-400 mt-1">{t('manage_bmw_fleet')}</p>
                 </div>
                 <div className="flex items-center space-x-4">
                   <LanguageSwitcher />
@@ -159,7 +159,7 @@ export default function VehiclesPage() {
                     className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2"
                   >
                     <Plus className="w-4 h-4" />
-                    <span>Add Vehicle</span>
+                    <span>{t('add_vehicle')}</span>
                   </button>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function VehiclesPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input
                 type="text"
-                placeholder="Search vehicles by license plate, client, or model..."
+                placeholder={t('search_vehicles_placeholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -184,11 +184,11 @@ export default function VehiclesPage() {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="maintenance">Maintenance</option>
-              <option value="completed">Completed</option>
-              <option value="urgent">Urgent</option>
+              <option value="all">{t('all_status')}</option>
+              <option value="active">{t('active')}</option>
+              <option value="maintenance">{t('maintenance')}</option>
+              <option value="completed">{t('completed')}</option>
+              <option value="urgent">{t('urgent')}</option>
             </select>
           </div>
 
@@ -213,23 +213,23 @@ export default function VehiclesPage() {
 
                 <div className="space-y-3 mb-4">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">License Plate:</span>
+                    <span className="text-gray-400">{t('license_plate')}:</span>
                     <span className="text-white font-medium">{vehicle.licensePlate}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Client:</span>
+                    <span className="text-gray-400">{t('client')}:</span>
                     <span className="text-white">{vehicle.client}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Mileage:</span>
+                    <span className="text-gray-400">{t('mileage')}:</span>
                     <span className="text-white">{vehicle.mileage}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Last Service:</span>
+                    <span className="text-gray-400">{t('last_service')}:</span>
                     <span className="text-white">{vehicle.lastService}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Next Service:</span>
+                    <span className="text-gray-400">{t('next_service')}:</span>
                     <span className="text-white">{vehicle.nextService}</span>
                   </div>
                 </div>
@@ -240,14 +240,14 @@ export default function VehiclesPage() {
                     className="flex-1 bg-blue-600 text-white py-2 px-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-1"
                   >
                     <Eye className="w-4 h-4" />
-                    <span>View</span>
+                    <span>{t('view')}</span>
                   </button>
                   <button 
                     onClick={() => handleEditVehicle(vehicle)}
                     className="flex-1 bg-yellow-600 text-white py-2 px-3 rounded-lg hover:bg-yellow-700 transition-colors flex items-center justify-center space-x-1"
                   >
                     <Edit className="w-4 h-4" />
-                    <span>Edit</span>
+                    <span>{t('edit')}</span>
                   </button>
                   <button 
                     onClick={() => handleDeleteVehicle(vehicle.id)}
@@ -263,8 +263,8 @@ export default function VehiclesPage() {
           {filteredVehicles.length === 0 && (
             <div className="text-center py-12">
               <Car className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-400 mb-2">No vehicles found</h3>
-              <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
+              <h3 className="text-lg font-medium text-gray-400 mb-2">{t('no_vehicles_found')}</h3>
+              <p className="text-gray-500">{t('try_adjusting_search')}</p>
             </div>
           )}
         </div>
@@ -315,6 +315,7 @@ interface VehicleModalProps {
 }
 
 function VehicleModal({ isOpen, onClose, onSave, onUpdate, vehicle, mode }: VehicleModalProps) {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     licensePlate: vehicle?.licensePlate || '',
     make: vehicle?.make || '',
@@ -347,7 +348,7 @@ function VehicleModal({ isOpen, onClose, onSave, onUpdate, vehicle, mode }: Vehi
       <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 sm:p-6 w-full max-w-md mx-2 sm:mx-4 max-h-[95vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold text-white">
-            {mode === 'add' ? 'Add New Vehicle' : mode === 'edit' ? 'Edit Vehicle' : 'Vehicle Details'}
+            {mode === 'add' ? t('add_new_vehicle') : mode === 'edit' ? t('edit_vehicle') : t('vehicle_details')}
           </h3>
           <button
             onClick={onClose}
@@ -361,7 +362,7 @@ function VehicleModal({ isOpen, onClose, onSave, onUpdate, vehicle, mode }: Vehi
           // View Mode
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">License Plate</label>
+              <label className="block text-sm font-medium text-gray-300 mb-1">{t('license_plate')}</label>
               <p className="text-white">{vehicle?.licensePlate}</p>
             </div>
             <div>
