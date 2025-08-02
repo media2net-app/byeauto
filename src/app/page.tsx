@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("admin");
+  const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -14,7 +14,7 @@ export default function LoginPage() {
     setIsLoading(true);
     
     // Demo credentials check
-    if (email === "admin" && password === "password") {
+    if (username === "admin" && password === "password") {
       setTimeout(() => {
         setIsLoading(false);
         router.push("/dashboard");
@@ -26,36 +26,37 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="max-w-md w-full space-y-8">
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-xl p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">BYE Auto</h1>
-            <p className="text-gray-600">Welcome back! Please sign in to your account.</p>
+            <h1 className="text-3xl font-bold text-white mb-2">BYE AUTO</h1>
+            <p className="text-gray-300">CARS & SERVICE</p>
+            <p className="text-gray-400 mt-2">Welcome back! Please sign in to your account.</p>
           </div>
 
           {/* Login Form */}
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                Email Address
+              <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
+                Username
               </label>
               <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                placeholder="Enter your email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-white placeholder-gray-400"
+                placeholder="Enter your username"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
                 Password
               </label>
               <input
@@ -66,7 +67,7 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-white placeholder-gray-400"
                 placeholder="Enter your password"
               />
             </div>
@@ -77,13 +78,13 @@ export default function LoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-600 rounded bg-gray-800"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
                   Remember me
                 </label>
               </div>
-              <a href="#" className="text-sm text-blue-600 hover:text-blue-500">
+              <a href="#" className="text-sm text-purple-400 hover:text-purple-300">
                 Forgot password?
               </a>
             </div>
@@ -91,7 +92,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isLoading ? (
                 <div className="flex items-center">
@@ -105,11 +106,11 @@ export default function LoginPage() {
           </form>
 
           {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm font-medium text-blue-800 mb-2">Demo Credentials:</p>
-            <p className="text-sm text-blue-700">
-              Username: <code className="bg-blue-100 px-1 rounded">admin</code> | 
-              Password: <code className="bg-blue-100 px-1 rounded">password</code>
+          <div className="mt-6 p-4 bg-gray-800 border border-gray-700 rounded-lg">
+            <p className="text-sm font-medium text-purple-400 mb-2">Demo Credentials:</p>
+            <p className="text-sm text-gray-300">
+              Username: <code className="bg-gray-700 px-1 rounded text-white">admin</code> | 
+              Password: <code className="bg-gray-700 px-1 rounded text-white">password</code>
             </p>
           </div>
         </div>
