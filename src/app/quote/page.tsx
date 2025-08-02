@@ -171,6 +171,29 @@ export default function QuotePage() {
             price: 300
           }
         ]
+      },
+      {
+        category: "M4-Look & Quad Exhaust System",
+        items: [
+          {
+            name: "Quad Exhaust System (Custom RVS)",
+            description: "Custom quad exhaust system suitable for F32 diesel with quad setup",
+            details: "A-brands: REMUS, Bastuck, Friedrich Motorsport, or custom RVS. Note: Original M4 exhaust doesn't fit plug & play due to 2.0 diesel (different chassis and engine layout)",
+            price: 1600
+          },
+          {
+            name: "M4-Style Rear Diffuser",
+            description: "M4-style diffuser for F32 with M-package bumper",
+            details: "Fits M Sport rear bumper (not standard bumper!). Materials: ABS, carbon-look or real carbon. Examples: Maxton Design, Kies Motorsports, Sterckenn",
+            price: 375
+          },
+          {
+            name: "Installation & Custom Fabrication",
+            description: "Mounting, welding, bumper modifications and custom brackets",
+            details: "Right side has no mounting points → welding or brackets needed. Heat shields + right side cutout must be modified. Ensure proper damping and sound evacuation for diesel (no resonance)",
+            price: 650
+          }
+        ]
       }
     ],
     expectedResults: {
@@ -180,9 +203,9 @@ export default function QuotePage() {
       reliability: "Smooth, reliable performance if all steps are followed"
     },
     budget: {
-      min: 4700,
-      max: 7500,
-      note: "Can vary depending on chosen brands and labor rate"
+      min: 6550,
+      max: 10900,
+      note: "Can vary depending on chosen brands and labor rate. Includes M4-look & quad exhaust system"
     }
   };
 
@@ -214,6 +237,7 @@ export default function QuotePage() {
       enhancement: "Enhancements",
       performanceUpgrades: "Performance Upgrades",
       preventiveWork: "Preventive Work",
+      m4LookQuad: "M4-Look & Quad Exhaust",
       totalPrice: "Total Price",
       maintenance: "Annual Maintenance",
       totalInvestment: "Total Investment",
@@ -241,6 +265,7 @@ export default function QuotePage() {
       enhancement: "Verbeteringen",
       performanceUpgrades: "Prestatie Upgrades",
       preventiveWork: "Preventief Werk",
+      m4LookQuad: "M4-Look & Quad Uitlaat",
       totalPrice: "Totale Prijs",
       maintenance: "Jaarlijks Onderhoud",
       totalInvestment: "Totale Investering",
@@ -567,10 +592,10 @@ export default function QuotePage() {
                     <p className="text-gray-300 mb-3">
                       This quote page contains <strong>two separate proposals</strong>:
                     </p>
-                    <ul className="text-gray-300 space-y-2 ml-4">
-                      <li>• <strong>System Development</strong> - Complete BMW service management system (normally €{getSystemTotalIncludingMaintenance().toLocaleString()})</li>
-                      <li>• <strong>BMW F32 420d Project</strong> - Stage 2+ performance build for your car (normally €{bmwProject.budget.min.toLocaleString()} - €{bmwProject.budget.max.toLocaleString()})</li>
-                    </ul>
+                                         <ul className="text-gray-300 space-y-2 ml-4">
+                       <li>• <strong>System Development</strong> - Complete BMW service management system (normally €{getSystemTotalIncludingMaintenance().toLocaleString()})</li>
+                       <li>• <strong>BMW F32 420d Project</strong> - Stage 2+ performance build with M4-look & quad exhaust for your car (normally €{bmwProject.budget.min.toLocaleString()} - €{bmwProject.budget.max.toLocaleString()})</li>
+                     </ul>
                   </div>
 
                   {/* Proposal */}
@@ -608,15 +633,16 @@ export default function QuotePage() {
                           <li>• Long-term business growth</li>
                         </ul>
                       </div>
-                      <div>
-                        <h5 className="font-semibold text-white mb-2">For You:</h5>
-                        <ul className="text-gray-300 text-sm space-y-1">
-                          <li>• BMW Stage 2+ build worth €{bmwProject.budget.min.toLocaleString()}</li>
-                          <li>• Maximum performance upgrade</li>
-                          <li>• Professional tuning service</li>
-                          <li>• Quality parts and workmanship</li>
-                        </ul>
-                      </div>
+                                             <div>
+                         <h5 className="font-semibold text-white mb-2">For You:</h5>
+                         <ul className="text-gray-300 text-sm space-y-1">
+                           <li>• BMW Stage 2+ build with M4-look worth €{bmwProject.budget.min.toLocaleString()}</li>
+                           <li>• Maximum performance upgrade</li>
+                           <li>• Professional tuning service</li>
+                           <li>• Quality parts and workmanship</li>
+                           <li>• Custom quad exhaust system</li>
+                         </ul>
+                       </div>
                     </div>
                   </div>
 
