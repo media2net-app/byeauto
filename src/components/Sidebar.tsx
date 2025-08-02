@@ -32,43 +32,50 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       name: "Dashboard",
       href: "/dashboard",
       icon: BarChart3,
-      current: pathname === "/dashboard"
+      current: pathname === "/dashboard",
+      notifications: 0
     },
     {
       name: "Vehicles",
       href: "/dashboard/vehicles",
       icon: Car,
-      current: pathname === "/dashboard/vehicles"
+      current: pathname === "/dashboard/vehicles",
+      notifications: 0
     },
     {
       name: "Repairs",
       href: "/dashboard/repairs",
       icon: Wrench,
-      current: pathname === "/dashboard/repairs"
+      current: pathname === "/dashboard/repairs",
+      notifications: 0
     },
     {
       name: "Clients",
       href: "/dashboard/clients",
       icon: Users,
-      current: pathname === "/dashboard/clients"
+      current: pathname === "/dashboard/clients",
+      notifications: 0
     },
     {
       name: "Messages",
       href: "/dashboard/messages",
       icon: MessageCircle,
-      current: pathname === "/dashboard/messages"
+      current: pathname === "/dashboard/messages",
+      notifications: 2
     },
     {
       name: "Analytics",
       href: "/dashboard/analytics",
       icon: TrendingUp,
-      current: pathname === "/dashboard/analytics"
+      current: pathname === "/dashboard/analytics",
+      notifications: 0
     },
     {
       name: "Settings",
       href: "/dashboard/settings",
       icon: Settings,
-      current: pathname === "/dashboard/settings"
+      current: pathname === "/dashboard/settings",
+      notifications: 0
     }
   ];
 
@@ -141,17 +148,33 @@ export default function Sidebar({ onLogout }: SidebarProps) {
           <ul className="space-y-1">
             {navigation.map((item) => (
               <li key={item.name}>
-                                       <Link
-                         href={item.href}
-                         className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                           item.current
-                             ? "bg-purple-600 text-white"
-                             : "text-gray-300 hover:bg-gray-800 hover:text-white"
-                         }`}
-                       >
-                         <item.icon className="w-5 h-5 mr-3" />
-                         {!isCollapsed && <span>{item.name}</span>}
-                       </Link>
+                <Link
+                  href={item.href}
+                  className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors relative ${
+                    item.current
+                      ? "bg-purple-600 text-white"
+                      : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                  }`}
+                >
+                  <div className="relative">
+                    <item.icon className="w-5 h-5 mr-3" />
+                    {item.notifications > 0 && (
+                      <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                        {item.notifications > 9 ? '9+' : item.notifications}
+                      </div>
+                    )}
+                  </div>
+                  {!isCollapsed && (
+                    <div className="flex items-center justify-between flex-1">
+                      <span>{item.name}</span>
+                      {item.notifications > 0 && (
+                        <div className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                          {item.notifications > 9 ? '9+' : item.notifications}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Link>
               </li>
             ))}
           </ul>
