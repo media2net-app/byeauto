@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BYE Auto - Fleet Management Dashboard",
-  description: "Professional fleet management system for BYE Auto",
+  title: "BYE AUTO - Service Electrică Reparații Retrofit BMW",
+  description: "BYE AUTO - Service Electrică Reparații Retrofit BMW",
 };
 
 export default function RootLayout({
