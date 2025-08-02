@@ -64,6 +64,12 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       href: "/quote",
       icon: "💰",
       current: pathname === "/quote"
+    },
+    {
+      name: "I want this system, what does it cost?",
+      href: "/quote",
+      icon: "💳",
+      current: pathname === "/quote"
     }
   ];
 
