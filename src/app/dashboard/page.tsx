@@ -146,23 +146,23 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-4 sm:p-6">
           {/* Page Title */}
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-white">{t('overview')}</h2>
-            <p className="text-gray-300 mt-2">{t('welcome_message')}</p>
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">{t('overview')}</h2>
+            <p className="text-gray-300 mt-2 text-sm sm:text-base">{t('welcome_message')}</p>
           </div>
 
-                  {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
             {stats.map((stat) => (
-              <div key={stat.name} className="bg-gray-900 border border-gray-700 rounded-lg shadow p-6">
+              <div key={stat.name} className="bg-gray-900 border border-gray-700 rounded-lg shadow p-4 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-400">{stat.name}</p>
-                    <p className="text-2xl font-bold text-white">{stat.value}</p>
+                    <p className="text-xs sm:text-sm font-medium text-gray-400">{stat.name}</p>
+                    <p className="text-xl sm:text-2xl font-bold text-white">{stat.value}</p>
                   </div>
-                  <div className={`text-sm font-medium ${
+                  <div className={`text-xs sm:text-sm font-medium ${
                     stat.changeType === "positive" ? "text-green-400" : "text-red-400"
                   }`}>
                     {stat.change}
@@ -173,28 +173,28 @@ export default function Dashboard() {
           </div>
 
           {/* BMW Service Management */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <div className="bg-gray-900 border border-gray-700 rounded-lg shadow">
-              <div className="px-6 py-4 border-b border-gray-700">
-                <h3 className="text-lg font-medium text-white">{t('bmw_service_management')}</h3>
-                <p className="text-sm text-gray-400 mt-1">{t('bmw_service_description')}</p>
+              <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-700">
+                <h3 className="text-base sm:text-lg font-medium text-white">{t('bmw_service_management')}</h3>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1">{t('bmw_service_description')}</p>
               </div>
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                                  {vehicles.map((vehicle) => (
-                  <div 
-                    key={vehicle.id} 
-                    className="border border-gray-700 bg-gray-800 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer hover:border-purple-500"
-                    onClick={() => handleVehicleClick(vehicle.id)}
-                  >
-                      <div className={`w-3 h-3 rounded-full mb-3 ${
+                  {vehicles.map((vehicle) => (
+                    <div 
+                      key={vehicle.id} 
+                      className="border border-gray-700 bg-gray-800 rounded-lg p-3 sm:p-4 hover:shadow-md transition-shadow cursor-pointer hover:border-purple-500"
+                      onClick={() => handleVehicleClick(vehicle.id)}
+                    >
+                      <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full mb-2 sm:mb-3 ${
                         vehicle.type === 'active' ? 'bg-green-500' :
                         vehicle.type === 'maintenance' ? 'bg-yellow-500' :
                         vehicle.type === 'completed' ? 'bg-blue-500' :
                         'bg-red-500'
                       }`}></div>
-                      <h4 className="font-medium text-white mb-1">{vehicle.name}</h4>
-                      <p className="text-sm text-gray-300 mb-2">Client: {vehicle.client}</p>
+                      <h4 className="font-medium text-white mb-1 text-sm sm:text-base">{vehicle.name}</h4>
+                      <p className="text-xs sm:text-sm text-gray-300 mb-2">Client: {vehicle.client}</p>
                       <div className="space-y-1 mb-3">
                         <span className="text-xs text-gray-400">Status: {vehicle.status}</span>
                         <span className="text-xs text-gray-400 block">Prioritate: {vehicle.priority}</span>
