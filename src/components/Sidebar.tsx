@@ -14,7 +14,8 @@ import {
   CreditCard,
   Menu,
   X,
-  LogOut
+  LogOut,
+  MessageCircle
 } from "lucide-react";
 
 interface SidebarProps {
@@ -50,6 +51,12 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       href: "/dashboard/clients",
       icon: Users,
       current: pathname === "/dashboard/clients"
+    },
+    {
+      name: "Messages",
+      href: "/dashboard/messages",
+      icon: MessageCircle,
+      current: pathname === "/dashboard/messages"
     },
     {
       name: "Analytics",
