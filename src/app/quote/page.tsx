@@ -4,8 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function QuotePage() {
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [language, setLanguage] = useState("en");
+
+  // All features are pre-selected for the complete system
+  const selectedFeatures = [
+    "dashboard", "client-portal", "quote-system", "analytics", 
+    "mobile-app", "api-integration", "multi-language", "backup-system"
+  ];
 
   const features = [
     {
@@ -66,13 +71,7 @@ export default function QuotePage() {
     }
   ];
 
-  const toggleFeature = (featureId: string) => {
-    setSelectedFeatures(prev => 
-      prev.includes(featureId) 
-        ? prev.filter(id => id !== featureId)
-        : [...prev, featureId]
-    );
-  };
+  // Features are pre-selected, no toggle function needed
 
   const getSelectedFeatures = () => features.filter(f => selectedFeatures.includes(f.id));
   const getTotalPrice = () => getSelectedFeatures().reduce((sum, f) => sum + f.price, 0);
@@ -121,27 +120,27 @@ export default function QuotePage() {
   const t = translations[language as keyof typeof translations];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-gray-900 shadow-sm border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">BYE Auto</h1>
+              <h1 className="text-2xl font-bold text-white">BYE Auto</h1>
             </div>
             <div className="flex items-center space-x-4">
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="text-sm border border-gray-300 rounded px-2 py-1"
+                className="text-sm bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white"
               >
                 <option value="en">English</option>
                 <option value="nl">Nederlands</option>
               </select>
-              <Link href="/dashboard" className="text-sm text-gray-500 hover:text-gray-700">
+              <Link href="/dashboard" className="text-sm text-gray-400 hover:text-white">
                 Dashboard
               </Link>
-              <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
+              <Link href="/" className="text-sm text-gray-400 hover:text-white">
                 Logout
               </Link>
             </div>
@@ -152,39 +151,35 @@ export default function QuotePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Page Title */}
         <div className="text-center mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{t.title}</h2>
-          <p className="text-gray-600 text-sm sm:text-base">{t.subtitle}</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t.title}</h2>
+          <p className="text-gray-400 text-sm sm:text-base">{t.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Features Selection */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">{t.selectFeatures}</h3>
+            <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8 mb-8">
+              <h3 className="text-xl font-semibold text-white mb-6">Complete System Package</h3>
               
               {/* Core Features */}
               <div className="mb-8">
-                <h4 className="text-lg font-medium text-gray-900 mb-4">{t.core}</h4>
+                <h4 className="text-lg font-medium text-white mb-4">{t.core}</h4>
                 <div className="space-y-4">
                   {features.filter(f => f.category === "Core").map((feature) => (
-                    <div key={feature.id} className="border rounded-lg p-4">
+                    <div key={feature.id} className="border border-gray-700 bg-gray-800 rounded-lg p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3">
-                          <input
-                            type="checkbox"
-                            id={feature.id}
-                            checked={selectedFeatures.includes(feature.id)}
-                            onChange={() => toggleFeature(feature.id)}
-                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                          />
+                          <div className="mt-1 h-4 w-4 bg-purple-600 rounded flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
                           <div>
-                            <label htmlFor={feature.id} className="font-medium text-gray-900 cursor-pointer">
+                            <div className="font-medium text-white">
                               {feature.name}
-                            </label>
-                            <p className="text-sm text-gray-600 mt-1">{feature.description}</p>
+                            </div>
+                            <p className="text-sm text-gray-400 mt-1">{feature.description}</p>
                           </div>
                         </div>
-                        <span className="text-lg font-bold text-blue-600">€{feature.price.toLocaleString()}</span>
+                        <span className="text-lg font-bold text-purple-400">€{feature.price.toLocaleString()}</span>
                       </div>
                     </div>
                   ))}
@@ -193,27 +188,23 @@ export default function QuotePage() {
 
               {/* Advanced Features */}
               <div className="mb-8">
-                <h4 className="text-lg font-medium text-gray-900 mb-4">{t.advanced}</h4>
+                <h4 className="text-lg font-medium text-white mb-4">{t.advanced}</h4>
                 <div className="space-y-4">
                   {features.filter(f => f.category === "Advanced").map((feature) => (
-                    <div key={feature.id} className="border rounded-lg p-4">
+                    <div key={feature.id} className="border border-gray-700 bg-gray-800 rounded-lg p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3">
-                          <input
-                            type="checkbox"
-                            id={feature.id}
-                            checked={selectedFeatures.includes(feature.id)}
-                            onChange={() => toggleFeature(feature.id)}
-                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                          />
+                          <div className="mt-1 h-4 w-4 bg-purple-600 rounded flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
                           <div>
-                            <label htmlFor={feature.id} className="font-medium text-gray-900 cursor-pointer">
+                            <div className="font-medium text-white">
                               {feature.name}
-                            </label>
-                            <p className="text-sm text-gray-600 mt-1">{feature.description}</p>
+                            </div>
+                            <p className="text-sm text-gray-400 mt-1">{feature.description}</p>
                           </div>
                         </div>
-                        <span className="text-lg font-bold text-blue-600">€{feature.price.toLocaleString()}</span>
+                        <span className="text-lg font-bold text-purple-400">€{feature.price.toLocaleString()}</span>
                       </div>
                     </div>
                   ))}
@@ -222,27 +213,23 @@ export default function QuotePage() {
 
               {/* Enhancements */}
               <div>
-                <h4 className="text-lg font-medium text-gray-900 mb-4">{t.enhancement}</h4>
+                <h4 className="text-lg font-medium text-white mb-4">{t.enhancement}</h4>
                 <div className="space-y-4">
                   {features.filter(f => f.category === "Enhancement").map((feature) => (
-                    <div key={feature.id} className="border rounded-lg p-4">
+                    <div key={feature.id} className="border border-gray-700 bg-gray-800 rounded-lg p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3">
-                          <input
-                            type="checkbox"
-                            id={feature.id}
-                            checked={selectedFeatures.includes(feature.id)}
-                            onChange={() => toggleFeature(feature.id)}
-                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                          />
+                          <div className="mt-1 h-4 w-4 bg-purple-600 rounded flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
                           <div>
-                            <label htmlFor={feature.id} className="font-medium text-gray-900 cursor-pointer">
+                            <div className="font-medium text-white">
                               {feature.name}
-                            </label>
-                            <p className="text-sm text-gray-600 mt-1">{feature.description}</p>
+                            </div>
+                            <p className="text-sm text-gray-400 mt-1">{feature.description}</p>
                           </div>
                         </div>
-                        <span className="text-lg font-bold text-blue-600">€{feature.price.toLocaleString()}</span>
+                        <span className="text-lg font-bold text-purple-400">€{feature.price.toLocaleString()}</span>
                       </div>
                     </div>
                   ))}
@@ -251,13 +238,13 @@ export default function QuotePage() {
             </div>
 
             {/* Technical Specifications */}
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">{t.technical}</h3>
+            <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sm:p-8">
+              <h3 className="text-xl font-semibold text-white mb-6">{t.technical}</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-4">{t.techStack}</h4>
-                  <ul className="space-y-2 text-sm text-gray-600">
+                  <h4 className="text-lg font-medium text-white mb-4">{t.techStack}</h4>
+                  <ul className="space-y-2 text-sm text-gray-400">
                     <li>• Next.js 15 (React Framework)</li>
                     <li>• TypeScript (Type Safety)</li>
                     <li>• Tailwind CSS (Styling)</li>
@@ -269,8 +256,8 @@ export default function QuotePage() {
                 </div>
                 
                 <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-4">{t.deployment}</h4>
-                  <ul className="space-y-2 text-sm text-gray-600">
+                  <h4 className="text-lg font-medium text-white mb-4">{t.deployment}</h4>
+                  <ul className="space-y-2 text-sm text-gray-400">
                     <li>• Vercel (Hosting)</li>
                     <li>• Automatic Deployments</li>
                     <li>• SSL Certificate</li>
@@ -285,25 +272,25 @@ export default function QuotePage() {
 
           {/* Pricing Calculator */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-lg p-6 sticky top-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">{t.investment}</h3>
+            <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-6 sticky top-8">
+              <h3 className="text-xl font-semibold text-white mb-6">{t.investment}</h3>
               
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">{t.totalPrice}:</span>
-                  <span className="text-2xl font-bold text-blue-600">€{getTotalPrice().toLocaleString()}</span>
+                  <span className="text-gray-400">{t.totalPrice}:</span>
+                  <span className="text-2xl font-bold text-purple-400">€{getTotalPrice().toLocaleString()}</span>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">{t.maintenance}:</span>
-                  <span className="text-lg font-semibold text-gray-900">€{getMaintenanceCost().toLocaleString()}</span>
+                  <span className="text-gray-400">{t.maintenance}:</span>
+                  <span className="text-lg font-semibold text-white">€{getMaintenanceCost().toLocaleString()}</span>
                 </div>
                 
-                <hr className="border-gray-200" />
+                <hr className="border-gray-700" />
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium text-gray-900">{t.totalInvestment}:</span>
-                  <span className="text-2xl font-bold text-green-600">€{getTotalWithMaintenance().toLocaleString()}</span>
+                  <span className="text-lg font-medium text-white">{t.totalInvestment}:</span>
+                  <span className="text-2xl font-bold text-green-400">€{getTotalWithMaintenance().toLocaleString()}</span>
                 </div>
               </div>
               
