@@ -52,6 +52,13 @@ export default function QuotePage() {
       category: "Core"
     },
     {
+      id: "website",
+      name: "BYE Auto Website",
+      description: "Professional company website with services, tuning options, and booking system",
+      price: 3500,
+      category: "Core"
+    },
+    {
       id: "analytics",
       name: "Analytics & Reports",
       description: "Business intelligence and performance tracking",
@@ -394,6 +401,124 @@ export default function QuotePage() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                {/* Complete System Overview */}
+                <div className="mb-8">
+                  <div className="bg-gradient-to-r from-purple-900 to-blue-900 border border-purple-700 rounded-lg p-6">
+                    <h4 className="text-xl font-semibold text-white mb-6 text-center">🚀 Complete BYE Auto System Overview</h4>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      {/* Admin Dashboard Functions */}
+                      <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
+                        <h5 className="text-lg font-semibold text-white mb-4 flex items-center">
+                          <span className="mr-2">⚙️</span>
+                          Admin Dashboard Functions
+                        </h5>
+                        <div className="space-y-3">
+                          <div className="flex items-start space-x-2">
+                            <span className="text-green-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Vehicle Management (Add, Edit, Delete)</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-green-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Repair Order Management</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-green-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Client Database & History</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-green-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Real-time Analytics & Reports</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-green-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">WhatsApp Business Integration</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-green-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Multi-language Support (EN/RO)</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-green-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Automated Quote Generation</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-green-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Inventory Management</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Website Functions */}
+                      <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
+                        <h5 className="text-lg font-semibold text-white mb-4 flex items-center">
+                          <span className="mr-2">🌐</span>
+                          BYE Auto Website Functions
+                        </h5>
+                        <div className="space-y-3">
+                          <div className="flex items-start space-x-2">
+                            <span className="text-blue-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Company Information & About</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-blue-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">BMW Service & Repair Services</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-blue-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Performance Tuning Options</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-blue-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Online Booking System</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-blue-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">License Plate Lookup Tool</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-blue-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Contact Form & Location</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-blue-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Customer Reviews & Gallery</span>
+                          </div>
+                          <div className="flex items-start space-x-2">
+                            <span className="text-blue-400 text-sm">✓</span>
+                            <span className="text-gray-300 text-sm">Mobile Responsive Design</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Tuning Services Section */}
+                    <div className="mt-6 bg-gray-800 border border-gray-700 rounded-lg p-4">
+                      <h5 className="text-lg font-semibold text-white mb-4 flex items-center">
+                        <span className="mr-2">🏎️</span>
+                        Performance Tuning Services (Website Integration)
+                      </h5>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="bg-gray-700 border border-gray-600 rounded-lg p-3">
+                          <h6 className="font-semibold text-white mb-2">Stage 1 Tuning</h6>
+                          <p className="text-gray-300 text-sm">Software optimization for stock hardware</p>
+                          <p className="text-green-400 text-sm font-medium mt-2">+15-25% Power Increase</p>
+                        </div>
+                        <div className="bg-gray-700 border border-gray-600 rounded-lg p-3">
+                          <h6 className="font-semibold text-white mb-2">Stage 2 Tuning</h6>
+                          <p className="text-gray-300 text-sm">Hardware upgrades + software optimization</p>
+                          <p className="text-green-400 text-sm font-medium mt-2">+30-45% Power Increase</p>
+                        </div>
+                        <div className="bg-gray-700 border border-gray-600 rounded-lg p-3">
+                          <h6 className="font-semibold text-white mb-2">Stage 3+ Tuning</h6>
+                          <p className="text-gray-300 text-sm">Complete performance build with custom parts</p>
+                          <p className="text-green-400 text-sm font-medium mt-2">+50-70% Power Increase</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
