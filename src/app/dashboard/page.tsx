@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState("overview");
   const router = useRouter();
 
   const handleLogout = () => {
@@ -63,7 +62,7 @@ export default function Dashboard() {
         {/* Page Title */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Dashboard</h2>
-          <p className="text-gray-600 mt-2">Welcome back! Here's what's happening with your fleet.</p>
+          <p className="text-gray-600 mt-2">Welcome back! Here&apos;s what&apos;s happening with your fleet.</p>
         </div>
 
         {/* Stats Grid */}
