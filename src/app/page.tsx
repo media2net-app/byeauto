@@ -13,7 +13,12 @@ import {
   Clock, 
   Star,
   ArrowRight,
-  ChevronRight
+  ChevronRight,
+  Zap,
+  Gauge,
+  Target,
+  Award,
+  CheckCircle
 } from "lucide-react";
 
 export default function HomePage() {
@@ -22,42 +27,59 @@ export default function HomePage() {
 
   const services = [
     {
+      icon: <Zap className="w-8 h-8" />,
+      title: "Stage 1 Tuning",
+      description: "Software optimization for stock hardware - +15-25% power increase",
+      color: "bg-gradient-to-br from-blue-600 to-blue-800",
+      features: ["ECU Remapping", "Power Increase", "Torque Boost", "Fuel Efficiency"]
+    },
+    {
+      icon: <Gauge className="w-8 h-8" />,
+      title: "Stage 2 Tuning",
+      description: "Software + basic hardware upgrades - +25-35% power increase",
+      color: "bg-gradient-to-br from-purple-600 to-purple-800",
+      features: ["Downpipe", "Intake System", "Intercooler", "Custom Mapping"]
+    },
+    {
+      icon: <Target className="w-8 h-8" />,
+      title: "Stage 3+ Tuning",
+      description: "Complete performance build with custom hardware - +35-50% power",
+      color: "bg-gradient-to-br from-red-600 to-red-800",
+      features: ["Turbo Upgrade", "Fuel System", "Exhaust System", "Dyno Tuning"]
+    },
+    {
       icon: <Wrench className="w-8 h-8" />,
       title: "BMW Service & Repair",
       description: "Complete diagnostic and repair services for all BMW models",
-      color: "bg-blue-600"
-    },
-    {
-      icon: <Settings className="w-8 h-8" />,
-      title: "Performance Tuning",
-      description: "Stage 1, 2, and 3+ tuning for maximum performance",
-      color: "bg-purple-600"
-    },
-    {
-      icon: <Car className="w-8 h-8" />,
-      title: "Preventive Maintenance",
-      description: "Regular maintenance to keep your BMW in perfect condition",
-      color: "bg-green-600"
+      color: "bg-gradient-to-br from-gray-600 to-gray-800",
+      features: ["Engine Diagnostics", "Brake Service", "Suspension", "Electrical"]
     }
   ];
 
   const stats = [
-    { number: "100+", label: "Happy Customers" },
-    { number: "500+", label: "Services Completed" },
-    { number: "3+", label: "Years Experience" },
-    { number: "4.8★", label: "Customer Rating" }
+    { number: "100+", label: "Tuned BMWs", icon: <Car className="w-6 h-6" /> },
+    { number: "500+", label: "HP Gained", icon: <Zap className="w-6 h-6" /> },
+    { number: "3+", label: "Years Experience", icon: <Award className="w-6 h-6" /> },
+    { number: "4.8★", label: "Customer Rating", icon: <Star className="w-6 h-6" /> }
   ];
 
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+      <header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-b border-gray-800 sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-3 sm:py-4">
             {/* Logo */}
             <div className="flex items-center">
-              <h1 className="text-xl sm:text-2xl font-bold text-white">BYE AUTO</h1>
-              <span className="ml-2 text-gray-400 text-xs sm:text-sm hidden sm:block">BMW Service & Performance</span>
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">BA</span>
+                </div>
+                <div>
+                  <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">BYE AUTO</h1>
+                  <span className="text-blue-400 text-xs sm:text-sm hidden sm:block font-medium">BMW TUNING & PERFORMANCE</span>
+                </div>
+              </div>
             </div>
 
             {/* Desktop Navigation */}
@@ -128,55 +150,131 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 py-12 sm:py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 py-12 sm:py-16 lg:py-20 overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
+          <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-red-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-              BMW Service & Performance
+            <div className="mb-6">
+              <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
+                🏎️ BMW TUNING SPECIALISTS
+              </span>
+            </div>
+            
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
+                UNLEASH YOUR
+              </span>
+              <br />
+                             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-red-400 bg-clip-text text-transparent">
+                 BMW&apos;S POTENTIAL
+               </span>
             </h1>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
-              Professional BMW service, repair, and performance tuning in Dragodana. From routine maintenance to stage 3+ builds, we keep your BMW running at its best.
+            
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto px-4 leading-relaxed">
+              Professional <span className="text-blue-400 font-semibold">BMW tuning & performance</span> in Dragodana. 
+              From <span className="text-purple-400 font-semibold">Stage 1</span> to <span className="text-red-400 font-semibold">Stage 3+</span> builds, 
+              we transform your BMW into a <span className="text-yellow-400 font-semibold">performance beast</span>.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+            
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4 mb-8">
               <a 
                 href="#contact"
-                className="bg-purple-600 text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium flex items-center justify-center text-sm sm:text-base"
+                className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 sm:px-10 py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-bold flex items-center justify-center text-base sm:text-lg shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105"
               >
-                Book Appointment
-                <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                START YOUR TUNING JOURNEY
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a 
                 href="#services"
-                className="border border-white text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-white hover:text-black transition-colors font-medium text-sm sm:text-base"
+                className="group border-2 border-white text-white px-8 sm:px-10 py-4 rounded-xl hover:bg-white hover:text-black transition-all duration-300 font-bold text-base sm:text-lg backdrop-blur-sm hover:shadow-2xl transform hover:scale-105"
               >
-                View Services
+                VIEW TUNING STAGES
               </a>
+            </div>
+            
+            {/* Performance Stats Preview */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+              <div className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-lg p-4">
+                <div className="text-2xl font-bold text-blue-400">+25%</div>
+                <div className="text-xs text-gray-400">POWER GAIN</div>
+              </div>
+              <div className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-lg p-4">
+                <div className="text-2xl font-bold text-purple-400">+35%</div>
+                <div className="text-xs text-gray-400">TORQUE BOOST</div>
+              </div>
+              <div className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-lg p-4">
+                <div className="text-2xl font-bold text-red-400">-1.2s</div>
+                <div className="text-xs text-gray-400">0-100 TIME</div>
+              </div>
+              <div className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-lg p-4">
+                <div className="text-2xl font-bold text-yellow-400">100+</div>
+                <div className="text-xs text-gray-400">TUNED BMWs</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-12 sm:py-16 lg:py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">Our Services</h2>
-            <p className="text-gray-400 text-base sm:text-lg px-4">Comprehensive BMW care and performance solutions</p>
+      <section id="services" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16 sm:mb-20">
+            <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
+              🚀 TUNING STAGES
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                PERFORMANCE TUNING
+              </span>
+            </h2>
+                         <p className="text-gray-400 text-lg sm:text-xl px-4 max-w-3xl mx-auto">
+               Choose your BMW&apos;s performance level. From software optimization to complete engine builds.
+             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {services.map((service, index) => (
-              <div key={index} className="bg-gray-800 border border-gray-700 rounded-lg p-4 sm:p-6 hover:border-purple-500 transition-colors">
-                <div className={`${service.color} w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center text-white mb-3 sm:mb-4`}>
-                  <div className="w-6 h-6 sm:w-8 sm:h-8">
+              <div key={index} className="group relative bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-2xl p-6 sm:p-8 hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 transform hover:-translate-y-2">
+                {/* Service Icon */}
+                <div className={`${service.color} w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className="w-8 h-8 sm:w-10 sm:h-10">
                     {service.icon}
                   </div>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">{service.title}</h3>
-                <p className="text-gray-400 mb-3 sm:mb-4 text-sm sm:text-base">{service.description}</p>
-                <a href="#contact" className="text-purple-400 hover:text-purple-300 flex items-center text-sm sm:text-base">
-                  Learn More <ChevronRight className="ml-1 w-3 h-3 sm:w-4 sm:h-4" />
+                
+                {/* Service Title */}
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">{service.title}</h3>
+                
+                {/* Service Description */}
+                <p className="text-gray-300 mb-6 text-base sm:text-lg leading-relaxed">{service.description}</p>
+                
+                {/* Features List */}
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  {service.features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-center space-x-2">
+                      <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
+                      <span className="text-sm text-gray-300">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* CTA Button */}
+                <a 
+                  href="#contact" 
+                  className="inline-flex items-center text-blue-400 hover:text-blue-300 font-semibold text-sm sm:text-base group-hover:translate-x-1 transition-transform duration-300"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </a>
+                
+                {/* Hover Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             ))}
           </div>
@@ -184,13 +282,38 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 sm:py-16 bg-purple-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 sm:py-20 bg-gradient-to-r from-purple-900 via-blue-900 to-purple-900 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-purple-600/10 via-blue-600/10 to-purple-600/10"></div>
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+              <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                BYE AUTO PERFORMANCE
+              </span>
+            </h2>
+                         <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto">
+               Real results from real BMW tuning. See what we&apos;ve achieved for our customers.
+             </p>
+          </div>
+          
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1 sm:mb-2">{stat.number}</div>
-                <div className="text-gray-300 text-sm sm:text-base">{stat.label}</div>
+              <div key={index} className="group text-center bg-black/20 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-2">
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
+                    {stat.icon}
+                  </div>
+                </div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-gray-300 text-sm sm:text-base font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -209,16 +332,16 @@ export default function HomePage() {
               <p className="text-gray-400 text-base sm:text-lg mb-6 sm:mb-8">
                 From routine maintenance to complete stage 3+ builds, we provide professional service with attention to detail and quality workmanship at our location in Dragodana.
               </p>
-                              <div className="flex items-center space-x-4">
-                  <div className="flex items-center">
-                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                    <span className="ml-2 text-gray-300 text-sm sm:text-base">4.8 Rating (16 reviews)</span>
-                  </div>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center">
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                  <span className="ml-2 text-gray-300 text-sm sm:text-base">4.8 Rating (16 reviews)</span>
                 </div>
+              </div>
             </div>
             <div className="bg-gray-800 border border-gray-700 rounded-lg p-6 sm:p-8">
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Why Choose BYE AUTO?</h3>
@@ -334,4 +457,4 @@ export default function HomePage() {
       </footer>
     </div>
   );
-}
+} 
