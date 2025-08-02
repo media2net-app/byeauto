@@ -134,15 +134,21 @@ export default function Dashboard() {
       
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
+        {/* Pre-header with language selector */}
+        <div className="bg-gray-800 border-b border-gray-700">
+          <div className="px-4 py-2 flex justify-end">
+            <LanguageSwitcher />
+          </div>
+        </div>
+
         {/* Header */}
         <header className="bg-gray-900 shadow-sm border-b border-gray-700">
-          <div className="px-6 py-4">
-            <div className="flex justify-between items-center">
+          <div className="px-4 sm:px-6 py-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
               <div className="flex items-center">
-                <h1 className="text-2xl font-bold text-white">{t('dashboard')}</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-white">{t('dashboard')}</h1>
               </div>
-              <div className="flex items-center space-x-4">
-                <LanguageSwitcher />
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
                 <button
                   onClick={() => addNotification({
                     type: 'info',
@@ -150,11 +156,11 @@ export default function Dashboard() {
                     message: t('test_notification_message'),
                     duration: 5000
                   })}
-                  className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 transition-colors w-full sm:w-auto"
                 >
                   {t('test_notifications')}
                 </button>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-gray-400 text-center sm:text-left">
                   {t('welcome_back_bye_auto')}
                 </div>
               </div>
