@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -12,17 +13,23 @@ export default function Dashboard() {
   };
 
   const stats = [
-    { name: "Total Vehicles", value: "1,234", change: "+12%", changeType: "positive" },
-    { name: "Active Rentals", value: "89", change: "+5%", changeType: "positive" },
-    { name: "Revenue", value: "€45,678", change: "+8%", changeType: "positive" },
-    { name: "Customers", value: "567", change: "+3%", changeType: "positive" },
+    { name: "Vehicles in Service", value: "12", change: "+3 this week", changeType: "positive" },
+    { name: "Avg Repair Time", value: "2.5h", change: "-0.3h vs last week", changeType: "positive" },
+    { name: "Repairs in Progress", value: "8", change: "+2 this week", changeType: "positive" },
+    { name: "Monthly Revenue", value: "€8,450", change: "+12% vs last month", changeType: "positive" },
   ];
 
   const recentActivity = [
-    { id: 1, action: "New vehicle added", vehicle: "BMW X5", time: "2 minutes ago" },
-    { id: 2, action: "Rental completed", vehicle: "Audi A4", time: "15 minutes ago" },
-    { id: 3, action: "Payment received", vehicle: "Mercedes C-Class", time: "1 hour ago" },
-    { id: 4, action: "Customer registered", vehicle: "Volkswagen Golf", time: "2 hours ago" },
+    { id: 1, action: "BMW X5 Repair Completed", vehicle: "Engine diagnostic and electrical system repair finished", time: "1 hour ago" },
+    { id: 2, action: "New BMW 320i Arrived", vehicle: "Client Maria Ionescu - brake system inspection needed", time: "3 hours ago" },
+    { id: 3, action: "Urgent Repair Alert", vehicle: "BMW X3 requires immediate transmission inspection", time: "5 hours ago" },
+  ];
+
+  const vehicles = [
+    { id: "bmw1", name: "BMW X5 2020", client: "Ion Popescu", status: "În Service", priority: "Înaltă", indicator: "Reparații Active", type: "active" },
+    { id: "bmw2", name: "BMW 320i 2019", client: "Maria Ionescu", status: "În Așteptare", priority: "Medie", indicator: "Programat", type: "maintenance" },
+    { id: "bmw3", name: "BMW 520d 2021", client: "Alexandru Dumitrescu", status: "Finalizat", priority: "Scăzută", indicator: "Gata de Livrare", type: "completed" },
+    { id: "bmw4", name: "BMW X3 2018", client: "Elena Vasilescu", status: "Diagnostic", priority: "Înaltă", indicator: "Urgent", type: "urgent" },
   ];
 
   return (
@@ -78,6 +85,44 @@ export default function Dashboard() {
           ))}
         </div>
 
+        {/* BMW Service Management */}
+        <div className="mb-8">
+          <div className="bg-white rounded-lg shadow">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-medium text-gray-900">BMW Service Management</h3>
+              <p className="text-sm text-gray-600 mt-1">Service auto dedicat BMW cu experiența - reparatii, întreținere - electrica și mecanică!</p>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {vehicles.map((vehicle) => (
+                  <div key={vehicle.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+                    <div className={`w-3 h-3 rounded-full mb-3 ${
+                      vehicle.type === 'active' ? 'bg-green-500' :
+                      vehicle.type === 'maintenance' ? 'bg-yellow-500' :
+                      vehicle.type === 'completed' ? 'bg-blue-500' :
+                      'bg-red-500'
+                    }`}></div>
+                    <h4 className="font-medium text-gray-900 mb-1">{vehicle.name}</h4>
+                    <p className="text-sm text-gray-600 mb-2">Client: {vehicle.client}</p>
+                    <div className="space-y-1 mb-3">
+                      <span className="text-xs text-gray-500">Status: {vehicle.status}</span>
+                      <span className="text-xs text-gray-500 block">Prioritate: {vehicle.priority}</span>
+                    </div>
+                    <div className={`text-xs px-2 py-1 rounded-full ${
+                      vehicle.type === 'active' ? 'bg-green-100 text-green-800' :
+                      vehicle.type === 'maintenance' ? 'bg-yellow-100 text-yellow-800' :
+                      vehicle.type === 'completed' ? 'bg-blue-100 text-blue-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {vehicle.indicator}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Recent Activity */}
@@ -114,14 +159,18 @@ export default function Dashboard() {
                   Add New Vehicle
                 </button>
                 <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
-                  Create Rental
+                  Create Repair Order
                 </button>
-                <button className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
-                  View Reports
-                </button>
-                <button className="w-full bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors">
-                  Manage Customers
-                </button>
+                <Link href="/client" className="block">
+                  <button className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                    Client Portal
+                  </button>
+                </Link>
+                <Link href="/quote" className="block">
+                  <button className="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition-colors">
+                    System Quote
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

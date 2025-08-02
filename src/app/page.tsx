@@ -13,11 +13,16 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate login process
-    setTimeout(() => {
+    // Demo credentials check
+    if (email === "admin" && password === "password") {
+      setTimeout(() => {
+        setIsLoading(false);
+        router.push("/dashboard");
+      }, 1000);
+    } else {
       setIsLoading(false);
-      router.push("/dashboard");
-    }, 1000);
+      alert("Invalid credentials. Use admin/password for demo.");
+    }
   };
 
   return (
@@ -99,13 +104,12 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Footer */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
-              <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                Sign up
-              </a>
+          {/* Demo Credentials */}
+          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+            <p className="text-sm font-medium text-blue-800 mb-2">Demo Credentials:</p>
+            <p className="text-sm text-blue-700">
+              Username: <code className="bg-blue-100 px-1 rounded">admin</code> | 
+              Password: <code className="bg-blue-100 px-1 rounded">password</code>
             </p>
           </div>
         </div>
