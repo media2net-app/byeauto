@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 interface SystemFeature {
@@ -27,6 +27,15 @@ export default function QuotePage() {
   const [language, setLanguage] = useState("en");
   const [activeTab, setActiveTab] = useState("system");
   const [showProposalModal, setShowProposalModal] = useState(false);
+
+  // Check if this is the first visit and show modal automatically
+  useEffect(() => {
+    const hasVisitedBefore = localStorage.getItem('quotePageVisited');
+    if (!hasVisitedBefore) {
+      setShowProposalModal(true);
+      localStorage.setItem('quotePageVisited', 'true');
+    }
+  }, []);
 
   // System Development Features
   const systemFeatures: SystemFeature[] = [
