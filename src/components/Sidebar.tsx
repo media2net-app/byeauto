@@ -158,7 +158,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
                 >
                   <div className="relative">
                     <item.icon className="w-5 h-5 mr-3" />
-                    {item.notifications > 0 && (
+                    {item.notifications > 0 && isCollapsed && (
                       <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                         {item.notifications > 9 ? '9+' : item.notifications}
                       </div>
