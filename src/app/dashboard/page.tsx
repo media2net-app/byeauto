@@ -212,15 +212,10 @@ export default function Dashboard() {
                   <button className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
                     Add New Vehicle
                   </button>
-                  <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
-                    Create Repair Order
-                  </button>
-                  <Link href="/client" className="block">
-                    <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                      Client Portal
-                    </button>
-                  </Link>
-                  <Link href="/quote" className="block">
+                                           <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                           Create Repair Order
+                         </button>
+                         <Link href="/quote" className="block">
                     <button className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
                       System Quote
                     </button>

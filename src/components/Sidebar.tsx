@@ -54,12 +54,6 @@ export default function Sidebar({ onLogout }: SidebarProps) {
 
   const externalLinks = [
     {
-      name: "Client Portal",
-      href: "/client",
-      icon: "🌐",
-      current: pathname === "/client"
-    },
-    {
       name: "Tuning Services",
       href: "/tune",
       icon: "🏎️",

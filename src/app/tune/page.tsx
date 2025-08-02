@@ -17,19 +17,19 @@ export default function TunePage() {
     setTimeout(() => {
       setIsSearching(false);
       
-      // Example data for DB 99BYE
-      if (licensePlate.toUpperCase() === "DB 99BYE") {
-        setSearchResult({
-          vehicle: "BMW M8 Competition",
-          licensePlate: "DB 99BYE",
-          vin: "WBS83CD0X1234567",
-          engine: "4.4L V8 Twin-Turbo",
-          currentPower: "625 HP",
-          currentTorque: "750 Nm",
-          year: "2023",
-          mileage: "12,500 km",
-          transmission: "8-speed M Steptronic",
-          drivetrain: "M xDrive AWD",
+                   // Example data for DB 99BYE
+             if (licensePlate.toUpperCase() === "DB99BYE" || licensePlate.toUpperCase() === "DB 99BYE") {
+               setSearchResult({
+                 vehicle: "BMW M8 Competition",
+                 licensePlate: "DB 99BYE",
+                 vin: "WBS83CD0X1234567",
+                 engine: "4.4L V8 Twin-Turbo",
+                 currentPower: "625 HP",
+                 currentTorque: "750 Nm",
+                 year: "2023",
+                 mileage: "12,500 km",
+                 transmission: "8-speed M Steptronic",
+                 drivetrain: "M xDrive AWD",
           tuningParts: [
             {
               id: "stage1",
@@ -160,16 +160,16 @@ export default function TunePage() {
                 <label htmlFor="licensePlate" className="block text-sm font-medium text-gray-300 mb-2">
                   License Plate
                 </label>
-                <input
-                  id="licensePlate"
-                  type="text"
-                  value={licensePlate}
-                  onChange={(e) => setLicensePlate(e.target.value.toUpperCase())}
-                  placeholder="e.g., DB 99BYE"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400"
-                  required
-                />
-                <p className="text-sm text-gray-500 mt-1">Enter your license plate to find tuning options</p>
+                                       <input
+                         id="licensePlate"
+                         type="text"
+                         value={licensePlate}
+                         onChange={(e) => setLicensePlate(e.target.value.toUpperCase())}
+                         placeholder="e.g., DB99BYE"
+                         className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400"
+                         required
+                       />
+                       <p className="text-sm text-gray-500 mt-1">Enter your license plate to find tuning options</p>
               </div>
 
               <button
@@ -188,13 +188,13 @@ export default function TunePage() {
               </button>
             </form>
 
-            {/* Example */}
-            <div className="mt-6 p-4 bg-gray-800 border border-gray-700 rounded-lg">
-              <p className="text-sm font-medium text-purple-400 mb-2">Example:</p>
-              <p className="text-sm text-gray-300">
-                Try: <code className="bg-gray-700 px-1 rounded text-white">DB 99BYE</code> (BMW M8 Competition)
-              </p>
-            </div>
+                               {/* Example */}
+                   <div className="mt-6 p-4 bg-gray-800 border border-gray-700 rounded-lg">
+                     <p className="text-sm font-medium text-purple-400 mb-2">Example:</p>
+                     <p className="text-sm text-gray-300">
+                       Try: <code className="bg-gray-700 px-1 rounded text-white">DB99BYE</code> (BMW M8 Competition)
+                     </p>
+                   </div>
           </div>
         </div>
 
