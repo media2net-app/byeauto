@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 interface SystemFeature {
   id: string;
@@ -25,71 +26,71 @@ interface BmwUpgradeCategory {
 }
 
 export default function QuotePage() {
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("system");
 
   // System Development Features
   const systemFeatures: SystemFeature[] = [
     {
       id: "dashboard",
-      name: "BMW Service Dashboard",
-      description: "Complete repair management system with real-time tracking",
+      name: t('bmw_service_dashboard'),
+      description: t('dashboard_desc'),
       price: 2500,
       category: "Core"
     },
     {
       id: "client-portal",
-      name: "Client Portal",
-      description: "License plate lookup, VIN search, and vehicle specifications",
+      name: t('client_portal'),
+      description: t('client_portal_desc'),
       price: 1800,
       category: "Core"
     },
     {
       id: "quote-system",
-      name: "Quote System",
-      description: "Automated quote generation and management",
+      name: t('quote_system'),
+      description: t('quote_system_desc'),
       price: 1200,
       category: "Core"
     },
     {
       id: "website",
-      name: "BYE Auto Website",
-      description: "Professional company website with services, tuning options, and booking system",
+      name: t('bye_auto_website'),
+      description: t('website_desc'),
       price: 3500,
       category: "Core"
     },
     {
       id: "analytics",
-      name: "Analytics & Reports",
-      description: "Business intelligence and performance tracking",
+      name: t('analytics_reports'),
+      description: t('analytics_desc'),
       price: 1500,
       category: "Advanced"
     },
     {
       id: "mobile-app",
-      name: "Mobile Application",
-      description: "iOS and Android apps for field operations",
+      name: t('mobile_application'),
+      description: t('mobile_app_desc'),
       price: 3000,
       category: "Advanced"
     },
     {
       id: "api-integration",
-      name: "API Integration",
-      description: "Third-party integrations and data synchronization",
+      name: t('api_integration'),
+      description: t('api_desc'),
       price: 2000,
       category: "Advanced"
     },
     {
       id: "multi-language",
-      name: "Multi-language Support",
-      description: "English, Romanian, and Dutch language support",
+      name: t('multi_language_support'),
+      description: t('multi_lang_desc'),
       price: 800,
       category: "Enhancement"
     },
     {
       id: "backup-system",
-      name: "Backup & Security",
-      description: "Automated backups and advanced security features",
+      name: t('backup_security'),
+      description: t('backup_desc'),
       price: 1000,
       category: "Enhancement"
     }
@@ -112,8 +113,8 @@ export default function QuotePage() {
       note: string;
     };
   } = {
-    vehicle: "BMW 420d F32 (N47 engine, 184 hp stock)",
-    goal: "Reliable Stage 2+/3 upgrade to ±270–280 hp / ±580–600 Nm",
+    vehicle: t('vehicle_desc'),
+    goal: t('goal_desc'),
     upgrades: [
       {
         category: "Performance Upgrades",
@@ -212,7 +213,7 @@ export default function QuotePage() {
     budget: {
       min: 6550,
       max: 10900,
-      note: "Can vary depending on chosen brands and labor rate. Includes M4-look & quad exhaust system"
+      note: t('budget_note')
     }
   };
 
@@ -247,47 +248,51 @@ export default function QuotePage() {
         </div>
       </header>
 
+      {/* Language Switcher */}
+      <div className="absolute top-4 right-4 z-10">
+        <LanguageSwitcher />
+      </div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Page Title */}
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('complete_solution_proposal')}</h2>
           <p className="text-gray-400 text-sm sm:text-base">{t('system_development_bmw_project')}</p>
-
         </div>
 
         {/* Special Proposal Introduction */}
         <div className="mb-8">
           <div className="bg-purple-900 border border-purple-700 rounded-lg p-6">
-            <h3 className="text-xl font-semibold text-white mb-4">🤝 Special Partnership Proposal</h3>
+            <h3 className="text-xl font-semibold text-white mb-4">🤝 {t('special_partnership_proposal')}</h3>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-white mb-3">📋 What You&apos;re Looking At</h4>
+                <h4 className="text-lg font-semibold text-white mb-3">📋 {t('what_youre_looking_at')}</h4>
                 <p className="text-gray-300 mb-3">
-                  This quote page contains <strong>two separate proposals</strong>:
+                  {t('two_separate_proposals')}
                 </p>
                 <ul className="text-gray-300 space-y-2 ml-4">
-                  <li>• <strong>System Development</strong> - Complete BMW service management system (normally €{getSystemTotalIncludingMaintenance().toLocaleString()})</li>
-                  <li>• <strong>BMW F32 420d Project</strong> - Stage 2+ performance build with M4-look & quad exhaust for your car (normally €{bmwProject.budget.min.toLocaleString()} - €{bmwProject.budget.max.toLocaleString()})</li>
+                  <li>• <strong>{t('system_development')}</strong> - {t('system_development_desc')} (normally €{getSystemTotalIncludingMaintenance().toLocaleString()})</li>
+                  <li>• <strong>{t('bmw_project')}</strong> - {t('bmw_project_desc')} (normally €{bmwProject.budget.min.toLocaleString()} - €{bmwProject.budget.max.toLocaleString()})</li>
                 </ul>
               </div>
 
               <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-white mb-3">💡 Our Special Proposal</h4>
+                <h4 className="text-lg font-semibold text-white mb-3">💡 {t('our_special_proposal')}</h4>
                 <p className="text-gray-300 mb-4">
-                  Instead of paying for each service separately, we propose a <strong>mutual exchange</strong>:
+                  {t('mutual_exchange_desc')}
                 </p>
                 <div className="space-y-3">
                   <div className="bg-purple-900 border border-purple-700 rounded-lg p-3">
-                    <h5 className="font-semibold text-white mb-1">🎯 What I Do For You</h5>
+                    <h5 className="font-semibold text-white mb-1">🎯 {t('what_i_do_for_you')}</h5>
                     <p className="text-gray-300 text-sm">
-                      Develop and deploy the complete BMW service management system <strong>FREE OF CHARGE</strong>
+                      {t('develop_system_free')}
                     </p>
                   </div>
                   <div className="bg-green-900 border border-green-700 rounded-lg p-3">
-                    <h5 className="font-semibold text-white mb-1">🚗 What You Do For Me</h5>
+                    <h5 className="font-semibold text-white mb-1">🚗 {t('what_you_do_for_me')}</h5>
                     <p className="text-gray-300 text-sm">
-                      Perform the complete BMW F32 420d Stage 2+ build <strong>FREE OF CHARGE</strong>
+                      {t('perform_build_free')}
                     </p>
                   </div>
                 </div>
@@ -295,10 +300,9 @@ export default function QuotePage() {
             </div>
 
             <div className="mt-6 bg-blue-900 border border-blue-700 rounded-lg p-4 text-center">
-              <h4 className="text-lg font-semibold text-white mb-2">✅ Win-Win Partnership</h4>
+              <h4 className="text-lg font-semibold text-white mb-2">✅ {t('win_win_partnership')}</h4>
               <p className="text-gray-300">
-                This is a <strong>partnership proposal</strong> where both parties benefit equally. 
-                No money changes hands - just mutual value exchange.
+                {t('partnership_proposal_desc')}
               </p>
             </div>
           </div>
