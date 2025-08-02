@@ -190,6 +190,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
           </button>
         </div>
       </div>
+      </div>
       
       {/* Mobile Menu Button */}
       <button
