@@ -3,6 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { 
+  BarChart3, 
+  Car, 
+  Wrench, 
+  Users, 
+  TrendingUp, 
+  Settings, 
+  Zap, 
+  DollarSign, 
+  CreditCard,
+  Menu,
+  X,
+  LogOut
+} from "lucide-react";
 
 interface SidebarProps {
   onLogout: () => void;
@@ -17,37 +31,37 @@ export default function Sidebar({ onLogout }: SidebarProps) {
     {
       name: "Dashboard",
       href: "/dashboard",
-      icon: "📊",
+      icon: BarChart3,
       current: pathname === "/dashboard"
     },
     {
       name: "Vehicles",
       href: "/dashboard/vehicles",
-      icon: "🚗",
+      icon: Car,
       current: pathname === "/dashboard/vehicles"
     },
     {
       name: "Repairs",
       href: "/dashboard/repairs",
-      icon: "🔧",
+      icon: Wrench,
       current: pathname === "/dashboard/repairs"
     },
     {
       name: "Clients",
       href: "/dashboard/clients",
-      icon: "👥",
+      icon: Users,
       current: pathname === "/dashboard/clients"
     },
     {
       name: "Analytics",
       href: "/dashboard/analytics",
-      icon: "📈",
+      icon: TrendingUp,
       current: pathname === "/dashboard/analytics"
     },
     {
       name: "Settings",
       href: "/dashboard/settings",
-      icon: "⚙️",
+      icon: Settings,
       current: pathname === "/dashboard/settings"
     }
   ];
@@ -56,19 +70,19 @@ export default function Sidebar({ onLogout }: SidebarProps) {
     {
       name: "Tuning Services",
       href: "/tune",
-      icon: "🏎️",
+      icon: Zap,
       current: pathname === "/tune"
     },
     {
       name: "System Quote",
       href: "/quote",
-      icon: "💰",
+      icon: DollarSign,
       current: pathname === "/quote"
     },
     {
       name: "I want this system, what does it cost?",
       href: "/quote",
-      icon: "💳",
+      icon: CreditCard,
       current: pathname === "/quote"
     }
   ];
@@ -107,12 +121,12 @@ export default function Sidebar({ onLogout }: SidebarProps) {
           >
             {isCollapsed ? "→" : "←"}
           </button>
-          <button
-            onClick={() => setIsMobileOpen(false)}
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors lg:hidden"
-          >
-            ✕
-          </button>
+                           <button
+                   onClick={() => setIsMobileOpen(false)}
+                   className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors lg:hidden"
+                 >
+                   <X className="w-5 h-5" />
+                 </button>
         </div>
       </div>
 
@@ -127,17 +141,17 @@ export default function Sidebar({ onLogout }: SidebarProps) {
           <ul className="space-y-1">
             {navigation.map((item) => (
               <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    item.current
-                      ? "bg-purple-600 text-white"
-                      : "text-gray-300 hover:bg-gray-800 hover:text-white"
-                  }`}
-                >
-                  <span className="text-lg mr-3">{item.icon}</span>
-                  {!isCollapsed && <span>{item.name}</span>}
-                </Link>
+                                       <Link
+                         href={item.href}
+                         className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                           item.current
+                             ? "bg-purple-600 text-white"
+                             : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                         }`}
+                       >
+                         <item.icon className="w-5 h-5 mr-3" />
+                         {!isCollapsed && <span>{item.name}</span>}
+                       </Link>
               </li>
             ))}
           </ul>
@@ -152,17 +166,17 @@ export default function Sidebar({ onLogout }: SidebarProps) {
           <ul className="space-y-1">
             {externalLinks.map((item) => (
               <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    item.current
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-300 hover:bg-gray-800 hover:text-white"
-                  }`}
-                >
-                  <span className="text-lg mr-3">{item.icon}</span>
-                  {!isCollapsed && <span>{item.name}</span>}
-                </Link>
+                                       <Link
+                         href={item.href}
+                         className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                           item.current
+                             ? "bg-blue-600 text-white"
+                             : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                         }`}
+                       >
+                         <item.icon className="w-5 h-5 mr-3" />
+                         {!isCollapsed && <span>{item.name}</span>}
+                       </Link>
               </li>
             ))}
           </ul>
@@ -181,13 +195,13 @@ export default function Sidebar({ onLogout }: SidebarProps) {
               <p className="text-xs text-gray-400">Administrator</p>
             </div>
           )}
-          <button
-            onClick={onLogout}
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-            title="Logout"
-          >
-            🚪
-          </button>
+                           <button
+                   onClick={onLogout}
+                   className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                   title="Logout"
+                 >
+                   <LogOut className="w-5 h-5" />
+                 </button>
         </div>
       </div>
       </div>
@@ -197,7 +211,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
         onClick={() => setIsMobileOpen(true)}
         className="fixed top-4 left-4 z-30 p-2 bg-gray-900 text-white rounded-lg lg:hidden"
       >
-        ☰
+        <Menu className="w-5 h-5" />
       </button>
     </>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CheckCircle, Wrench, Clock, FileText, ChevronDown, X } from "lucide-react";
 
 interface RepairItem {
   id: string;
@@ -54,13 +55,13 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "completed":
-        return "✅";
+        return CheckCircle;
       case "in-progress":
-        return "🔧";
+        return Wrench;
       case "pending":
-        return "⏳";
+        return Clock;
       default:
-        return "📋";
+        return FileText;
     }
   };
 
@@ -77,7 +78,7 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
             onClick={onClose}
             className="text-gray-400 hover:text-white p-2 hover:bg-gray-800 rounded-lg transition-colors"
           >
-            ✕
+            <X className="w-5 h-5" />
           </button>
         </div>
 
@@ -117,14 +118,17 @@ export default function RepairModal({ isOpen, onClose, vehicle }: RepairModalPro
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
-                    <span className="text-lg">{getStatusIcon(repair.status)}</span>
+                    {(() => {
+                      const IconComponent = getStatusIcon(repair.status);
+                      return <IconComponent className="w-5 h-5 text-green-400" />;
+                    })()}
                     <h4 className="font-medium text-white">{repair.name}</h4>
                   </div>
                   <div className="flex items-center space-x-3">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(repair.status)}`}>
                       {repair.status.replace("-", " ")}
                     </span>
-                    <span className="text-gray-400">▼</span>
+                    <ChevronDown className="w-4 h-4 text-gray-400" />
                   </div>
                 </div>
 
