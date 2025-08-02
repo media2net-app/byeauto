@@ -3,9 +3,47 @@
 import { useState } from "react";
 import Link from "next/link";
 
+interface TuningPart {
+  id: string;
+  name: string;
+  description: string;
+  powerGain: string;
+  torqueGain: string;
+  price: number;
+  duration: string;
+  warranty: string;
+  features: string[];
+}
+
+interface AdditionalPart {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  powerGain?: string;
+  weight?: string;
+  maintenance?: string;
+  sizes?: string;
+}
+
+interface SearchResult {
+  vehicle: string;
+  licensePlate: string;
+  vin: string;
+  engine: string;
+  currentPower: string;
+  currentTorque: string;
+  year: string;
+  mileage: string;
+  transmission: string;
+  drivetrain: string;
+  tuningParts: TuningPart[];
+  additionalParts: AdditionalPart[];
+}
+
 export default function TunePage() {
   const [licensePlate, setLicensePlate] = useState("");
-  const [searchResult, setSearchResult] = useState<any>(null);
+  const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [selectedTune, setSelectedTune] = useState<string | null>(null);
 
@@ -102,24 +140,14 @@ export default function TunePage() {
     }, 2000);
   };
 
-  const getTotalPower = () => {
+    const getTotalPower = () => {
     if (!searchResult || !selectedTune) return searchResult?.currentPower;
-    const tune = searchResult.tuningParts.find((t: any) => t.id === selectedTune);
+    const tune = searchResult.tuningParts.find((t: TuningPart) => t.id === selectedTune);
     if (!tune) return searchResult.currentPower;
-    
+
     const currentPower = parseInt(searchResult.currentPower);
     const powerGain = parseInt(tune.powerGain.replace("+", ""));
     return `${currentPower + powerGain} HP`;
-  };
-
-  const getTotalTorque = () => {
-    if (!searchResult || !selectedTune) return searchResult?.currentTorque;
-    const tune = searchResult.tuningParts.find((t: any) => t.id === selectedTune);
-    if (!tune) return searchResult.currentTorque;
-    
-    const currentTorque = parseInt(searchResult.currentTorque);
-    const torqueGain = parseInt(tune.torqueGain.replace("+", ""));
-    return `${currentTorque + torqueGain} Nm`;
   };
 
   return (
@@ -247,7 +275,7 @@ export default function TunePage() {
                 <h3 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">Tuning Packages</h3>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                  {searchResult.tuningParts.map((tune: any) => (
+                  {searchResult.tuningParts.map((tune: TuningPart) => (
                     <div
                       key={tune.id}
                       className={`border rounded-lg p-6 cursor-pointer transition-all ${
@@ -319,7 +347,7 @@ export default function TunePage() {
                   <div className="text-center p-6 bg-green-900 rounded-lg">
                     <p className="text-sm text-green-300 mb-2">Power Gain</p>
                     <p className="text-2xl font-bold text-green-300">
-                      {searchResult.tuningParts.find((t: any) => t.id === selectedTune)?.powerGain}
+                      {searchResult.tuningParts.find((t: TuningPart) => t.id === selectedTune)?.powerGain}
                     </p>
                   </div>
                 </div>
@@ -332,7 +360,7 @@ export default function TunePage() {
                 <h3 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">Additional Performance Parts</h3>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                  {searchResult.additionalParts.map((part: any) => (
+                  {searchResult.additionalParts.map((part: AdditionalPart) => (
                     <div key={part.id} className="border border-gray-700 bg-gray-800 rounded-lg p-6">
                       <h4 className="text-lg font-semibold text-white mb-2">{part.name}</h4>
                       <p className="text-sm text-gray-400 mb-4">{part.description}</p>

@@ -6,9 +6,32 @@ import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
 import RepairModal from "@/components/RepairModal";
 
+interface VehicleData {
+  id: string;
+  name: string;
+  client: string;
+  licensePlate: string;
+  vin: string;
+  mileage: string;
+  repairs: Array<{
+    id: string;
+    name: string;
+    description: string;
+    materials: string[];
+    cost: number;
+    price: number;
+    profit: number;
+    status: "pending" | "in-progress" | "completed";
+  }>;
+  totalCost: number;
+  totalPrice: number;
+  totalProfit: number;
+  profitMargin: number;
+}
+
 export default function Dashboard() {
   const router = useRouter();
-  const [selectedVehicle, setSelectedVehicle] = useState<any>(null);
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogout = () => {
