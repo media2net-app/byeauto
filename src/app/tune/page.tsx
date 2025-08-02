@@ -29,16 +29,17 @@ interface AdditionalPart {
 interface SearchResult {
   vehicle: string;
   licensePlate: string;
-  vin: string;
-  engine: string;
-  currentPower: string;
-  currentTorque: string;
-  year: string;
-  mileage: string;
-  transmission: string;
-  drivetrain: string;
-  tuningParts: TuningPart[];
-  additionalParts: AdditionalPart[];
+  vin?: string;
+  engine?: string;
+  currentPower?: string;
+  currentTorque?: string;
+  year?: string;
+  mileage?: string;
+  transmission?: string;
+  drivetrain?: string;
+  tuningParts?: TuningPart[];
+  additionalParts?: AdditionalPart[];
+  message?: string;
 }
 
 export default function TunePage() {
@@ -141,7 +142,7 @@ export default function TunePage() {
   };
 
     const getTotalPower = () => {
-    if (!searchResult || !selectedTune) return searchResult?.currentPower;
+    if (!searchResult || !selectedTune || !searchResult.currentPower || !searchResult.tuningParts) return searchResult?.currentPower;
     const tune = searchResult.tuningParts.find((t: TuningPart) => t.id === selectedTune);
     if (!tune) return searchResult.currentPower;
 
@@ -233,40 +234,58 @@ export default function TunePage() {
             <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-8">
               <h3 className="text-xl font-semibold text-white mb-6">Vehicle Information</h3>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div>
-                  <p className="text-sm text-gray-400">Vehicle</p>
-                  <p className="text-white font-medium">{searchResult.vehicle}</p>
+              {searchResult.message ? (
+                <div className="text-center py-8">
+                  <p className="text-gray-400 text-lg">{searchResult.message}</p>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-400">License Plate</p>
-                  <p className="text-white font-medium">{searchResult.licensePlate}</p>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-400">Vehicle</p>
+                    <p className="text-white font-medium">{searchResult.vehicle}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">License Plate</p>
+                    <p className="text-white font-medium">{searchResult.licensePlate}</p>
+                  </div>
+                  {searchResult.engine && (
+                    <div>
+                      <p className="text-sm text-gray-400">Engine</p>
+                      <p className="text-white font-medium">{searchResult.engine}</p>
+                    </div>
+                  )}
+                  {searchResult.currentPower && (
+                    <div>
+                      <p className="text-sm text-gray-400">Current Power</p>
+                      <p className="text-white font-medium">{searchResult.currentPower}</p>
+                    </div>
+                  )}
+                  {searchResult.currentTorque && (
+                    <div>
+                      <p className="text-sm text-gray-400">Current Torque</p>
+                      <p className="text-white font-medium">{searchResult.currentTorque}</p>
+                    </div>
+                  )}
+                  {searchResult.year && (
+                    <div>
+                      <p className="text-sm text-gray-400">Year</p>
+                      <p className="text-white font-medium">{searchResult.year}</p>
+                    </div>
+                  )}
+                  {searchResult.mileage && (
+                    <div>
+                      <p className="text-sm text-gray-400">Mileage</p>
+                      <p className="text-white font-medium">{searchResult.mileage}</p>
+                    </div>
+                  )}
+                  {searchResult.transmission && (
+                    <div>
+                      <p className="text-sm text-gray-400">Transmission</p>
+                      <p className="text-white font-medium">{searchResult.transmission}</p>
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <p className="text-sm text-gray-400">Engine</p>
-                  <p className="text-white font-medium">{searchResult.engine}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Current Power</p>
-                  <p className="text-white font-medium">{searchResult.currentPower}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Current Torque</p>
-                  <p className="text-white font-medium">{searchResult.currentTorque}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Year</p>
-                  <p className="text-white font-medium">{searchResult.year}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Mileage</p>
-                  <p className="text-white font-medium">{searchResult.mileage}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Transmission</p>
-                  <p className="text-white font-medium">{searchResult.transmission}</p>
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Tuning Options */}
