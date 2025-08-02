@@ -4,12 +4,66 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
+import RepairModal from "@/components/RepairModal";
 
 export default function Dashboard() {
   const router = useRouter();
+  const [selectedVehicle, setSelectedVehicle] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogout = () => {
     router.push("/");
+  };
+
+  const handleVehicleClick = (vehicleId: string) => {
+    // Simulate fetching vehicle data
+    const vehicleData = {
+      id: vehicleId,
+      name: vehicles.find(v => v.id === vehicleId)?.name || "",
+      client: vehicles.find(v => v.id === vehicleId)?.client || "",
+      licensePlate: "B-123-ABC",
+      vin: "WBA12345678901234",
+      mileage: "45,000 km",
+      repairs: [
+        {
+          id: "repair1",
+          name: "Oil Change & Filters",
+          description: "Complete oil change with new oil filter and air filter replacement",
+          materials: ["5W-30 Oil", "Oil Filter", "Air Filter", "Drain Plug Gasket"],
+          cost: 45,
+          price: 120,
+          profit: 75,
+          status: "completed" as const
+        },
+        {
+          id: "repair2",
+          name: "Brake Pad Replacement",
+          description: "Front brake pad replacement with brake fluid check",
+          materials: ["Front Brake Pads", "Brake Cleaner", "Brake Fluid"],
+          cost: 85,
+          price: 180,
+          profit: 95,
+          status: "in-progress" as const
+        },
+        {
+          id: "repair3",
+          name: "Electrical System Diagnostic",
+          description: "Complete electrical system check and battery test",
+          materials: ["Diagnostic Tool", "Battery Tester", "Multimeter"],
+          cost: 30,
+          price: 150,
+          profit: 120,
+          status: "pending" as const
+        }
+      ],
+      totalCost: 160,
+      totalPrice: 450,
+      totalProfit: 290,
+      profitMargin: 64
+    };
+    
+    setSelectedVehicle(vehicleData);
+    setIsModalOpen(true);
   };
 
   const stats = [
@@ -90,8 +144,12 @@ export default function Dashboard() {
               </div>
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {vehicles.map((vehicle) => (
-                    <div key={vehicle.id} className="border border-gray-700 bg-gray-800 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+                                  {vehicles.map((vehicle) => (
+                  <div 
+                    key={vehicle.id} 
+                    className="border border-gray-700 bg-gray-800 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer hover:border-purple-500"
+                    onClick={() => handleVehicleClick(vehicle.id)}
+                  >
                       <div className={`w-3 h-3 rounded-full mb-3 ${
                         vehicle.type === 'active' ? 'bg-green-500' :
                         vehicle.type === 'maintenance' ? 'bg-yellow-500' :
@@ -173,6 +231,13 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Repair Modal */}
+      <RepairModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        vehicle={selectedVehicle}
+      />
     </div>
   );
 } 
