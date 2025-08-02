@@ -12,12 +12,12 @@ export default function LoginPage() {
   const router = useRouter();
   const { t } = useLanguage();
 
-  const handleLogin = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-              // Demo credentials check
-          if (username === "admin" && password === "BYE9438x_#") {
+
+    // Demo credentials check - Updated for Vercel build
+    if (username === "admin" && password === "BYE9438x_#") {
       setTimeout(() => {
         setIsLoading(false);
         router.push("/dashboard");
