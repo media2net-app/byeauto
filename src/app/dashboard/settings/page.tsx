@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Settings, User, Bell, Shield, Database, Globe, Save, X } from "lucide-react";
 
 export default function SettingsPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("profile");
   const [notifications, setNotifications] = useState({
     email: true,
@@ -36,12 +39,13 @@ export default function SettingsPage() {
       <div className="flex-1 flex flex-col">
         <header className="bg-gray-900 shadow-sm border-b border-gray-700">
           <div className="px-6 py-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h1 className="text-2xl font-bold text-white">Settings</h1>
-                <p className="text-gray-400 mt-1">Manage your account and preferences</p>
+                          <div className="flex justify-between items-center">
+                <div>
+                  <h1 className="text-2xl font-bold text-white">{t('settings')}</h1>
+                  <p className="text-gray-400 mt-1">Manage your account and preferences</p>
+                </div>
+                <LanguageSwitcher />
               </div>
-            </div>
           </div>
         </header>
 

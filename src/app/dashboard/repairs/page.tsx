@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Plus, Search, Filter, Wrench, Edit, Trash2, Eye, Clock, CheckCircle, AlertCircle } from "lucide-react";
 
 interface Repair {
@@ -23,6 +25,7 @@ interface Repair {
 
 export default function RepairsPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -136,16 +139,19 @@ export default function RepairsPage() {
       <div className="flex-1 flex flex-col">
         <header className="bg-gray-900 shadow-sm border-b border-gray-700">
           <div className="px-6 py-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h1 className="text-2xl font-bold text-white">Repairs</h1>
-                <p className="text-gray-400 mt-1">Manage repair orders and service history</p>
+                          <div className="flex justify-between items-center">
+                <div>
+                  <h1 className="text-2xl font-bold text-white">{t('repairs')}</h1>
+                  <p className="text-gray-400 mt-1">Manage repair orders and service history</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <LanguageSwitcher />
+                  <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2">
+                    <Plus className="w-4 h-4" />
+                    <span>New Repair</span>
+                  </button>
+                </div>
               </div>
-              <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2">
-                <Plus className="w-4 h-4" />
-                <span>New Repair</span>
-              </button>
-            </div>
           </div>
         </header>
 

@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
 import RepairModal from "@/components/RepairModal";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface VehicleData {
   id: string;
@@ -31,6 +33,7 @@ interface VehicleData {
 
 export default function Dashboard() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -90,10 +93,10 @@ export default function Dashboard() {
   };
 
   const stats = [
-    { name: "Vehicles in Service", value: "12", change: "+3 this week", changeType: "positive" },
-    { name: "Avg Repair Time", value: "2.5h", change: "-0.3h vs last week", changeType: "positive" },
-    { name: "Repairs in Progress", value: "8", change: "+2 this week", changeType: "positive" },
-    { name: "Monthly Revenue", value: "€8,450", change: "+12% vs last month", changeType: "positive" },
+    { name: t('vehicles_in_service'), value: "12", change: `+3 ${t('this_week')}`, changeType: "positive" },
+    { name: t('avg_repair_time'), value: "2.5h", change: `-0.3h ${t('vs_last_week')}`, changeType: "positive" },
+    { name: t('repairs_in_progress'), value: "8", change: `+2 ${t('this_week')}`, changeType: "positive" },
+    { name: t('monthly_revenue'), value: "€8,450", change: `+12% ${t('vs_last_month')}`, changeType: "positive" },
   ];
 
   const recentActivity = [
@@ -121,9 +124,10 @@ export default function Dashboard() {
           <div className="px-6 py-4">
             <div className="flex justify-between items-center">
               <div className="flex items-center">
-                <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+                <h1 className="text-2xl font-bold text-white">{t('dashboard')}</h1>
               </div>
               <div className="flex items-center space-x-4">
+                <LanguageSwitcher />
                 <div className="text-sm text-gray-400">
                   Welcome back, BYE AUTO
                 </div>
@@ -135,8 +139,8 @@ export default function Dashboard() {
         <div className="flex-1 p-6">
           {/* Page Title */}
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-white">Overview</h2>
-            <p className="text-gray-300 mt-2">Welcome back! Here&apos;s what&apos;s happening with your fleet.</p>
+            <h2 className="text-3xl font-bold text-white">{t('overview')}</h2>
+            <p className="text-gray-300 mt-2">{t('welcome_message')}</p>
           </div>
 
                   {/* Stats Grid */}
@@ -162,8 +166,8 @@ export default function Dashboard() {
           <div className="mb-8">
             <div className="bg-gray-900 border border-gray-700 rounded-lg shadow">
               <div className="px-6 py-4 border-b border-gray-700">
-                <h3 className="text-lg font-medium text-white">BMW Service Management</h3>
-                <p className="text-sm text-gray-400 mt-1">Service auto dedicat BMW cu experiența - reparatii, întreținere - electrica și mecanică!</p>
+                <h3 className="text-lg font-medium text-white">{t('bmw_service_management')}</h3>
+                <p className="text-sm text-gray-400 mt-1">{t('bmw_service_description')}</p>
               </div>
               <div className="p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -206,7 +210,7 @@ export default function Dashboard() {
             <div className="lg:col-span-2">
               <div className="bg-gray-900 border border-gray-700 rounded-lg shadow">
                 <div className="px-6 py-4 border-b border-gray-700">
-                  <h3 className="text-lg font-medium text-white">Recent Activity</h3>
+                  <h3 className="text-lg font-medium text-white">{t('recent_activity')}</h3>
                 </div>
                 <div className="p-6">
                   <div className="space-y-4">
@@ -229,18 +233,18 @@ export default function Dashboard() {
             <div className="lg:col-span-1">
               <div className="bg-gray-900 border border-gray-700 rounded-lg shadow">
                 <div className="px-6 py-4 border-b border-gray-700">
-                  <h3 className="text-lg font-medium text-white">Quick Actions</h3>
+                  <h3 className="text-lg font-medium text-white">{t('quick_actions')}</h3>
                 </div>
                 <div className="p-6 space-y-4">
                   <button className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
-                    Add New Vehicle
+                    {t('add_new_vehicle')}
                   </button>
                                            <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
-                           Create Repair Order
+                           {t('create_repair_order')}
                          </button>
                          <Link href="/quote" className="block">
                     <button className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
-                      System Quote
+                      {t('system_quote')}
                     </button>
                   </Link>
                 </div>

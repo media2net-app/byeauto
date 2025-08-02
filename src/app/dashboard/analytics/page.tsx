@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { TrendingUp, TrendingDown, DollarSign, Car, Users, Wrench, Calendar, BarChart3 } from "lucide-react";
 
 export default function AnalyticsPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [timeRange, setTimeRange] = useState("month");
 
   const handleLogout = () => {
@@ -80,22 +83,25 @@ export default function AnalyticsPage() {
       <div className="flex-1 flex flex-col">
         <header className="bg-gray-900 shadow-sm border-b border-gray-700">
           <div className="px-6 py-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h1 className="text-2xl font-bold text-white">Analytics</h1>
-                <p className="text-gray-400 mt-1">Business insights and performance metrics</p>
+                          <div className="flex justify-between items-center">
+                <div>
+                  <h1 className="text-2xl font-bold text-white">{t('analytics')}</h1>
+                  <p className="text-gray-400 mt-1">Business insights and performance metrics</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <LanguageSwitcher />
+                  <select
+                    value={timeRange}
+                    onChange={(e) => setTimeRange(e.target.value)}
+                    className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  >
+                    <option value="week">Last Week</option>
+                    <option value="month">Last Month</option>
+                    <option value="quarter">Last Quarter</option>
+                    <option value="year">Last Year</option>
+                  </select>
+                </div>
               </div>
-              <select
-                value={timeRange}
-                onChange={(e) => setTimeRange(e.target.value)}
-                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              >
-                <option value="week">Last Week</option>
-                <option value="month">Last Month</option>
-                <option value="quarter">Last Quarter</option>
-                <option value="year">Last Year</option>
-              </select>
-            </div>
           </div>
         </header>
 
