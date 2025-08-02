@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
 import RepairModal from "@/components/RepairModal";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
+import NotificationPanel, { useNotifications } from "@/components/NotificationPanel";
 
 interface VehicleData {
   id: string;
@@ -36,10 +37,42 @@ export default function Dashboard() {
   const { t } = useLanguage();
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { notifications, addNotification, dismissNotification } = useNotifications();
 
   const handleLogout = () => {
     router.push("/");
   };
+
+  // Demo notifications - you can remove these in production
+  useEffect(() => {
+    // Add some demo notifications
+    setTimeout(() => {
+      addNotification({
+        type: 'success',
+        title: 'System Online',
+        message: 'BMW Service Management System is running smoothly',
+        duration: 5000
+      });
+    }, 1000);
+
+    setTimeout(() => {
+      addNotification({
+        type: 'info',
+        title: 'New Messages',
+        message: 'You have 2 unread messages in your inbox',
+        duration: 8000
+      });
+    }, 3000);
+
+    setTimeout(() => {
+      addNotification({
+        type: 'warning',
+        title: 'Maintenance Due',
+        message: 'Vehicle B-123-ABC needs service in 3 days',
+        duration: 10000
+      });
+    }, 5000);
+  }, [addNotification]);
 
   const handleVehicleClick = (vehicleId: string) => {
     // Simulate fetching vehicle data
@@ -128,6 +161,17 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center space-x-4">
                 <LanguageSwitcher />
+                <button
+                  onClick={() => addNotification({
+                    type: 'info',
+                    title: 'Test Notification',
+                    message: 'This is a test notification from the dashboard',
+                    duration: 5000
+                  })}
+                  className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors"
+                >
+                  Test Notifications
+                </button>
                 <div className="text-sm text-gray-400">
                   Welcome back, BYE AUTO
                 </div>
@@ -253,6 +297,12 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Notification Panel */}
+      <NotificationPanel 
+        notifications={notifications} 
+        onDismiss={dismissNotification} 
+      />
 
       {/* Repair Modal */}
       <RepairModal
