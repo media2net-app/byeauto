@@ -1,13 +1,15 @@
 "use client";
 
-import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
+import { useParams, useRouter, usePathname } from 'next/navigation';
 import { Globe } from "lucide-react";
 
 export default function LanguageSwitcher() {
-  const locale = useLocale();
+  const params = useParams();
   const router = useRouter();
   const pathname = usePathname();
+  
+  // Get locale from URL params
+  const locale = params.locale as string;
 
   const languages = [
     { code: 'ro', name: 'Română', flag: '🇷🇴' },
