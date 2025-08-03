@@ -10,7 +10,7 @@ import { Plus, Edit, Trash2, Clock, User, Car } from "lucide-react";
 export default function WorkManagement() {
   const router = useRouter();
   const { t } = useLanguage();
-  const { workItems, addWorkItem, updateWorkItemStatus, updateWorkItem, deleteWorkItem } = useWork();
+  const { workItems, addWorkItem, updateWorkItemStatus, updateWorkItem, deleteWorkItem, getTotalWorkHours, getTotalActualHours, getOverTimeHours } = useWork();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<WorkItem | null>(null);
@@ -83,6 +83,11 @@ export default function WorkManagement() {
   const inProgressItems = workItems.filter(item => item.status === 'in-progress');
   const pendingItems = workItems.filter(item => item.status === 'pending');
 
+  // Get time tracking data
+  const totalWorkHours = getTotalWorkHours();
+  const totalActualHours = getTotalActualHours();
+  const totalOvertimeHours = getOverTimeHours();
+
   return (
     <div className="min-h-screen bg-black flex">
       <Sidebar onLogout={handleLogout} />
@@ -92,9 +97,16 @@ export default function WorkManagement() {
           <div className="px-6 py-4">
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold text-white">Werkbeheer</h1>
-              <div className="text-sm text-green-400 flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span>Real-time updates</span>
+              <div className="flex items-center space-x-4">
+                <div className="text-sm text-green-400 flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span>Real-time updates</span>
+                </div>
+                <div className="text-sm text-blue-400">
+                  <span>Total: {totalWorkHours.toFixed(1)}h | </span>
+                  <span>Efectiv: {totalActualHours.toFixed(1)}h | </span>
+                  <span className="text-red-400">Overtime: {totalOvertimeHours.toFixed(1)}h</span>
+                </div>
               </div>
               <button
                 onClick={() => setIsAddModalOpen(true)}
@@ -218,6 +230,14 @@ export default function WorkManagement() {
                       </span>
                       <span className="text-xs text-blue-300">Est: {item.estimatedTime}</span>
                     </div>
+                    {item.actualWorkHours && (
+                      <div className="flex justify-between text-xs text-blue-300 mt-1">
+                        <span>Efectiv: {item.actualWorkHours.toFixed(1)}h</span>
+                        {item.isOverTime && (
+                          <span className="text-red-400">+{item.overtimeHours?.toFixed(1)}h overtime</span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -252,6 +272,15 @@ export default function WorkManagement() {
                       </span>
                       <span>{item.startTime} - {item.endTime}</span>
                     </div>
+                    {item.actualWorkHours && (
+                      <div className="flex justify-between text-xs text-green-300 mt-1">
+                        <span>Timp efectiv: {item.actualWorkHours.toFixed(1)}h</span>
+                        <span>Estimat: {item.estimatedTime}</span>
+                        {item.isOverTime && (
+                          <span className="text-red-400">+{item.overtimeHours?.toFixed(1)}h</span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

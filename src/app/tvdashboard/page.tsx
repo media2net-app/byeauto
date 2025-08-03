@@ -6,7 +6,7 @@ import { useWork, useWorkUpdates } from "@/contexts/WorkContext";
 
 export default function TVDashboard() {
   const { t } = useLanguage();
-  const { workItems } = useWork();
+  const { workItems, getTotalWorkHours, getTotalActualHours, getOverTimeHours } = useWork();
   const lastUpdate = useWorkUpdates(); // Real-time updates
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showUpdateIndicator, setShowUpdateIndicator] = useState(false);
@@ -110,6 +110,11 @@ export default function TVDashboard() {
     return sum + time;
   }, 0);
 
+  // Get total work hours for the day
+  const totalWorkHours = getTotalWorkHours();
+  const totalActualHours = getTotalActualHours();
+  const totalOvertimeHours = getOverTimeHours();
+
   // Calculate expected completion time
   if (remainingWorkTime > 0 && remainingWorkHours > 0) {
     const completionTimeInMinutes = currentTime.getTime() + (remainingWorkTime * 60 * 60 * 1000);
@@ -150,7 +155,7 @@ export default function TVDashboard() {
       {/* Work Hours & Overtime Alert */}
       {isWorkDay && (
         <div className="mb-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Remaining Work Hours */}
             <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
               <h3 className="text-2xl font-bold text-white mb-4">{t('remaining_work_hours')}</h3>
@@ -246,6 +251,37 @@ export default function TVDashboard() {
                     </div>
                   </>
                 )}
+              </div>
+            </div>
+
+            {/* Time Registration */}
+            <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-bold text-white mb-4">Registrare Timp</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Total estimat:</span>
+                  <span className="text-3xl font-bold text-blue-400">
+                    {totalWorkHours.toFixed(1)}h
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Lucrat efectiv:</span>
+                  <span className="text-3xl font-bold text-green-400">
+                    {totalActualHours.toFixed(1)}h
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Ore suplimentare:</span>
+                  <span className="text-3xl font-bold text-red-400">
+                    {totalOvertimeHours.toFixed(1)}h
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Eficiență:</span>
+                  <span className={`text-xl font-bold ${totalActualHours > 0 ? 'text-green-400' : 'text-gray-400'}`}>
+                    {totalActualHours > 0 ? ((totalWorkHours / totalActualHours) * 100).toFixed(1) : 0}%
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -351,6 +387,15 @@ export default function TVDashboard() {
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
                   <span>{item.startTime} - {item.endTime}</span>
                 </div>
+                {item.actualWorkHours && (
+                  <div className="flex justify-between text-sm text-green-300 mt-1">
+                    <span>Timp efectiv: {item.actualWorkHours.toFixed(1)}h</span>
+                    <span>Estimat: {item.estimatedTime}</span>
+                    {item.isOverTime && (
+                      <span className="text-red-400">+{item.overtimeHours?.toFixed(1)}h</span>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -385,6 +430,11 @@ export default function TVDashboard() {
                   </span>
                   <span className="text-sm text-blue-300">{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
+                {item.actualStartTime && !item.actualEndTime && (
+                  <div className="text-sm text-blue-300 mt-1">
+                    Început la: {item.startTime}
+                  </div>
+                )}
               </div>
             ))}
           </div>

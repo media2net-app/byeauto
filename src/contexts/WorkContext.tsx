@@ -12,6 +12,11 @@ export interface WorkItem {
   estimatedTime: string;
   startTime?: string;
   endTime?: string;
+  actualStartTime?: Date;
+  actualEndTime?: Date;
+  actualWorkHours?: number;
+  isOverTime?: boolean;
+  overtimeHours?: number;
   assignedTo?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -25,6 +30,10 @@ interface WorkContextType {
   deleteWorkItem: (id: string) => void;
   getWorkItemsByStatus: (status: WorkItem['status']) => WorkItem[];
   getWorkItemsByAssignee: (assignee: string) => WorkItem[];
+  getTotalWorkHours: () => number;
+  getTotalActualHours: () => number;
+  getOverTimeHours: () => number;
+  getWorkItemsByCustomer: (customer: string) => WorkItem[];
   triggerUpdate: () => void;
 }
 
@@ -74,11 +83,9 @@ const initialWorkItems: WorkItem[] = [
     vehicle: "BMW X5",
     client: "Maria Ionescu",
     workType: "Engine Diagnostic",
-    status: "completed",
+    status: "pending",
     priority: "high",
     estimatedTime: "3h",
-    startTime: "08:00",
-    endTime: "11:00",
     assignedTo: "Marius",
     createdAt: new Date(),
     updatedAt: new Date()
@@ -88,10 +95,9 @@ const initialWorkItems: WorkItem[] = [
     vehicle: "BMW 320i",
     client: "Alexandru Popescu",
     workType: "Brake System Repair",
-    status: "in-progress",
+    status: "pending",
     priority: "medium",
     estimatedTime: "2h",
-    startTime: "09:30",
     assignedTo: "Alexandru",
     createdAt: new Date(),
     updatedAt: new Date()
@@ -125,10 +131,9 @@ const initialWorkItems: WorkItem[] = [
     vehicle: "BMW M4",
     client: "Cristian Stoica",
     workType: "Performance Tuning",
-    status: "in-progress",
+    status: "pending",
     priority: "high",
     estimatedTime: "4h",
-    startTime: "08:00",
     assignedTo: "Alexandru",
     createdAt: new Date(),
     updatedAt: new Date()
@@ -146,7 +151,9 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
           return parsed.map((item: WorkItem) => ({
             ...item,
             createdAt: new Date(item.createdAt),
-            updatedAt: new Date(item.updatedAt)
+            updatedAt: new Date(item.updatedAt),
+            actualStartTime: item.actualStartTime ? new Date(item.actualStartTime) : undefined,
+            actualEndTime: item.actualEndTime ? new Date(item.actualEndTime) : undefined
           }));
         } catch (error) {
           console.error('Error parsing saved work items:', error);
@@ -174,6 +181,17 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Calculate actual work hours between start and end time
+  const calculateActualHours = (startTime: Date, endTime: Date): number => {
+    const diffMs = endTime.getTime() - startTime.getTime();
+    return diffMs / (1000 * 60 * 60); // Convert to hours
+  };
+
+  // Calculate overtime hours
+  const calculateOvertimeHours = (actualHours: number, estimatedHours: number): number => {
+    return Math.max(0, actualHours - estimatedHours);
+  };
+
   const addWorkItem = (item: Omit<WorkItem, 'id' | 'createdAt' | 'updatedAt'>) => {
     const newItem: WorkItem = {
       ...item,
@@ -194,17 +212,32 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
           updatedAt: new Date()
         };
         
-        // Add start/end times based on status
-        if (status === 'in-progress' && !item.startTime) {
-          updatedItem.startTime = new Date().toLocaleTimeString('ro-RO', {
+        // Handle start time when moving to in-progress
+        if (status === 'in-progress' && !item.actualStartTime) {
+          const now = new Date();
+          updatedItem.actualStartTime = now;
+          updatedItem.startTime = now.toLocaleTimeString('ro-RO', {
             hour: '2-digit',
             minute: '2-digit'
           });
-        } else if (status === 'completed' && !item.endTime) {
-          updatedItem.endTime = new Date().toLocaleTimeString('ro-RO', {
+        }
+        
+        // Handle end time when moving to completed
+        if (status === 'completed' && item.actualStartTime && !item.actualEndTime) {
+          const now = new Date();
+          updatedItem.actualEndTime = now;
+          updatedItem.endTime = now.toLocaleTimeString('ro-RO', {
             hour: '2-digit',
             minute: '2-digit'
           });
+          
+          // Calculate actual work hours and overtime
+          const actualHours = calculateActualHours(item.actualStartTime, now);
+          const estimatedHours = parseFloat(item.estimatedTime.replace('h', ''));
+          
+          updatedItem.actualWorkHours = actualHours;
+          updatedItem.overtimeHours = calculateOvertimeHours(actualHours, estimatedHours);
+          updatedItem.isOverTime = actualHours > estimatedHours;
         }
         
         return updatedItem;
@@ -236,6 +269,32 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return workItems.filter(item => item.assignedTo === assignee);
   };
 
+  const getWorkItemsByCustomer = (customer: string) => {
+    return workItems.filter(item => item.client === customer);
+  };
+
+  // Calculate total estimated work hours
+  const getTotalWorkHours = () => {
+    return workItems.reduce((total, item) => {
+      const hours = parseFloat(item.estimatedTime.replace('h', ''));
+      return total + hours;
+    }, 0);
+  };
+
+  // Calculate total actual work hours
+  const getTotalActualHours = () => {
+    return workItems.reduce((total, item) => {
+      return total + (item.actualWorkHours || 0);
+    }, 0);
+  };
+
+  // Calculate total overtime hours
+  const getOverTimeHours = () => {
+    return workItems.reduce((total, item) => {
+      return total + (item.overtimeHours || 0);
+    }, 0);
+  };
+
   const value: WorkContextType = {
     workItems,
     addWorkItem,
@@ -244,6 +303,10 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
     deleteWorkItem,
     getWorkItemsByStatus,
     getWorkItemsByAssignee,
+    getWorkItemsByCustomer,
+    getTotalWorkHours,
+    getTotalActualHours,
+    getOverTimeHours,
     triggerUpdate
   };
 
