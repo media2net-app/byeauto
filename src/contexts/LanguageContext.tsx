@@ -292,9 +292,6 @@ const translations = {
     'back': 'Back',
     'add': 'Add',
     'select_team_member': 'Select Team Member',
-    'low_priority': 'Low Priority',
-    'medium_priority': 'Medium Priority',
-    'high_priority': 'High Priority',
     'estimated_time_placeholder': 'e.g. 2h',
     'confirm_delete': 'Are you sure you want to delete this task?',
 
@@ -584,9 +581,6 @@ const translations = {
     'back': 'Înapoi',
     'add': 'Adaugă',
     'select_team_member': 'Selectează Membru Echipă',
-    'low_priority': 'Prioritate Scăzută',
-    'medium_priority': 'Prioritate Medie',
-    'high_priority': 'Prioritate Înaltă',
     'estimated_time_placeholder': 'ex. 2h',
     'confirm_delete': 'Ești sigur că vrei să ștergi această sarcină?',
 
