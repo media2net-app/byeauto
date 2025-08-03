@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useOpeningHours } from "@/contexts/OpeningHoursContext";
 import { Settings, User, Bell, Shield, Database, Globe, Save, X, Clock } from "lucide-react";
 
 export default function SettingsPage() {
   const router = useRouter();
   const { t } = useLanguage();
+  const { openingHours, setOpeningHours } = useOpeningHours();
   const [activeTab, setActiveTab] = useState("profile");
   const [notifications, setNotifications] = useState({
     email: true,
@@ -20,15 +22,7 @@ export default function SettingsPage() {
     clients: false
   });
 
-  const [openingHours, setOpeningHours] = useState({
-    monday: { open: "08:00", close: "18:00", enabled: true },
-    tuesday: { open: "08:00", close: "18:00", enabled: true },
-    wednesday: { open: "08:00", close: "18:00", enabled: true },
-    thursday: { open: "08:00", close: "18:00", enabled: true },
-    friday: { open: "08:00", close: "18:00", enabled: true },
-    saturday: { open: "08:00", close: "18:00", enabled: true },
-    sunday: { open: "08:00", close: "18:00", enabled: true }
-  });
+
 
   const handleLogout = () => {
     router.push("/");
@@ -319,10 +313,10 @@ export default function SettingsPage() {
                           <div className="flex items-center space-x-4">
                             <div className="flex items-center space-x-2">
                               <button
-                                onClick={() => setOpeningHours(prev => ({
-                                  ...prev,
-                                  [day]: { ...prev[day as keyof typeof prev], enabled: !hours.enabled }
-                                }))}
+                                onClick={() => setOpeningHours({
+                                  ...openingHours,
+                                  [day]: { ...openingHours[day as keyof typeof openingHours], enabled: !hours.enabled }
+                                })}
                                 className={`w-6 h-6 rounded border-2 transition-colors ${
                                   hours.enabled ? 'bg-purple-600 border-purple-600' : 'bg-transparent border-gray-500'
                                 }`}
@@ -339,10 +333,10 @@ export default function SettingsPage() {
                               <input
                                 type="time"
                                 value={hours.open}
-                                onChange={(e) => setOpeningHours(prev => ({
-                                  ...prev,
-                                  [day]: { ...prev[day as keyof typeof prev], open: e.target.value }
-                                }))}
+                                onChange={(e) => setOpeningHours({
+                                  ...openingHours,
+                                  [day]: { ...openingHours[day as keyof typeof openingHours], open: e.target.value }
+                                })}
                                 disabled={!hours.enabled}
                                 className={`px-3 py-1 bg-gray-700 border border-gray-600 rounded text-white text-sm ${
                                   hours.enabled ? 'focus:ring-2 focus:ring-purple-500' : 'opacity-50 cursor-not-allowed'
@@ -352,10 +346,10 @@ export default function SettingsPage() {
                               <input
                                 type="time"
                                 value={hours.close}
-                                onChange={(e) => setOpeningHours(prev => ({
-                                  ...prev,
-                                  [day]: { ...prev[day as keyof typeof prev], close: e.target.value }
-                                }))}
+                                onChange={(e) => setOpeningHours({
+                                  ...openingHours,
+                                  [day]: { ...openingHours[day as keyof typeof openingHours], close: e.target.value }
+                                })}
                                 disabled={!hours.enabled}
                                 className={`px-3 py-1 bg-gray-700 border border-gray-600 rounded text-white text-sm ${
                                   hours.enabled ? 'focus:ring-2 focus:ring-purple-500' : 'opacity-50 cursor-not-allowed'

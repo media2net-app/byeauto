@@ -312,6 +312,13 @@ const translations = {
     'saturday': 'Saturday',
     'sunday': 'Sunday',
 
+    // Work Hours & Overtime
+    'work_end_time': 'Work End Time',
+    'overtime_required': 'Overtime Required',
+    'work_until': 'Work Until',
+    'hours_overtime': 'hours overtime',
+    'today_schedule': 'Today\'s Schedule',
+
     // Common
     'close': 'Close',
     'logout': 'Logout',
@@ -617,6 +624,13 @@ const translations = {
     'friday': 'Vineri',
     'saturday': 'Sâmbătă',
     'sunday': 'Duminică',
+
+    // Work Hours & Overtime
+    'work_end_time': 'Timp Finalizare',
+    'overtime_required': 'Ore Suplimentare Necesare',
+    'work_until': 'Lucru Până La',
+    'hours_overtime': 'ore suplimentare',
+    'today_schedule': 'Programul de Astăzi',
 
     // Common
     'close': 'Închide',

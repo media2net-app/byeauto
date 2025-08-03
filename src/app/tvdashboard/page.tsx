@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useWork, useWorkUpdates } from "@/contexts/WorkContext";
+import { useOpeningHours } from "@/contexts/OpeningHoursContext";
 
 export default function TVDashboard() {
   const { t } = useLanguage();
   const { workItems, getTotalWorkHours, getTotalActualHours, getOverTimeHours } = useWork();
+  const { getCurrentDayHours, isCurrentlyOpen, getRemainingHoursToday, getWorkEndTime } = useOpeningHours();
   const lastUpdate = useWorkUpdates(); // Real-time updates
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showUpdateIndicator, setShowUpdateIndicator] = useState(false);
@@ -81,24 +83,14 @@ export default function TVDashboard() {
   
   const avgTime = totalEstimatedTime / workItems.length || 0;
 
-  // Work hours calculation
-  const workStartHour = 8; // 8:00 AM
-  const workEndHour = 17; // 5:00 PM
-  const currentHour = currentTime.getHours();
-  const currentMinute = currentTime.getMinutes();
+  // Get current day opening hours
+  const currentDayHours = getCurrentDayHours();
+  const isWorkDay = currentDayHours?.enabled || false;
+  const isWorkTime = isCurrentlyOpen();
   
   // Calculate remaining work hours today
-  const isWorkDay = currentTime.getDay() >= 1 && currentTime.getDay() <= 5; // Monday to Friday
-  const isWorkTime = currentHour >= workStartHour && currentHour < workEndHour;
-  
-  let remainingWorkHours = 0;
+  let remainingWorkHours = getRemainingHoursToday();
   let expectedEndTime = null;
-  
-  if (isWorkDay && isWorkTime) {
-    const currentTimeInMinutes = currentHour * 60 + currentMinute;
-    const workEndInMinutes = workEndHour * 60;
-    remainingWorkHours = (workEndInMinutes - currentTimeInMinutes) / 60;
-  }
 
   // Calculate remaining work for today
   const remainingWorkItems = workItems.filter(item => 
@@ -122,8 +114,8 @@ export default function TVDashboard() {
   }
 
   // Check if overtime is needed
-  const needsOvertime = expectedEndTime && expectedEndTime.getHours() >= workEndHour;
-  const overtimeHours = expectedEndTime ? Math.max(0, expectedEndTime.getHours() - workEndHour) : 0;
+  const needsOvertime = expectedEndTime && currentDayHours && expectedEndTime.getHours() >= parseInt(currentDayHours.close.split(':')[0]);
+  const overtimeHours = expectedEndTime && currentDayHours ? Math.max(0, expectedEndTime.getHours() - parseInt(currentDayHours.close.split(':')[0])) : 0;
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
@@ -155,7 +147,7 @@ export default function TVDashboard() {
       {/* Work Hours & Overtime Alert */}
       {isWorkDay && (
         <div className="mb-6">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             {/* Remaining Work Hours */}
             <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
               <h3 className="text-2xl font-bold text-white mb-4">{t('remaining_work_hours')}</h3>
@@ -169,7 +161,7 @@ export default function TVDashboard() {
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('normal_time')}:</span>
                   <span className="text-xl font-bold text-white">
-                    {workStartHour}:00 - {workEndHour}:00
+                    {currentDayHours ? `${currentDayHours.open} - ${currentDayHours.close}` : 'Closed'}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -206,6 +198,19 @@ export default function TVDashboard() {
                     {pendingItems.length + inProgressItems.length}
                   </span>
                 </div>
+                {needsOvertime && expectedEndTime && (
+                  <div className="bg-red-900 border border-red-700 rounded-lg p-3 mt-3">
+                    <div className="text-lg font-bold text-red-200">
+                      ⚠️ {t('work_until')} {expectedEndTime.toLocaleTimeString('ro-RO', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </div>
+                    <div className="text-sm text-red-300 mt-1">
+                      {overtimeHours.toFixed(1)} {t('hours_overtime')}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -251,6 +256,31 @@ export default function TVDashboard() {
                     </div>
                   </>
                 )}
+              </div>
+            </div>
+
+            {/* Today's Schedule */}
+            <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-bold text-white mb-4">{t('today_schedule')}</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Program:</span>
+                  <span className="text-xl font-bold text-white">
+                    {currentDayHours ? `${currentDayHours.open} - ${currentDayHours.close}` : t('closed')}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Status:</span>
+                  <span className={`text-xl font-bold ${isWorkTime ? 'text-green-400' : 'text-red-400'}`}>
+                    {isWorkTime ? t('working') : t('outside_work_hours')}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Rămas:</span>
+                  <span className="text-xl font-bold text-blue-400">
+                    {remainingWorkHours.toFixed(1)}h
+                  </span>
+                </div>
               </div>
             </div>
 
