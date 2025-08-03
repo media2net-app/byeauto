@@ -1,21 +1,32 @@
 "use client";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLocale } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
 import { Globe } from "lucide-react";
 
 export default function LanguageSwitcher() {
-  const { language, setLanguage, t } = useLanguage();
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
     { code: 'ro', name: 'Română', flag: '🇷🇴' }
   ];
+
+  const handleLanguageChange = (newLocale: string) => {
+    // Remove the current locale from the pathname
+    const pathnameWithoutLocale = pathname.replace(`/${locale}`, '');
+    
+    // Navigate to the new locale
+    router.push(`/${newLocale}${pathnameWithoutLocale}`);
+  };
 
   return (
     <div className="relative">
       <select
-        value={language}
-        onChange={(e) => setLanguage(e.target.value as 'en' | 'ro')}
+        value={locale}
+        onChange={(e) => handleLanguageChange(e.target.value)}
         className="appearance-none bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 pr-8 text-white text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent cursor-pointer hover:bg-gray-700 transition-colors"
       >
         {languages.map((lang) => (

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
 import RepairModal from "@/components/RepairModal";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from 'next-intl';
 
 
 interface VehicleData {
@@ -34,7 +34,7 @@ interface VehicleData {
 
 export default function Dashboard() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

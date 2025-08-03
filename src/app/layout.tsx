@@ -1,43 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import { WorkProvider } from "@/contexts/WorkContext";
-import { OpeningHoursProvider } from "@/contexts/OpeningHoursContext";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "BYE AUTO - Service Electrică Reparații Retrofit BMW",
-  description: "BYE AUTO - Service Electrică Reparații Retrofit BMW",
+  title: "BYE AUTO Workshop Management",
+  description: "Professional workshop management system",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <LanguageProvider>
-          <WorkProvider>
-            <OpeningHoursProvider>
-              {children}
-            </OpeningHoursProvider>
-          </WorkProvider>
-        </LanguageProvider>
-      </body>
+    <html>
+      <body>{children}</body>
     </html>
   );
-}
+} 

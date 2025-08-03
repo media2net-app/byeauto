@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useLocale } from "next/navigation";
+import { useTranslations } from 'next-intl';
 import Logo from "./Logo";
 import { 
   BarChart3, 
@@ -29,76 +30,78 @@ export default function Sidebar({ onLogout }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
+  const locale = useLocale();
+  const t = useTranslations();
 
   const navigation = [
     {
-      name: "Dashboard",
-      href: "/dashboard",
+      name: t('dashboard'),
+      href: `/${locale}/dashboard`,
       icon: BarChart3,
-      current: pathname === "/dashboard",
+      current: pathname === `/${locale}/dashboard`,
       notifications: 0
     },
     {
-      name: "Werkbeheer",
-      href: "/dashboard/work",
+      name: t('work'),
+      href: `/${locale}/dashboard/work`,
       icon: Wrench,
-      current: pathname === "/dashboard/work",
+      current: pathname === `/${locale}/dashboard/work`,
       notifications: 0
     },
     {
-      name: "Work Timer",
-      href: "/worktimer",
+      name: t('work_timer'),
+      href: `/${locale}/worktimer`,
       icon: Clock,
-      current: pathname === "/worktimer",
+      current: pathname === `/${locale}/worktimer`,
       notifications: 0
     },
     {
-      name: "Uitleg",
-      href: "/uitleg",
+      name: t('system_explanation'),
+      href: `/${locale}/uitleg`,
       icon: BookOpen,
-      current: pathname === "/uitleg",
+      current: pathname === `/${locale}/uitleg`,
       notifications: 0
     },
     {
-      name: "Vehicles",
-      href: "/dashboard/vehicles",
+      name: t('vehicles'),
+      href: `/${locale}/dashboard/vehicles`,
       icon: Car,
-      current: pathname === "/dashboard/vehicles",
+      current: pathname === `/${locale}/dashboard/vehicles`,
       notifications: 0
     },
     {
-      name: "Repairs",
-      href: "/dashboard/repairs",
+      name: t('work'),
+      href: `/${locale}/dashboard/repairs`,
       icon: Wrench,
-      current: pathname === "/dashboard/repairs",
+      current: pathname === `/${locale}/dashboard/repairs`,
       notifications: 0
     },
     {
-      name: "Clients",
-      href: "/dashboard/clients",
+      name: t('clients'),
+      href: `/${locale}/dashboard/clients`,
       icon: Users,
-      current: pathname === "/dashboard/clients",
+      current: pathname === `/${locale}/dashboard/clients`,
       notifications: 0
     },
     {
-      name: "Messages",
-      href: "/dashboard/messages",
+      name: t('messages'),
+      href: `/${locale}/dashboard/messages`,
       icon: MessageCircle,
-      current: pathname === "/dashboard/messages",
+      current: pathname === `/${locale}/dashboard/messages`,
       notifications: 2
     },
     {
-      name: "Analytics",
-      href: "/dashboard/analytics",
+      name: t('analytics'),
+      href: `/${locale}/dashboard/analytics`,
       icon: TrendingUp,
-      current: pathname === "/dashboard/analytics",
+      current: pathname === `/${locale}/dashboard/analytics`,
       notifications: 0
     },
     {
-      name: "Settings",
-      href: "/dashboard/settings",
+      name: t('settings'),
+      href: `/${locale}/dashboard/settings`,
       icon: Settings,
-      current: pathname === "/dashboard/settings",
+      current: pathname === `/${locale}/dashboard/settings`,
       notifications: 0
     }
   ];
@@ -106,15 +109,15 @@ export default function Sidebar({ onLogout }: SidebarProps) {
   const externalLinks = [
     {
       name: "Tuning Services",
-      href: "/tune",
+      href: `/${locale}/tune`,
       icon: Zap,
-      current: pathname === "/tune"
+      current: pathname === `/${locale}/tune`
     },
     {
       name: "I want this system, what does it cost?",
-      href: "/quote",
+      href: `/${locale}/quote`,
       icon: CreditCard,
-      current: pathname === "/quote"
+      current: pathname === `/${locale}/quote`
     }
   ];
 
