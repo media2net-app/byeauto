@@ -298,7 +298,6 @@ const translations = {
     // Opening Hours
     'opening_hours': 'Opening Hours',
     'business_hours': 'Business Hours',
-    'quick_actions': 'Quick Actions',
     'set_all_days': 'Set All Days 08:00-18:00',
     'weekdays_only': 'Weekdays Only',
     'close_all_days': 'Close All Days',
@@ -611,7 +610,6 @@ const translations = {
     // Opening Hours
     'opening_hours': 'Program de Funcționare',
     'business_hours': 'Program de Lucru',
-    'quick_actions': 'Acțiuni Rapide',
     'set_all_days': 'Setează Toate Zilele 08:00-18:00',
     'weekdays_only': 'Doar Zile Lucrătoare',
     'close_all_days': 'Închide Toate Zilele',
