@@ -40,6 +40,11 @@ export default function UitlegPage() {
     { id: 'overview', name: 'Overzicht Systeem', icon: Info },
     { id: 'tvdashboard', name: 'TV Dashboard', icon: Tv },
     { id: 'workmanagement', name: 'Werkbeheer', icon: Wrench },
+    { id: 'vehicles', name: 'Voertuigen', icon: Wrench },
+    { id: 'clients', name: 'Klanten', icon: Users },
+    { id: 'messages', name: 'Berichten', icon: AlertTriangle },
+    { id: 'analytics', name: 'Analytics', icon: BarChart3 },
+    { id: 'settings', name: 'Instellingen', icon: Settings },
     { id: 'worktimer', name: 'Work Timer', icon: Clock },
     { id: 'openinghours', name: 'Openingstijden', icon: Calendar },
     { id: 'integration', name: 'Integratie', icon: ArrowRight }
@@ -584,6 +589,401 @@ export default function UitlegPage() {
                             <li>• Waarschuwing: "⚠️ Lucru Până La 20:30"</li>
                             <li>• Overuren: "2.5 ore suplimentare"</li>
                           </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeSection === 'vehicles' && (
+              <div className="space-y-6">
+                <div className="bg-gray-900 rounded-lg p-6">
+                  <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+                    <Wrench className="w-6 h-6 mr-2" />
+                    Voertuigen Beheer
+                  </h2>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Voertuig Database</h3>
+                      <div className="space-y-4">
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">🚗 Voertuig Registratie</h4>
+                          <p className="text-gray-300 text-sm">
+                            Voeg nieuwe voertuigen toe met merk, model, jaar en kenteken
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">📋 Onderhoud Historie</h4>
+                          <p className="text-gray-300 text-sm">
+                            Bekijk alle eerdere werkzaamheden en onderhoud per voertuig
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">🔍 Zoek & Filter</h4>
+                          <p className="text-gray-300 text-sm">
+                            Zoek snel door voertuigen op kenteken, klant of werkzaamheden
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">📊 Statistieken</h4>
+                          <p className="text-gray-300 text-sm">
+                            Bekijk werk statistieken en kosten per voertuig
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Functies</h3>
+                      <div className="space-y-4">
+                        <div className="bg-blue-900 border border-blue-700 rounded-lg p-4">
+                          <h4 className="text-blue-200 font-medium mb-2">➕ Nieuwe Voertuigen</h4>
+                          <p className="text-blue-300 text-sm">
+                            Registreer nieuwe voertuigen met volledige details
+                          </p>
+                        </div>
+
+                        <div className="bg-green-900 border border-green-700 rounded-lg p-4">
+                          <h4 className="text-green-200 font-medium mb-2">✏️ Bewerken</h4>
+                          <p className="text-green-300 text-sm">
+                            Update voertuig informatie en details
+                          </p>
+                        </div>
+
+                        <div className="bg-purple-900 border border-purple-700 rounded-lg p-4">
+                          <h4 className="text-purple-200 font-medium mb-2">📈 Rapportages</h4>
+                          <p className="text-purple-300 text-sm">
+                            Genereer rapporten over voertuig onderhoud en kosten
+                          </p>
+                        </div>
+
+                        <div className="bg-orange-900 border border-orange-700 rounded-lg p-4">
+                          <h4 className="text-orange-200 font-medium mb-2">🔗 Koppeling</h4>
+                          <p className="text-orange-300 text-sm">
+                            Koppel voertuigen aan klanten en werkzaamheden
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeSection === 'clients' && (
+              <div className="space-y-6">
+                <div className="bg-gray-900 rounded-lg p-6">
+                  <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+                    <Users className="w-6 h-6 mr-2" />
+                    Klanten Beheer
+                  </h2>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Klant Database</h3>
+                      <div className="space-y-4">
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">👤 Klant Profielen</h4>
+                          <p className="text-gray-300 text-sm">
+                            Beheer klantgegevens inclusief contact informatie en voorkeuren
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">🚗 Voertuig Overzicht</h4>
+                          <p className="text-gray-300 text-sm">
+                            Bekijk alle voertuigen die bij een klant horen
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">📞 Communicatie</h4>
+                          <p className="text-gray-300 text-sm">
+                            Beheer klant communicatie en notities
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">💰 Facturatie</h4>
+                          <p className="text-gray-300 text-sm">
+                            Bekijk facturatie geschiedenis en openstaande bedragen
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Functies</h3>
+                      <div className="space-y-4">
+                        <div className="bg-blue-900 border border-blue-700 rounded-lg p-4">
+                          <h4 className="text-blue-200 font-medium mb-2">➕ Nieuwe Klanten</h4>
+                          <p className="text-blue-300 text-sm">
+                            Registreer nieuwe klanten met volledige contactgegevens
+                          </p>
+                        </div>
+
+                        <div className="bg-green-900 border border-green-700 rounded-lg p-4">
+                          <h4 className="text-green-200 font-medium mb-2">📊 Klant Historie</h4>
+                          <p className="text-green-300 text-sm">
+                            Bekijk complete werk geschiedenis per klant
+                          </p>
+                        </div>
+
+                        <div className="bg-purple-900 border border-purple-700 rounded-lg p-4">
+                          <h4 className="text-purple-200 font-medium mb-2">🔔 Notificaties</h4>
+                          <p className="text-purple-300 text-sm">
+                            Stel herinneringen in voor onderhoud en afspraken
+                          </p>
+                        </div>
+
+                        <div className="bg-orange-900 border border-orange-700 rounded-lg p-4">
+                          <h4 className="text-orange-200 font-medium mb-2">📈 Loyaliteit</h4>
+                          <p className="text-orange-300 text-sm">
+                            Track klant loyaliteit en terugkerende bezoeken
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeSection === 'messages' && (
+              <div className="space-y-6">
+                <div className="bg-gray-900 rounded-lg p-6">
+                  <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+                    <AlertTriangle className="w-6 h-6 mr-2" />
+                    Berichten & Notificaties
+                  </h2>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Berichten Systeem</h3>
+                      <div className="space-y-4">
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">📨 Interne Berichten</h4>
+                          <p className="text-gray-300 text-sm">
+                            Communiceer tussen teamleden over werk en updates
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">🔔 Notificaties</h4>
+                          <p className="text-gray-300 text-sm">
+                            Ontvang meldingen over urgente taken en deadlines
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">📞 Klant Communicatie</h4>
+                          <p className="text-gray-300 text-sm">
+                            Beheer berichten naar en van klanten
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">📋 Taak Updates</h4>
+                          <p className="text-gray-300 text-sm">
+                            Automatische updates over taak status wijzigingen
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Bericht Types</h3>
+                      <div className="space-y-4">
+                        <div className="bg-red-900 border border-red-700 rounded-lg p-4">
+                          <h4 className="text-red-200 font-medium mb-2">🚨 Urgent</h4>
+                          <p className="text-red-300 text-sm">
+                            Dringende berichten die direct aandacht nodig hebben
+                          </p>
+                        </div>
+
+                        <div className="bg-yellow-900 border border-yellow-700 rounded-lg p-4">
+                          <h4 className="text-yellow-200 font-medium mb-2">⚠️ Waarschuwing</h4>
+                          <p className="text-yellow-300 text-sm">
+                            Belangrijke updates en herinneringen
+                          </p>
+                        </div>
+
+                        <div className="bg-blue-900 border border-blue-700 rounded-lg p-4">
+                          <h4 className="text-blue-200 font-medium mb-2">ℹ️ Informatie</h4>
+                          <p className="text-blue-300 text-sm">
+                            Algemene informatie en updates
+                          </p>
+                        </div>
+
+                        <div className="bg-green-900 border border-green-700 rounded-lg p-4">
+                          <h4 className="text-green-200 font-medium mb-2">✅ Bevestiging</h4>
+                          <p className="text-green-300 text-sm">
+                            Bevestigingen van voltooide taken
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeSection === 'analytics' && (
+              <div className="space-y-6">
+                <div className="bg-gray-900 rounded-lg p-6">
+                  <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+                    <BarChart3 className="w-6 h-6 mr-2" />
+                    Analytics & Rapportages
+                  </h2>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Data Analyse</h3>
+                      <div className="space-y-4">
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">📊 Werk Statistieken</h4>
+                          <p className="text-gray-300 text-sm">
+                            Analyse van werkuren, efficiëntie en productiviteit
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">💰 Financiële Rapportages</h4>
+                          <p className="text-gray-300 text-sm">
+                            Omzet, kosten en winstmarge analyses
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">👥 Team Performance</h4>
+                          <p className="text-gray-300 text-sm">
+                            Individuele en team prestaties tracking
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">📈 Trends & Voorspellingen</h4>
+                          <p className="text-gray-300 text-sm">
+                            Patronen herkennen en toekomstige planning
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Rapport Types</h3>
+                      <div className="space-y-4">
+                        <div className="bg-blue-900 border border-blue-700 rounded-lg p-4">
+                          <h4 className="text-blue-200 font-medium mb-2">📅 Dagelijkse Overzichten</h4>
+                          <p className="text-blue-300 text-sm">
+                            Dagelijkse werk statistieken en prestaties
+                          </p>
+                        </div>
+
+                        <div className="bg-green-900 border border-green-700 rounded-lg p-4">
+                          <h4 className="text-green-200 font-medium mb-2">📊 Maandelijkse Rapportages</h4>
+                          <p className="text-green-300 text-sm">
+                            Uitgebreide maandelijkse analyses en trends
+                          </p>
+                        </div>
+
+                        <div className="bg-purple-900 border border-purple-700 rounded-lg p-4">
+                          <h4 className="text-purple-200 font-medium mb-2">🎯 KPI Dashboards</h4>
+                          <p className="text-purple-300 text-sm">
+                            Key Performance Indicators en doelen tracking
+                          </p>
+                        </div>
+
+                        <div className="bg-orange-900 border border-orange-700 rounded-lg p-4">
+                          <h4 className="text-orange-200 font-medium mb-2">📋 Export Functies</h4>
+                          <p className="text-orange-300 text-sm">
+                            Exporteer data naar PDF, Excel of andere formaten
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeSection === 'settings' && (
+              <div className="space-y-6">
+                <div className="bg-gray-900 rounded-lg p-6">
+                  <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+                    <Settings className="w-6 h-6 mr-2" />
+                    Systeem Instellingen
+                  </h2>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Algemene Instellingen</h3>
+                      <div className="space-y-4">
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">🏢 Bedrijfsprofiel</h4>
+                          <p className="text-gray-300 text-sm">
+                            Configureer bedrijfsnaam, logo en contactgegevens
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">👥 Team Beheer</h4>
+                          <p className="text-gray-300 text-sm">
+                            Beheer teamleden, rollen en toegangsrechten
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">🎨 Interface</h4>
+                          <p className="text-gray-300 text-sm">
+                            Pas kleuren, thema's en layout aan
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-4">
+                          <h4 className="text-white font-medium mb-2">🔔 Notificaties</h4>
+                          <p className="text-gray-300 text-sm">
+                            Configureer notificatie instellingen en voorkeuren
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Geavanceerde Instellingen</h3>
+                      <div className="space-y-4">
+                        <div className="bg-blue-900 border border-blue-700 rounded-lg p-4">
+                          <h4 className="text-blue-200 font-medium mb-2">🔐 Beveiliging</h4>
+                          <p className="text-blue-300 text-sm">
+                            Wachtwoord beleid en toegangscontrole
+                          </p>
+                        </div>
+
+                        <div className="bg-green-900 border border-green-700 rounded-lg p-4">
+                          <h4 className="text-green-200 font-medium mb-2">💾 Backup & Sync</h4>
+                          <p className="text-green-300 text-sm">
+                            Data backup en synchronisatie instellingen
+                          </p>
+                        </div>
+
+                        <div className="bg-purple-900 border border-purple-700 rounded-lg p-4">
+                          <h4 className="text-purple-200 font-medium mb-2">🔧 Integraties</h4>
+                          <p className="text-purple-300 text-sm">
+                            Koppeling met externe systemen en API's
+                          </p>
+                        </div>
+
+                        <div className="bg-orange-900 border border-orange-700 rounded-lg p-4">
+                          <h4 className="text-orange-200 font-medium mb-2">📊 Rapportages</h4>
+                          <p className="text-orange-300 text-sm">
+                            Configureer automatische rapportages en exports
+                          </p>
                         </div>
                       </div>
                     </div>
