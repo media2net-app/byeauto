@@ -16,7 +16,8 @@ import {
   Menu,
   X,
   LogOut,
-  MessageCircle
+  MessageCircle,
+  Clock
 } from "lucide-react";
 
 interface SidebarProps {
@@ -41,6 +42,13 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       href: "/dashboard/work",
       icon: Wrench,
       current: pathname === "/dashboard/work",
+      notifications: 0
+    },
+    {
+      name: "Work Timer",
+      href: "/worktimer",
+      icon: Clock,
+      current: pathname === "/worktimer",
       notifications: 0
     },
     {

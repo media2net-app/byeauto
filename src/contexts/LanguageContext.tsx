@@ -340,6 +340,16 @@ const translations = {
     'medium': 'Medium', 
     'low': 'Low',
 
+    // Work Timer
+    'work_timer': 'Work Timer',
+    'selected_vehicle': 'Selected Vehicle',
+    'no_work_items_available': 'No work items available',
+    'ready_to_start': 'Ready to Start',
+    'work_in_progress': 'Work in Progress',
+    'work_paused': 'Work Paused',
+    'pause': 'Pause',
+    'resume': 'Resume',
+
     // Common
     'close': 'Close',
     'logout': 'Logout',
@@ -673,6 +683,16 @@ const translations = {
     'high': 'Ridicată',
     'medium': 'Medie', 
     'low': 'Scăzută',
+
+    // Work Timer
+    'work_timer': 'Timer Lucru',
+    'selected_vehicle': 'Vehicul Selectat',
+    'no_work_items_available': 'Nu sunt sarcini disponibile',
+    'ready_to_start': 'Gata de Început',
+    'work_in_progress': 'Lucru în Curs',
+    'work_paused': 'Lucru Întrerupt',
+    'pause': 'Pauză',
+    'resume': 'Continuă',
 
     // Common
     'close': 'Închide',
