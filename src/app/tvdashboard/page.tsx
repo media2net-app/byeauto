@@ -410,38 +410,32 @@ export default function TVDashboard() {
 
       {/* Kanban Board */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-3 min-h-0">
-        {/* Completed */}
+        {/* Pending */}
         <div className="bg-gray-900 rounded-xl p-3 shadow-lg flex flex-col min-h-0">
           <div className="flex items-center justify-between mb-3 flex-shrink-0">
-            <h2 className="text-xl font-bold text-green-400">{t('ready')}</h2>
-            <div className="bg-green-600 text-white px-2 py-1 rounded-full text-base font-bold">
-              {completedItems.length}
+            <h2 className="text-xl font-bold text-yellow-400">{t('waiting')}</h2>
+            <div className="bg-yellow-600 text-white px-2 py-1 rounded-full text-base font-bold">
+              {pendingItems.length}
             </div>
           </div>
           <div className="space-y-2 flex-1 grid grid-rows-3 gap-2">
-            {completedItems.map(item => (
-                              <div key={item.id} className="bg-green-900 border border-green-700 rounded-lg p-2">
+            {pendingItems.map(item => (
+                              <div key={item.id} className="bg-yellow-900 border border-yellow-700 rounded-lg p-2">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-sm font-bold text-white">{item.vehicle}</h3>
                   <span className={`px-1 py-0.5 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
-                    {t('ready')}
+                    {t('waiting')}
                   </span>
                 </div>
-                <p className="text-xs text-green-200 mb-1">{item.workType}</p>
-                <p className="text-xs text-green-300 mb-1">{t('client')}: {item.client}</p>
-                <div className="flex justify-between text-xs text-green-300">
+                <p className="text-xs text-yellow-200 mb-1">{item.workType}</p>
+                <p className="text-xs text-yellow-300 mb-1">{t('client')}: {item.client}</p>
+                <div className="flex justify-between text-xs text-yellow-300 mb-1">
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
-                  <span>{item.startTime} - {item.endTime}</span>
+                  <span>{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
-                {item.actualWorkHours && (
-                  <div className="flex justify-between text-xs text-green-300 mt-1">
-                    <span>{t('actual_time')}: {formatTimeToMinutes(item.actualWorkHours)}</span>
-                    <span>{t('estimated')}: {item.estimatedTime}</span>
-                    {item.isOverTime && (
-                      <span className="text-red-400">+{formatTimeToMinutes(item.overtimeHours || 0)} {t('overtime')}</span>
-                    )}
-                  </div>
-                )}
+                <div className={`text-xs font-bold ${getPriorityColor(item.priority)}`}>
+                  {t('priority')}: {t(item.priority)}
+                </div>
               </div>
             ))}
           </div>
@@ -486,32 +480,38 @@ export default function TVDashboard() {
           </div>
         </div>
 
-        {/* Pending */}
+        {/* Completed */}
         <div className="bg-gray-900 rounded-xl p-3 shadow-lg flex flex-col min-h-0">
           <div className="flex items-center justify-between mb-3 flex-shrink-0">
-            <h2 className="text-xl font-bold text-yellow-400">{t('waiting')}</h2>
-            <div className="bg-yellow-600 text-white px-2 py-1 rounded-full text-base font-bold">
-              {pendingItems.length}
+            <h2 className="text-xl font-bold text-green-400">{t('ready')}</h2>
+            <div className="bg-green-600 text-white px-2 py-1 rounded-full text-base font-bold">
+              {completedItems.length}
             </div>
           </div>
           <div className="space-y-2 flex-1 grid grid-rows-3 gap-2">
-            {pendingItems.map(item => (
-                              <div key={item.id} className="bg-yellow-900 border border-yellow-700 rounded-lg p-2">
+            {completedItems.map(item => (
+                              <div key={item.id} className="bg-green-900 border border-green-700 rounded-lg p-2">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-sm font-bold text-white">{item.vehicle}</h3>
                   <span className={`px-1 py-0.5 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
-                    {t('waiting')}
+                    {t('ready')}
                   </span>
                 </div>
-                <p className="text-xs text-yellow-200 mb-1">{item.workType}</p>
-                <p className="text-xs text-yellow-300 mb-1">{t('client')}: {item.client}</p>
-                <div className="flex justify-between text-xs text-yellow-300 mb-1">
+                <p className="text-xs text-green-200 mb-1">{item.workType}</p>
+                <p className="text-xs text-green-300 mb-1">{t('client')}: {item.client}</p>
+                <div className="flex justify-between text-xs text-green-300">
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
-                  <span>{t('estimated_time')}: {item.estimatedTime}</span>
+                  <span>{item.startTime} - {item.endTime}</span>
                 </div>
-                <div className={`text-xs font-bold ${getPriorityColor(item.priority)}`}>
-                  {t('priority')}: {t(item.priority)}
-                </div>
+                {item.actualWorkHours && (
+                  <div className="flex justify-between text-xs text-green-300 mt-1">
+                    <span>{t('actual_time')}: {formatTimeToMinutes(item.actualWorkHours)}</span>
+                    <span>{t('estimated')}: {item.estimatedTime}</span>
+                    {item.isOverTime && (
+                      <span className="text-red-400">+{formatTimeToMinutes(item.overtimeHours || 0)} {t('overtime')}</span>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
