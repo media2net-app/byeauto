@@ -19,7 +19,7 @@ export default function TVDashboard() {
   }, []);
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('nl-NL', {
+    return date.toLocaleTimeString('ro-RO', {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit'
@@ -27,7 +27,7 @@ export default function TVDashboard() {
   };
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('nl-NL', {
+    return date.toLocaleDateString('ro-RO', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -118,7 +118,7 @@ export default function TVDashboard() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-5xl font-bold text-white mb-2">BYE AUTO</h1>
-            <p className="text-2xl text-gray-300">Werkplaats Dashboard</p>
+            <p className="text-2xl text-gray-300">{t('workshop_dashboard')}</p>
           </div>
           <div className="text-right">
             <div className="text-6xl font-bold text-white mb-2">
@@ -137,24 +137,24 @@ export default function TVDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Remaining Work Hours */}
             <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-              <h3 className="text-2xl font-bold text-white mb-4">Nog te werken</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">{t('remaining_work_hours')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Vandaag:</span>
+                  <span className="text-lg text-gray-300">{t('today')}:</span>
                   <span className="text-3xl font-bold text-blue-400">
                     {remainingWorkHours.toFixed(1)}h
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Normale tijd:</span>
+                  <span className="text-lg text-gray-300">{t('normal_time')}:</span>
                   <span className="text-xl font-bold text-white">
                     {workStartHour}:00 - {workEndHour}:00
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Status:</span>
+                  <span className="text-lg text-gray-300">{t('working_status')}:</span>
                   <span className={`text-xl font-bold ${isWorkTime ? 'text-green-400' : 'text-red-400'}`}>
-                    {isWorkTime ? 'Werkend' : 'Buiten werktijd'}
+                    {isWorkTime ? t('working') : t('outside_work_hours')}
                   </span>
                 </div>
               </div>
@@ -162,25 +162,25 @@ export default function TVDashboard() {
 
             {/* Expected Completion */}
             <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-              <h3 className="text-2xl font-bold text-white mb-4">Verwachte Klaar</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">{t('expected_completion')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Nog te doen:</span>
+                  <span className="text-lg text-gray-300">{t('remaining_work')}:</span>
                   <span className="text-3xl font-bold text-yellow-400">
                     {remainingWorkTime.toFixed(1)}h
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Verwacht klaar:</span>
+                  <span className="text-lg text-gray-300">{t('expected_finish')}:</span>
                   <span className={`text-2xl font-bold ${needsOvertime ? 'text-red-400' : 'text-green-400'}`}>
-                    {expectedEndTime ? expectedEndTime.toLocaleTimeString('nl-NL', {
+                    {expectedEndTime ? expectedEndTime.toLocaleTimeString('ro-RO', {
                       hour: '2-digit',
                       minute: '2-digit'
                     }) : 'N/A'}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Items wachtend:</span>
+                  <span className="text-lg text-gray-300">{t('waiting_items')}:</span>
                   <span className="text-xl font-bold text-white">
                     {pendingItems.length + inProgressItems.length}
                   </span>
@@ -190,42 +190,42 @@ export default function TVDashboard() {
 
             {/* Overtime Alert */}
             <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-              <h3 className="text-2xl font-bold text-white mb-4">Overwerk</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">{t('overtime_alert')}</h3>
               <div className="space-y-3">
                 {needsOvertime ? (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-lg text-gray-300">Overwerk nodig:</span>
+                      <span className="text-lg text-gray-300">{t('overtime_needed')}:</span>
                       <span className="text-3xl font-bold text-red-400">
                         {overtimeHours.toFixed(1)}h
                       </span>
                     </div>
                     <div className="bg-red-900 border border-red-700 rounded-lg p-3">
                       <div className="text-lg font-bold text-red-200">
-                        ⚠️ Overwerk tot {expectedEndTime?.toLocaleTimeString('nl-NL', {
+                        ⚠️ {t('overtime_until')} {expectedEndTime?.toLocaleTimeString('ro-RO', {
                           hour: '2-digit',
                           minute: '2-digit'
                         })}
                       </div>
                       <div className="text-sm text-red-300 mt-1">
-                        Plan extra tijd in!
+                        {t('plan_extra_time')}
                       </div>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-lg text-gray-300">Overwerk:</span>
+                      <span className="text-lg text-gray-300">{t('overtime_alert')}:</span>
                       <span className="text-3xl font-bold text-green-400">
                         0h
                       </span>
                     </div>
                     <div className="bg-green-900 border border-green-700 rounded-lg p-3">
                       <div className="text-lg font-bold text-green-200">
-                        ✅ Op schema
+                        ✅ {t('on_schedule')}
                       </div>
                       <div className="text-sm text-green-300 mt-1">
-                        Geen overwerk nodig
+                        {t('no_overtime_needed')}
                       </div>
                     </div>
                   </>
@@ -239,65 +239,65 @@ export default function TVDashboard() {
       {/* Daily Planning Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
         <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-          <h3 className="text-2xl font-bold text-white mb-4">Vandaag</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">{t('today')}</h3>
           <div className="space-y-3">
             <div className="flex justify-between">
-              <span className="text-lg text-gray-300">Totaal werk:</span>
+              <span className="text-lg text-gray-300">{t('total_work')}:</span>
               <span className="text-2xl font-bold text-white">{workItems.length}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-lg text-gray-300">Klaar:</span>
+              <span className="text-lg text-gray-300">{t('ready')}:</span>
               <span className="text-2xl font-bold text-green-400">{completedItems.length}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-lg text-gray-300">Bezig:</span>
+              <span className="text-lg text-gray-300">{t('in_progress')}:</span>
               <span className="text-2xl font-bold text-blue-400">{inProgressItems.length}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-lg text-gray-300">Wachtend:</span>
+              <span className="text-lg text-gray-300">{t('waiting')}:</span>
               <span className="text-2xl font-bold text-yellow-400">{pendingItems.length}</span>
             </div>
           </div>
         </div>
 
         <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-          <h3 className="text-2xl font-bold text-white mb-4">Team</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">{t('team')}</h3>
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Marius:</span>
-              <span className="text-xl font-bold text-white">{teamWorkload.Marius} taken</span>
+              <span className="text-xl font-bold text-white">{teamWorkload.Marius} {t('tasks')}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Alexandru:</span>
-              <span className="text-xl font-bold text-white">{teamWorkload.Alexandru} taken</span>
+              <span className="text-xl font-bold text-white">{teamWorkload.Alexandru} {t('tasks')}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Vasile:</span>
-              <span className="text-xl font-bold text-white">{teamWorkload.Vasile} taken</span>
+              <span className="text-xl font-bold text-white">{teamWorkload.Vasile} {t('tasks')}</span>
             </div>
           </div>
         </div>
 
         <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-          <h3 className="text-2xl font-bold text-white mb-4">Efficiëntie</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">{t('efficiency')}</h3>
           <div className="space-y-3">
             <div className="flex justify-between">
-              <span className="text-lg text-gray-300">Gemiddelde tijd:</span>
+              <span className="text-lg text-gray-300">{t('average_time')}:</span>
               <span className="text-xl font-bold text-white">{avgTime.toFixed(1)}h</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-lg text-gray-300">Tijd bespaard:</span>
+              <span className="text-lg text-gray-300">{t('time_saved')}:</span>
               <span className="text-xl font-bold text-green-400">+0.3h</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-lg text-gray-300">Klanttevredenheid:</span>
+              <span className="text-lg text-gray-300">{t('customer_satisfaction')}:</span>
               <span className="text-xl font-bold text-blue-400">98%</span>
             </div>
           </div>
         </div>
 
         <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-          <h3 className="text-2xl font-bold text-white mb-4">Urgent</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">{t('urgent')}</h3>
           <div className="space-y-3">
             {workItems.filter(item => item.priority === 'high' && item.status !== 'completed').map(item => (
               <div key={item.id} className="bg-red-900 rounded-lg p-3">
@@ -315,7 +315,7 @@ export default function TVDashboard() {
         {/* Completed */}
         <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-green-400">Klaar</h2>
+            <h2 className="text-3xl font-bold text-green-400">{t('ready')}</h2>
             <div className="bg-green-600 text-white px-4 py-2 rounded-full text-xl font-bold">
               {completedItems.length}
             </div>
@@ -326,13 +326,13 @@ export default function TVDashboard() {
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-xl font-bold text-white">{item.vehicle}</h3>
                   <span className={`px-3 py-1 rounded-full text-sm font-bold ${getStatusColor(item.status)}`}>
-                    Klaar
+                    {t('ready')}
                   </span>
                 </div>
                 <p className="text-lg text-green-200 mb-2">{item.workType}</p>
-                <p className="text-green-300 mb-2">Klant: {item.client}</p>
+                <p className="text-green-300 mb-2">{t('client')}: {item.client}</p>
                 <div className="flex justify-between text-sm text-green-300">
-                  <span>Door: {item.assignedTo}</span>
+                  <span>{t('assigned_to')}: {item.assignedTo}</span>
                   <span>{item.startTime} - {item.endTime}</span>
                 </div>
               </div>
@@ -343,7 +343,7 @@ export default function TVDashboard() {
         {/* In Progress */}
         <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-blue-400">Bezig</h2>
+            <h2 className="text-3xl font-bold text-blue-400">{t('in_progress')}</h2>
             <div className="bg-blue-600 text-white px-4 py-2 rounded-full text-xl font-bold">
               {inProgressItems.length}
             </div>
@@ -354,20 +354,20 @@ export default function TVDashboard() {
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-xl font-bold text-white">{item.vehicle}</h3>
                   <span className={`px-3 py-1 rounded-full text-sm font-bold ${getStatusColor(item.status)}`}>
-                    Bezig
+                    {t('in_progress')}
                   </span>
                 </div>
                 <p className="text-lg text-blue-200 mb-2">{item.workType}</p>
-                <p className="text-blue-300 mb-2">Klant: {item.client}</p>
+                <p className="text-blue-300 mb-2">{t('client')}: {item.client}</p>
                 <div className="flex justify-between text-sm text-blue-300 mb-2">
-                  <span>Door: {item.assignedTo}</span>
-                  <span>Gestart: {item.startTime}</span>
+                  <span>{t('assigned_to')}: {item.assignedTo}</span>
+                  <span>{t('started_at')}: {item.startTime}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className={`text-sm font-bold ${getPriorityColor(item.priority)}`}>
-                    Prioriteit: {item.priority}
+                    {t('priority')}: {item.priority}
                   </span>
-                  <span className="text-sm text-blue-300">Est: {item.estimatedTime}</span>
+                  <span className="text-sm text-blue-300">{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
               </div>
             ))}
@@ -377,7 +377,7 @@ export default function TVDashboard() {
         {/* Pending */}
         <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-yellow-400">Wachtend</h2>
+            <h2 className="text-3xl font-bold text-yellow-400">{t('waiting')}</h2>
             <div className="bg-yellow-600 text-white px-4 py-2 rounded-full text-xl font-bold">
               {pendingItems.length}
             </div>
@@ -388,17 +388,17 @@ export default function TVDashboard() {
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-xl font-bold text-white">{item.vehicle}</h3>
                   <span className={`px-3 py-1 rounded-full text-sm font-bold ${getStatusColor(item.status)}`}>
-                    Wachtend
+                    {t('waiting')}
                   </span>
                 </div>
                 <p className="text-lg text-yellow-200 mb-2">{item.workType}</p>
-                <p className="text-yellow-300 mb-2">Klant: {item.client}</p>
+                <p className="text-yellow-300 mb-2">{t('client')}: {item.client}</p>
                 <div className="flex justify-between text-sm text-yellow-300 mb-2">
-                  <span>Toegewezen: {item.assignedTo}</span>
-                  <span>Est: {item.estimatedTime}</span>
+                  <span>{t('assigned_to')}: {item.assignedTo}</span>
+                  <span>{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
                 <div className={`text-sm font-bold ${getPriorityColor(item.priority)}`}>
-                  Prioriteit: {item.priority}
+                  {t('priority')}: {item.priority}
                 </div>
               </div>
             ))}
