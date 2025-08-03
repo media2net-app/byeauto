@@ -37,6 +37,13 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       notifications: 0
     },
     {
+      name: "Werkbeheer",
+      href: "/dashboard/work",
+      icon: Wrench,
+      current: pathname === "/dashboard/work",
+      notifications: 0
+    },
+    {
       name: "Vehicles",
       href: "/dashboard/vehicles",
       icon: Car,

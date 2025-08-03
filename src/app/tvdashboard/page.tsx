@@ -2,91 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-interface WorkItem {
-  id: string;
-  vehicle: string;
-  client: string;
-  workType: string;
-  status: "completed" | "in-progress" | "pending";
-  priority: "high" | "medium" | "low";
-  estimatedTime: string;
-  startTime?: string;
-  endTime?: string;
-  assignedTo?: string;
-}
+import { useWork } from "@/contexts/WorkContext";
 
 export default function TVDashboard() {
   const { t } = useLanguage();
+  const { workItems } = useWork();
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [workItems, setWorkItems] = useState<WorkItem[]>([
-    {
-      id: "1",
-      vehicle: "BMW X5 2020",
-      client: "Ion Popescu",
-      workType: "Oil Change & Filters",
-      status: "completed",
-      priority: "high",
-      estimatedTime: "1.5h",
-      startTime: "08:00",
-      endTime: "09:30",
-      assignedTo: "Marius"
-    },
-    {
-      id: "2",
-      vehicle: "BMW 320i 2019",
-      client: "Maria Ionescu",
-      workType: "Brake Pad Replacement",
-      status: "in-progress",
-      priority: "high",
-      estimatedTime: "2h",
-      startTime: "09:30",
-      assignedTo: "Alexandru"
-    },
-    {
-      id: "3",
-      vehicle: "BMW 520d 2021",
-      client: "Alexandru Dumitrescu",
-      workType: "Electrical Diagnostic",
-      status: "pending",
-      priority: "medium",
-      estimatedTime: "1h",
-      assignedTo: "Vasile"
-    },
-    {
-      id: "4",
-      vehicle: "BMW X3 2018",
-      client: "Elena Vasilescu",
-      workType: "Transmission Inspection",
-      status: "pending",
-      priority: "high",
-      estimatedTime: "2.5h",
-      assignedTo: "Marius"
-    },
-    {
-      id: "5",
-      vehicle: "BMW M4 2022",
-      client: "Stefan Popa",
-      workType: "Tuning & Performance",
-      status: "in-progress",
-      priority: "medium",
-      estimatedTime: "4h",
-      startTime: "10:00",
-      assignedTo: "Alexandru"
-    },
-    {
-      id: "6",
-      vehicle: "BMW 118i 2020",
-      client: "Ana Ionescu",
-      workType: "AC System Check",
-      status: "completed",
-      priority: "low",
-      estimatedTime: "1h",
-      startTime: "07:00",
-      endTime: "08:00",
-      assignedTo: "Vasile"
-    }
-  ]);
 
   // Update time every second
   useEffect(() => {
@@ -135,6 +56,21 @@ export default function TVDashboard() {
   const completedItems = workItems.filter(item => item.status === 'completed');
   const inProgressItems = workItems.filter(item => item.status === 'in-progress');
   const pendingItems = workItems.filter(item => item.status === 'pending');
+
+  // Calculate team workload
+  const teamWorkload = {
+    Marius: workItems.filter(item => item.assignedTo === 'Marius').length,
+    Alexandru: workItems.filter(item => item.assignedTo === 'Alexandru').length,
+    Vasile: workItems.filter(item => item.assignedTo === 'Vasile').length
+  };
+
+  // Calculate efficiency metrics
+  const totalEstimatedTime = workItems.reduce((sum, item) => {
+    const time = parseFloat(item.estimatedTime.replace('h', ''));
+    return sum + time;
+  }, 0);
+  
+  const avgTime = totalEstimatedTime / workItems.length || 0;
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
@@ -185,15 +121,15 @@ export default function TVDashboard() {
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Marius:</span>
-              <span className="text-xl font-bold text-white">2 taken</span>
+              <span className="text-xl font-bold text-white">{teamWorkload.Marius} taken</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Alexandru:</span>
-              <span className="text-xl font-bold text-white">2 taken</span>
+              <span className="text-xl font-bold text-white">{teamWorkload.Alexandru} taken</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Vasile:</span>
-              <span className="text-xl font-bold text-white">2 taken</span>
+              <span className="text-xl font-bold text-white">{teamWorkload.Vasile} taken</span>
             </div>
           </div>
         </div>
@@ -203,7 +139,7 @@ export default function TVDashboard() {
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Gemiddelde tijd:</span>
-              <span className="text-xl font-bold text-white">1.8h</span>
+              <span className="text-xl font-bold text-white">{avgTime.toFixed(1)}h</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Tijd bespaard:</span>
