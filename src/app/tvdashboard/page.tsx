@@ -64,6 +64,22 @@ export default function TVDashboard() {
     }
   };
 
+  // Helper function to format hours to minutes for better readability
+  const formatTimeToMinutes = (hours: number) => {
+    if (hours < 1) {
+      const minutes = Math.round(hours * 60);
+      return `${minutes}min`;
+    } else {
+      const wholeHours = Math.floor(hours);
+      const remainingMinutes = Math.round((hours - wholeHours) * 60);
+      if (remainingMinutes === 0) {
+        return `${wholeHours}h`;
+      } else {
+        return `${wholeHours}h ${remainingMinutes}min`;
+      }
+    }
+  };
+
   const completedItems = workItems.filter(item => item.status === 'completed');
   const inProgressItems = workItems.filter(item => item.status === 'in-progress');
   const pendingItems = workItems.filter(item => item.status === 'pending');
@@ -155,7 +171,7 @@ export default function TVDashboard() {
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('today')}:</span>
                   <span className="text-2xl font-bold text-blue-400">
-                    {remainingWorkHours.toFixed(1)}h
+                    {formatTimeToMinutes(remainingWorkHours)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -180,7 +196,7 @@ export default function TVDashboard() {
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('remaining_work')}:</span>
                   <span className="text-2xl font-bold text-yellow-400">
-                    {remainingWorkTime.toFixed(1)}h
+                    {formatTimeToMinutes(remainingWorkTime)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -207,7 +223,7 @@ export default function TVDashboard() {
                       })}
                     </div>
                     <div className="text-sm text-red-300 mt-1">
-                      {overtimeHours.toFixed(1)} {t('hours_overtime')}
+                      {formatTimeToMinutes(overtimeHours)} {t('overtime')}
                     </div>
                   </div>
                 )}
@@ -223,7 +239,7 @@ export default function TVDashboard() {
                     <div className="flex justify-between">
                       <span className="text-lg text-gray-300">{t('overtime_needed')}:</span>
                       <span className="text-2xl font-bold text-red-400">
-                        {overtimeHours.toFixed(1)}h
+                        {formatTimeToMinutes(overtimeHours)}
                       </span>
                     </div>
                     <div className="bg-red-900 border border-red-700 rounded-lg p-3">
@@ -278,7 +294,7 @@ export default function TVDashboard() {
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('remaining')}:</span>
                   <span className="text-xl font-bold text-blue-400">
-                    {remainingWorkHours.toFixed(1)}h
+                    {formatTimeToMinutes(remainingWorkHours)}
                   </span>
                 </div>
               </div>
@@ -291,19 +307,19 @@ export default function TVDashboard() {
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('total_estimated')}:</span>
                   <span className="text-2xl font-bold text-blue-400">
-                    {totalWorkHours.toFixed(1)}h
+                    {formatTimeToMinutes(totalWorkHours)}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('worked_actual')}:</span>
                   <span className="text-2xl font-bold text-green-400">
-                    {totalActualHours.toFixed(1)}h
+                    {formatTimeToMinutes(totalActualHours)}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('overtime_hours')}:</span>
                   <span className="text-2xl font-bold text-red-400">
-                    {totalOvertimeHours.toFixed(1)}h
+                    {formatTimeToMinutes(totalOvertimeHours)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -365,11 +381,11 @@ export default function TVDashboard() {
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">{t('average_time')}:</span>
-              <span className="text-xl font-bold text-white">{avgTime.toFixed(1)}h</span>
+                              <span className="text-xl font-bold text-white">{formatTimeToMinutes(avgTime)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">{t('time_saved')}:</span>
-              <span className="text-xl font-bold text-green-400">+0.3h</span>
+              <span className="text-xl font-bold text-green-400">+{formatTimeToMinutes(0.3)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">{t('customer_satisfaction')}:</span>
@@ -419,10 +435,10 @@ export default function TVDashboard() {
                 </div>
                 {item.actualWorkHours && (
                   <div className="flex justify-between text-sm text-green-300 mt-1">
-                    <span>{t('actual_time')}: {item.actualWorkHours.toFixed(1)}h</span>
+                    <span>{t('actual_time')}: {formatTimeToMinutes(item.actualWorkHours)}</span>
                     <span>{t('estimated')}: {item.estimatedTime}</span>
                     {item.isOverTime && (
-                      <span className="text-red-400">+{item.overtimeHours?.toFixed(1)}h {t('overtime')}</span>
+                      <span className="text-red-400">+{formatTimeToMinutes(item.overtimeHours || 0)} {t('overtime')}</span>
                     )}
                   </div>
                 )}
