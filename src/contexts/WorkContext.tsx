@@ -126,7 +126,7 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
-          return parsed.map((item: any) => ({
+          return parsed.map((item: WorkItem) => ({
             ...item,
             createdAt: new Date(item.createdAt),
             updatedAt: new Date(item.updatedAt)
