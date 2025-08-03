@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import { Plus, Search, Filter, Car, Edit, Trash2, Eye } from "lucide-react";
 
 interface Vehicle {
@@ -22,7 +22,7 @@ interface Vehicle {
 
 export default function VehiclesPage() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -315,7 +315,7 @@ interface VehicleModalProps {
 }
 
 function VehicleModal({ isOpen, onClose, onSave, onUpdate, vehicle, mode }: VehicleModalProps) {
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [formData, setFormData] = useState({
     licensePlate: vehicle?.licensePlate || '',
     make: vehicle?.make || '',

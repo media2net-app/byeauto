@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import { Plus, Search, Filter, Wrench, Edit, Trash2, Eye, Clock, CheckCircle, AlertCircle } from "lucide-react";
 
 interface Repair {
@@ -25,7 +25,7 @@ interface Repair {
 
 export default function RepairsPage() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");

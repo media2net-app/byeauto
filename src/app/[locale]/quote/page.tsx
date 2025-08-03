@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 interface SystemFeature {
@@ -26,7 +26,7 @@ interface BmwUpgradeCategory {
 }
 
 export default function QuotePage() {
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [activeTab, setActiveTab] = useState("system");
 
   // System Development Features

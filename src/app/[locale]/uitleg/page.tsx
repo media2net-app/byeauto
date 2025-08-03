@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import { useWork } from "@/contexts/WorkContext";
 import { useOpeningHours } from "@/contexts/OpeningHoursContext";
 import Sidebar from "@/components/Sidebar";
@@ -27,7 +27,7 @@ import {
 
 export default function UitlegPage() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
   const { workItems, getTotalWorkHours, getTotalActualHours, getOverTimeHours } = useWork();
   const { getCurrentDayHours, isCurrentlyOpen, getRemainingHoursToday } = useOpeningHours();
   const [activeSection, setActiveSection] = useState('overview');

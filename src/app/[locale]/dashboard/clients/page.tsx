@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import { Plus, Search, Users, Edit, Trash2, Eye, Phone, Mail, Car, Calendar } from "lucide-react";
 
 interface Client {
@@ -23,7 +23,7 @@ interface Client {
 
 export default function ClientsPage() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 

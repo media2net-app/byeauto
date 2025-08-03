@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { useWork, WorkItem } from "@/contexts/WorkContext";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import Sidebar from "@/components/Sidebar";
 import { useRouter } from "next/navigation";
 import { Plus, Edit, Trash2, Clock, User, Car } from "lucide-react";
 
 export default function WorkManagement() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
   const { workItems, addWorkItem, updateWorkItemStatus, updateWorkItem, deleteWorkItem, getTotalWorkHours, getTotalActualHours, getOverTimeHours } = useWork();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

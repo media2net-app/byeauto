@@ -4,13 +4,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import { useOpeningHours } from "@/contexts/OpeningHoursContext";
 import { Settings, User, Bell, Shield, Database, Globe, Save, X, Clock } from "lucide-react";
 
 export default function SettingsPage() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
   const { openingHours, setOpeningHours } = useOpeningHours();
   const [activeTab, setActiveTab] = useState("profile");
   const [notifications, setNotifications] = useState({

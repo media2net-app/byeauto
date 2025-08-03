@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function LoginPage() {
@@ -10,7 +10,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("BYE9438x_#");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

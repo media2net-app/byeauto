@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import { useWork, useWorkUpdates } from "@/contexts/WorkContext";
 import { useOpeningHours } from "@/contexts/OpeningHoursContext";
 
 export default function TVDashboard() {
-  const { t } = useLanguage();
+  const t = useTranslations();
   const { workItems, getTotalWorkHours, getTotalActualHours, getOverTimeHours } = useWork();
   const { getCurrentDayHours, isCurrentlyOpen, getRemainingHoursToday, getWorkEndTime } = useOpeningHours();
   const lastUpdate = useWorkUpdates(); // Real-time updates

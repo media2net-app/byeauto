@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Logo from "@/components/Logo";
 import { 
@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 export default function HomePage() {
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const services = [

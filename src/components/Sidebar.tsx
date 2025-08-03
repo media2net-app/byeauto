@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useLocale } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
 import Logo from "./Logo";
 import { 

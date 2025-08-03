@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useWork, WorkItem } from "@/contexts/WorkContext";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import { Play, Pause, Square, Clock, Car, User } from "lucide-react";
 
 type TimerState = 'idle' | 'running' | 'paused';
@@ -15,7 +15,7 @@ interface TimerData {
 }
 
 export default function WorkTimer() {
-  const { t } = useLanguage();
+  const t = useTranslations();
   const { workItems, updateWorkItemStatus } = useWork();
   const [selectedWorkItem, setSelectedWorkItem] = useState<WorkItem | null>(null);
   const [timerState, setTimerState] = useState<TimerState>('idle');

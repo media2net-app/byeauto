@@ -4,12 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 import { TrendingUp, TrendingDown, DollarSign, Car, Users, Wrench, Calendar, BarChart3 } from "lucide-react";
 
 export default function AnalyticsPage() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [timeRange, setTimeRange] = useState("month");
 
   const handleLogout = () => {

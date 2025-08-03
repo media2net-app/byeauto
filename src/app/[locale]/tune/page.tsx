@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslations } from "next-intl";
 
 interface TuningPart {
   id: string;
@@ -44,7 +44,7 @@ interface SearchResult {
 }
 
 export default function TunePage() {
-  const { t } = useLanguage();
+  const t = useTranslations();
   const [licensePlate, setLicensePlate] = useState("");
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
   const [isSearching, setIsSearching] = useState(false);
