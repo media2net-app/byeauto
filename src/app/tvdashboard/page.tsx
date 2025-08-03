@@ -418,23 +418,25 @@ export default function TVDashboard() {
               {pendingItems.length}
             </div>
           </div>
-          <div className="space-y-2 flex-1 grid grid-rows-3 gap-2">
+          <div className="space-y-1 flex-1 overflow-y-auto">
             {pendingItems.map(item => (
-                              <div key={item.id} className="bg-yellow-900 border border-yellow-700 rounded-lg p-2">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-sm font-bold text-white">{item.vehicle}</h3>
+                              <div key={item.id} className="bg-yellow-900 border border-yellow-700 rounded-lg p-1.5 min-h-0">
+                <div className="flex justify-between items-start mb-1">
+                  <h3 className="text-xs font-bold text-white">{item.vehicle}</h3>
                   <span className={`px-1 py-0.5 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
                     {t('waiting')}
                   </span>
                 </div>
-                <p className="text-xs text-yellow-200 mb-1">{item.workType}</p>
-                <p className="text-xs text-yellow-300 mb-1">{t('client')}: {item.client}</p>
-                <div className="flex justify-between text-xs text-yellow-300 mb-1">
+                <p className="text-xs text-yellow-200 mb-0.5">{item.workType}</p>
+                <div className="flex justify-between text-xs text-yellow-300 mb-0.5">
+                  <span>{t('client')}: {item.client}</span>
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
-                  <span>{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
-                <div className={`text-xs font-bold ${getPriorityColor(item.priority)}`}>
-                  {t('priority')}: {t(item.priority)}
+                <div className="flex justify-between text-xs text-yellow-300">
+                  <span>{t('estimated_time')}: {item.estimatedTime}</span>
+                  <span className={`font-bold ${getPriorityColor(item.priority)}`}>
+                    {t('priority')}: {t(item.priority)}
+                  </span>
                 </div>
               </div>
             ))}
@@ -449,32 +451,29 @@ export default function TVDashboard() {
               {inProgressItems.length}
             </div>
           </div>
-          <div className="space-y-2 flex-1 grid grid-rows-3 gap-2">
+          <div className="space-y-1 flex-1 overflow-y-auto">
             {inProgressItems.map(item => (
-                              <div key={item.id} className="bg-blue-900 border border-blue-700 rounded-lg p-2">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-sm font-bold text-white">{item.vehicle}</h3>
+                              <div key={item.id} className="bg-blue-900 border border-blue-700 rounded-lg p-1.5 min-h-0">
+                <div className="flex justify-between items-start mb-1">
+                  <h3 className="text-xs font-bold text-white">{item.vehicle}</h3>
                   <span className={`px-1 py-0.5 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
                     {t('in_progress')}
                   </span>
                 </div>
-                <p className="text-xs text-blue-200 mb-1">{item.workType}</p>
-                <p className="text-xs text-blue-300 mb-1">{t('client')}: {item.client}</p>
-                <div className="flex justify-between text-xs text-blue-300 mb-1">
+                <p className="text-xs text-blue-200 mb-0.5">{item.workType}</p>
+                <div className="flex justify-between text-xs text-blue-300 mb-0.5">
+                  <span>{t('client')}: {item.client}</span>
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
-                  <span>{t('started_at')}: {item.startTime}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className={`text-xs font-bold ${getPriorityColor(item.priority)}`}>
+                <div className="flex justify-between text-xs text-blue-300">
+                  <span>{t('started_at')}: {item.startTime}</span>
+                  <span className={`font-bold ${getPriorityColor(item.priority)}`}>
                     {t('priority')}: {t(item.priority)}
                   </span>
-                  <span className="text-xs text-blue-300">{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
-                {item.actualStartTime && !item.actualEndTime && (
-                  <div className="text-xs text-blue-300 mt-1">
-                    {t('started_at')}: {item.startTime}
-                  </div>
-                )}
+                <div className="text-xs text-blue-300 mt-0.5">
+                  {t('estimated_time')}: {item.estimatedTime}
+                </div>
               </div>
             ))}
           </div>
@@ -488,27 +487,31 @@ export default function TVDashboard() {
               {completedItems.length}
             </div>
           </div>
-          <div className="space-y-2 flex-1 grid grid-rows-3 gap-2">
+          <div className="space-y-1 flex-1 overflow-y-auto">
             {completedItems.map(item => (
-                              <div key={item.id} className="bg-green-900 border border-green-700 rounded-lg p-2">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-sm font-bold text-white">{item.vehicle}</h3>
+                              <div key={item.id} className="bg-green-900 border border-green-700 rounded-lg p-1.5 min-h-0">
+                <div className="flex justify-between items-start mb-1">
+                  <h3 className="text-xs font-bold text-white">{item.vehicle}</h3>
                   <span className={`px-1 py-0.5 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
                     {t('ready')}
                   </span>
                 </div>
-                <p className="text-xs text-green-200 mb-1">{item.workType}</p>
-                <p className="text-xs text-green-300 mb-1">{t('client')}: {item.client}</p>
-                <div className="flex justify-between text-xs text-green-300">
+                <p className="text-xs text-green-200 mb-0.5">{item.workType}</p>
+                <div className="flex justify-between text-xs text-green-300 mb-0.5">
+                  <span>{t('client')}: {item.client}</span>
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
+                </div>
+                <div className="flex justify-between text-xs text-green-300">
                   <span>{item.startTime} - {item.endTime}</span>
+                  {item.actualWorkHours && (
+                    <span>{t('actual_time')}: {formatTimeToMinutes(item.actualWorkHours)}</span>
+                  )}
                 </div>
                 {item.actualWorkHours && (
-                  <div className="flex justify-between text-xs text-green-300 mt-1">
-                    <span>{t('actual_time')}: {formatTimeToMinutes(item.actualWorkHours)}</span>
-                    <span>{t('estimated')}: {item.estimatedTime}</span>
+                  <div className="text-xs text-green-300 mt-0.5">
+                    {t('estimated')}: {item.estimatedTime}
                     {item.isOverTime && (
-                      <span className="text-red-400">+{formatTimeToMinutes(item.overtimeHours || 0)} {t('overtime')}</span>
+                      <span className="text-red-400 ml-2">+{formatTimeToMinutes(item.overtimeHours || 0)} {t('overtime')}</span>
                     )}
                   </div>
                 )}
