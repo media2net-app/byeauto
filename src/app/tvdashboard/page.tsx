@@ -72,6 +72,45 @@ export default function TVDashboard() {
   
   const avgTime = totalEstimatedTime / workItems.length || 0;
 
+  // Work hours calculation
+  const workStartHour = 8; // 8:00 AM
+  const workEndHour = 17; // 5:00 PM
+  const currentHour = currentTime.getHours();
+  const currentMinute = currentTime.getMinutes();
+  
+  // Calculate remaining work hours today
+  const isWorkDay = currentTime.getDay() >= 1 && currentTime.getDay() <= 5; // Monday to Friday
+  const isWorkTime = currentHour >= workStartHour && currentHour < workEndHour;
+  
+  let remainingWorkHours = 0;
+  let expectedEndTime = null;
+  
+  if (isWorkDay && isWorkTime) {
+    const currentTimeInMinutes = currentHour * 60 + currentMinute;
+    const workEndInMinutes = workEndHour * 60;
+    remainingWorkHours = (workEndInMinutes - currentTimeInMinutes) / 60;
+  }
+
+  // Calculate remaining work for today
+  const remainingWorkItems = workItems.filter(item => 
+    item.status === 'pending' || item.status === 'in-progress'
+  );
+  
+  const remainingWorkTime = remainingWorkItems.reduce((sum, item) => {
+    const time = parseFloat(item.estimatedTime.replace('h', ''));
+    return sum + time;
+  }, 0);
+
+  // Calculate expected completion time
+  if (remainingWorkTime > 0 && remainingWorkHours > 0) {
+    const completionTimeInMinutes = currentTime.getTime() + (remainingWorkTime * 60 * 60 * 1000);
+    expectedEndTime = new Date(completionTimeInMinutes);
+  }
+
+  // Check if overtime is needed
+  const needsOvertime = expectedEndTime && expectedEndTime.getHours() >= workEndHour;
+  const overtimeHours = expectedEndTime ? Math.max(0, expectedEndTime.getHours() - workEndHour) : 0;
+
   return (
     <div className="min-h-screen bg-black text-white p-6">
       {/* Header with Live Time and Date */}
@@ -91,6 +130,111 @@ export default function TVDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Work Hours & Overtime Alert */}
+      {isWorkDay && (
+        <div className="mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Remaining Work Hours */}
+            <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-bold text-white mb-4">Nog te werken</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Vandaag:</span>
+                  <span className="text-3xl font-bold text-blue-400">
+                    {remainingWorkHours.toFixed(1)}h
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Normale tijd:</span>
+                  <span className="text-xl font-bold text-white">
+                    {workStartHour}:00 - {workEndHour}:00
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Status:</span>
+                  <span className={`text-xl font-bold ${isWorkTime ? 'text-green-400' : 'text-red-400'}`}>
+                    {isWorkTime ? 'Werkend' : 'Buiten werktijd'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Expected Completion */}
+            <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-bold text-white mb-4">Verwachte Klaar</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Nog te doen:</span>
+                  <span className="text-3xl font-bold text-yellow-400">
+                    {remainingWorkTime.toFixed(1)}h
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Verwacht klaar:</span>
+                  <span className={`text-2xl font-bold ${needsOvertime ? 'text-red-400' : 'text-green-400'}`}>
+                    {expectedEndTime ? expectedEndTime.toLocaleTimeString('nl-NL', {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    }) : 'N/A'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-lg text-gray-300">Items wachtend:</span>
+                  <span className="text-xl font-bold text-white">
+                    {pendingItems.length + inProgressItems.length}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Overtime Alert */}
+            <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-bold text-white mb-4">Overwerk</h3>
+              <div className="space-y-3">
+                {needsOvertime ? (
+                  <>
+                    <div className="flex justify-between">
+                      <span className="text-lg text-gray-300">Overwerk nodig:</span>
+                      <span className="text-3xl font-bold text-red-400">
+                        {overtimeHours.toFixed(1)}h
+                      </span>
+                    </div>
+                    <div className="bg-red-900 border border-red-700 rounded-lg p-3">
+                      <div className="text-lg font-bold text-red-200">
+                        ⚠️ Overwerk tot {expectedEndTime?.toLocaleTimeString('nl-NL', {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </div>
+                      <div className="text-sm text-red-300 mt-1">
+                        Plan extra tijd in!
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-between">
+                      <span className="text-lg text-gray-300">Overwerk:</span>
+                      <span className="text-3xl font-bold text-green-400">
+                        0h
+                      </span>
+                    </div>
+                    <div className="bg-green-900 border border-green-700 rounded-lg p-3">
+                      <div className="text-lg font-bold text-green-200">
+                        ✅ Op schema
+                      </div>
+                      <div className="text-sm text-green-300 mt-1">
+                        Geen overwerk nodig
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Daily Planning Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
