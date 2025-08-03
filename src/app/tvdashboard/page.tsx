@@ -134,7 +134,7 @@ export default function TVDashboard() {
   const overtimeHours = expectedEndTime && currentDayHours ? Math.max(0, expectedEndTime.getHours() - parseInt(currentDayHours.close.split(':')[0])) : 0;
 
   return (
-    <div className="h-screen bg-black text-white p-6 overflow-hidden flex flex-col">
+    <div className="h-screen bg-black text-white p-4 overflow-hidden flex flex-col">
       {/* Update Indicator */}
       {showUpdateIndicator && (
         <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-pulse">
@@ -143,17 +143,17 @@ export default function TVDashboard() {
       )}
       
       {/* Header with Live Time and Date */}
-      <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow-lg flex-shrink-0">
+      <div className="bg-gray-900 rounded-xl p-3 mb-3 shadow-lg flex-shrink-0">
         <div className="flex justify-between items-center">
           <div>
-                    <h1 className="text-4xl font-bold text-white mb-1">BYE AUTO</h1>
-        <p className="text-xl text-gray-300">{t('workshop_dashboard')}</p>
+                    <h1 className="text-3xl font-bold text-white mb-1">BYE AUTO</h1>
+        <p className="text-lg text-gray-300">{t('workshop_dashboard')}</p>
           </div>
           <div className="text-right">
-            <div className="text-4xl font-bold text-white mb-1">
+            <div className="text-3xl font-bold text-white mb-1">
               {formatTime(currentTime)}
             </div>
-            <div className="text-xl text-gray-300">
+            <div className="text-lg text-gray-300">
               {formatDate(currentTime)}
             </div>
           </div>
@@ -162,15 +162,15 @@ export default function TVDashboard() {
 
       {/* Work Hours & Overtime Alert */}
       {isWorkDay && (
-        <div className="mb-4 flex-shrink-0">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+        <div className="mb-3 flex-shrink-0">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-3">
             {/* Remaining Work Hours */}
-            <div className="bg-gray-900 rounded-xl p-4 shadow-lg">
-              <h3 className="text-xl font-bold text-white mb-3">{t('remaining_work_hours')}</h3>
+            <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+              <h3 className="text-lg font-bold text-white mb-2">{t('remaining_work_hours')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('today')}:</span>
-                  <span className="text-2xl font-bold text-blue-400">
+                  <span className="text-xl font-bold text-blue-400">
                     {formatTimeToMinutes(remainingWorkHours)}
                   </span>
                 </div>
@@ -190,12 +190,12 @@ export default function TVDashboard() {
             </div>
 
             {/* Expected Completion */}
-            <div className="bg-gray-900 rounded-xl p-4 shadow-lg">
-              <h3 className="text-xl font-bold text-white mb-3">{t('expected_completion')}</h3>
+            <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+              <h3 className="text-lg font-bold text-white mb-2">{t('expected_completion')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('remaining_work')}:</span>
-                  <span className="text-2xl font-bold text-yellow-400">
+                  <span className="text-xl font-bold text-yellow-400">
                     {formatTimeToMinutes(remainingWorkTime)}
                   </span>
                 </div>
@@ -231,14 +231,14 @@ export default function TVDashboard() {
             </div>
 
             {/* Overtime Alert */}
-            <div className="bg-gray-900 rounded-xl p-4 shadow-lg">
-              <h3 className="text-xl font-bold text-white mb-3">{t('overtime_alert')}</h3>
+            <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+              <h3 className="text-lg font-bold text-white mb-2">{t('overtime_alert')}</h3>
               <div className="space-y-3">
                 {needsOvertime ? (
                   <>
                     <div className="flex justify-between">
                       <span className="text-lg text-gray-300">{t('overtime_needed')}:</span>
-                      <span className="text-2xl font-bold text-red-400">
+                      <span className="text-xl font-bold text-red-400">
                         {formatTimeToMinutes(overtimeHours)}
                       </span>
                     </div>
@@ -276,8 +276,8 @@ export default function TVDashboard() {
             </div>
 
             {/* Today's Schedule */}
-            <div className="bg-gray-900 rounded-xl p-4 shadow-lg">
-              <h3 className="text-xl font-bold text-white mb-3">{t('today_schedule')}</h3>
+            <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+              <h3 className="text-lg font-bold text-white mb-2">{t('today_schedule')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('program')}:</span>
@@ -301,24 +301,24 @@ export default function TVDashboard() {
             </div>
 
             {/* Time Registration */}
-            <div className="bg-gray-900 rounded-xl p-4 shadow-lg">
-              <h3 className="text-xl font-bold text-white mb-3">{t('time_registration')}</h3>
+            <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+              <h3 className="text-lg font-bold text-white mb-2">{t('time_registration')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('total_estimated')}:</span>
-                  <span className="text-2xl font-bold text-blue-400">
+                  <span className="text-xl font-bold text-blue-400">
                     {formatTimeToMinutes(totalWorkHours)}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('worked_actual')}:</span>
-                  <span className="text-2xl font-bold text-green-400">
+                  <span className="text-xl font-bold text-green-400">
                     {formatTimeToMinutes(totalActualHours)}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('overtime_hours')}:</span>
-                  <span className="text-2xl font-bold text-red-400">
+                  <span className="text-xl font-bold text-red-400">
                     {formatTimeToMinutes(totalOvertimeHours)}
                   </span>
                 </div>
@@ -335,9 +335,9 @@ export default function TVDashboard() {
       )}
 
       {/* Daily Planning Summary */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4 flex-shrink-0">
-        <div className="bg-gray-900 rounded-xl p-4 shadow-lg">
-          <h3 className="text-xl font-bold text-white mb-3">{t('today')}</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 mb-3 flex-shrink-0">
+        <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+          <h3 className="text-lg font-bold text-white mb-2">{t('today')}</h3>
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">{t('total_work')}:</span>
@@ -358,8 +358,8 @@ export default function TVDashboard() {
           </div>
         </div>
 
-        <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-          <h3 className="text-2xl font-bold text-white mb-4">{t('team')}</h3>
+        <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+          <h3 className="text-lg font-bold text-white mb-2">{t('team')}</h3>
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">Marius:</span>
@@ -376,16 +376,16 @@ export default function TVDashboard() {
           </div>
         </div>
 
-        <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-          <h3 className="text-2xl font-bold text-white mb-4">{t('efficiency')}</h3>
+        <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+          <h3 className="text-lg font-bold text-white mb-2">{t('efficiency')}</h3>
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">{t('average_time')}:</span>
-                              <span className="text-xl font-bold text-white">{formatTimeToMinutes(avgTime)}</span>
+                              <span className="text-lg font-bold text-white">{formatTimeToMinutes(avgTime)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">{t('time_saved')}:</span>
-              <span className="text-xl font-bold text-green-400">+{formatTimeToMinutes(0.3)}</span>
+              <span className="text-lg font-bold text-green-400">+{formatTimeToMinutes(0.3)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-lg text-gray-300">{t('customer_satisfaction')}:</span>
@@ -394,8 +394,8 @@ export default function TVDashboard() {
           </div>
         </div>
 
-        <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-          <h3 className="text-2xl font-bold text-white mb-4">{t('urgent')}</h3>
+        <div className="bg-gray-900 rounded-xl p-3 shadow-lg">
+          <h3 className="text-lg font-bold text-white mb-2">{t('urgent')}</h3>
           <div className="space-y-3">
             {workItems.filter(item => item.priority === 'high' && item.status !== 'completed').map(item => (
               <div key={item.id} className="bg-red-900 rounded-lg p-3">
@@ -409,32 +409,32 @@ export default function TVDashboard() {
       </div>
 
       {/* Kanban Board */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-4 min-h-0">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-3 min-h-0">
         {/* Completed */}
-        <div className="bg-gray-900 rounded-xl p-4 shadow-lg flex flex-col min-h-0">
-          <div className="flex items-center justify-between mb-4 flex-shrink-0">
-            <h2 className="text-2xl font-bold text-green-400">{t('ready')}</h2>
-            <div className="bg-green-600 text-white px-3 py-1 rounded-full text-lg font-bold">
+        <div className="bg-gray-900 rounded-xl p-3 shadow-lg flex flex-col min-h-0">
+          <div className="flex items-center justify-between mb-3 flex-shrink-0">
+            <h2 className="text-xl font-bold text-green-400">{t('ready')}</h2>
+            <div className="bg-green-600 text-white px-2 py-1 rounded-full text-base font-bold">
               {completedItems.length}
             </div>
           </div>
-          <div className="space-y-3 flex-1 overflow-y-auto">
+          <div className="space-y-2 flex-1 grid grid-rows-3 gap-2">
             {completedItems.map(item => (
-                              <div key={item.id} className="bg-green-900 border border-green-700 rounded-lg p-3">
+                              <div key={item.id} className="bg-green-900 border border-green-700 rounded-lg p-2">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-base font-bold text-white">{item.vehicle}</h3>
-                  <span className={`px-2 py-1 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
+                  <h3 className="text-sm font-bold text-white">{item.vehicle}</h3>
+                  <span className={`px-1 py-0.5 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
                     {t('ready')}
                   </span>
                 </div>
-                <p className="text-sm text-green-200 mb-2">{item.workType}</p>
-                <p className="text-green-300 mb-2">{t('client')}: {item.client}</p>
-                <div className="flex justify-between text-sm text-green-300">
+                <p className="text-xs text-green-200 mb-1">{item.workType}</p>
+                <p className="text-xs text-green-300 mb-1">{t('client')}: {item.client}</p>
+                <div className="flex justify-between text-xs text-green-300">
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
                   <span>{item.startTime} - {item.endTime}</span>
                 </div>
                 {item.actualWorkHours && (
-                  <div className="flex justify-between text-sm text-green-300 mt-1">
+                  <div className="flex justify-between text-xs text-green-300 mt-1">
                     <span>{t('actual_time')}: {formatTimeToMinutes(item.actualWorkHours)}</span>
                     <span>{t('estimated')}: {item.estimatedTime}</span>
                     {item.isOverTime && (
@@ -448,36 +448,36 @@ export default function TVDashboard() {
         </div>
 
         {/* In Progress */}
-        <div className="bg-gray-900 rounded-xl p-4 shadow-lg flex flex-col min-h-0">
-          <div className="flex items-center justify-between mb-4 flex-shrink-0">
-            <h2 className="text-2xl font-bold text-blue-400">{t('in_progress')}</h2>
-            <div className="bg-blue-600 text-white px-3 py-1 rounded-full text-lg font-bold">
+        <div className="bg-gray-900 rounded-xl p-3 shadow-lg flex flex-col min-h-0">
+          <div className="flex items-center justify-between mb-3 flex-shrink-0">
+            <h2 className="text-xl font-bold text-blue-400">{t('in_progress')}</h2>
+            <div className="bg-blue-600 text-white px-2 py-1 rounded-full text-base font-bold">
               {inProgressItems.length}
             </div>
           </div>
-          <div className="space-y-3 flex-1 overflow-y-auto">
+          <div className="space-y-2 flex-1 grid grid-rows-3 gap-2">
             {inProgressItems.map(item => (
-                              <div key={item.id} className="bg-blue-900 border border-blue-700 rounded-lg p-3">
+                              <div key={item.id} className="bg-blue-900 border border-blue-700 rounded-lg p-2">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-base font-bold text-white">{item.vehicle}</h3>
-                  <span className={`px-2 py-1 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
+                  <h3 className="text-sm font-bold text-white">{item.vehicle}</h3>
+                  <span className={`px-1 py-0.5 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
                     {t('in_progress')}
                   </span>
                 </div>
-                <p className="text-sm text-blue-200 mb-2">{item.workType}</p>
-                <p className="text-blue-300 mb-2">{t('client')}: {item.client}</p>
-                <div className="flex justify-between text-sm text-blue-300 mb-2">
+                <p className="text-xs text-blue-200 mb-1">{item.workType}</p>
+                <p className="text-xs text-blue-300 mb-1">{t('client')}: {item.client}</p>
+                <div className="flex justify-between text-xs text-blue-300 mb-1">
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
                   <span>{t('started_at')}: {item.startTime}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className={`text-sm font-bold ${getPriorityColor(item.priority)}`}>
+                  <span className={`text-xs font-bold ${getPriorityColor(item.priority)}`}>
                     {t('priority')}: {t(item.priority)}
                   </span>
-                  <span className="text-sm text-blue-300">{t('estimated_time')}: {item.estimatedTime}</span>
+                  <span className="text-xs text-blue-300">{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
                 {item.actualStartTime && !item.actualEndTime && (
-                  <div className="text-sm text-blue-300 mt-1">
+                  <div className="text-xs text-blue-300 mt-1">
                     {t('started_at')}: {item.startTime}
                   </div>
                 )}
@@ -487,29 +487,29 @@ export default function TVDashboard() {
         </div>
 
         {/* Pending */}
-        <div className="bg-gray-900 rounded-xl p-4 shadow-lg flex flex-col min-h-0">
-          <div className="flex items-center justify-between mb-4 flex-shrink-0">
-            <h2 className="text-2xl font-bold text-yellow-400">{t('waiting')}</h2>
-            <div className="bg-yellow-600 text-white px-3 py-1 rounded-full text-lg font-bold">
+        <div className="bg-gray-900 rounded-xl p-3 shadow-lg flex flex-col min-h-0">
+          <div className="flex items-center justify-between mb-3 flex-shrink-0">
+            <h2 className="text-xl font-bold text-yellow-400">{t('waiting')}</h2>
+            <div className="bg-yellow-600 text-white px-2 py-1 rounded-full text-base font-bold">
               {pendingItems.length}
             </div>
           </div>
-          <div className="space-y-3 flex-1 overflow-y-auto">
+          <div className="space-y-2 flex-1 grid grid-rows-3 gap-2">
             {pendingItems.map(item => (
-                              <div key={item.id} className="bg-yellow-900 border border-yellow-700 rounded-lg p-3">
+                              <div key={item.id} className="bg-yellow-900 border border-yellow-700 rounded-lg p-2">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-base font-bold text-white">{item.vehicle}</h3>
-                  <span className={`px-2 py-1 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
+                  <h3 className="text-sm font-bold text-white">{item.vehicle}</h3>
+                  <span className={`px-1 py-0.5 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>
                     {t('waiting')}
                   </span>
                 </div>
-                <p className="text-sm text-yellow-200 mb-2">{item.workType}</p>
-                <p className="text-yellow-300 mb-2">{t('client')}: {item.client}</p>
-                <div className="flex justify-between text-sm text-yellow-300 mb-2">
+                <p className="text-xs text-yellow-200 mb-1">{item.workType}</p>
+                <p className="text-xs text-yellow-300 mb-1">{t('client')}: {item.client}</p>
+                <div className="flex justify-between text-xs text-yellow-300 mb-1">
                   <span>{t('assigned_to')}: {item.assignedTo}</span>
                   <span>{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
-                <div className={`text-sm font-bold ${getPriorityColor(item.priority)}`}>
+                <div className={`text-xs font-bold ${getPriorityColor(item.priority)}`}>
                   {t('priority')}: {t(item.priority)}
                 </div>
               </div>
