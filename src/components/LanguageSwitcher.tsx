@@ -10,8 +10,8 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
 
   const languages = [
-    { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
-    { code: 'ro', name: 'Română', flag: '🇷🇴' }
+    { code: 'ro', name: 'Română', flag: '🇷🇴' },
+    { code: 'en', name: 'English', flag: '🇬🇧' }
   ];
 
   const handleLanguageChange = (newLocale: string) => {

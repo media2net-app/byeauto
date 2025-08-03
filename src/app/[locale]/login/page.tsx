@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function LoginPage() {
@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const t = useTranslations();
+  const locale = useLocale();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ export default function LoginPage() {
     if (username === "admin" && password === "BYE9438x_#") {
       setTimeout(() => {
         setIsLoading(false);
-        router.push("/dashboard");
+        router.push(`/${locale}/dashboard`);
       }, 1000);
     } else {
       setIsLoading(false);
