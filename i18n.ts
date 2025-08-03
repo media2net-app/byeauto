@@ -8,9 +8,7 @@ export const defaultLocale = 'ro' as const;
 export type Locale = (typeof locales)[number];
 
 export default getRequestConfig(async ({locale}) => {
-  console.log('i18n.ts locale:', locale);
   if (!locale) {
-    console.error('Locale is undefined in getRequestConfig');
     return {
       locale: 'ro',
       messages: (await import(`./messages/ro.json`)).default

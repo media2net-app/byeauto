@@ -6,6 +6,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    missingSuspenseWithCSRError: false,
+  },
 };
 
 export default withNextIntl(nextConfig);
