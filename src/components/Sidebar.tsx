@@ -17,7 +17,8 @@ import {
   X,
   LogOut,
   MessageCircle,
-  Clock
+  Clock,
+  BookOpen
 } from "lucide-react";
 
 interface SidebarProps {
@@ -49,6 +50,13 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       href: "/worktimer",
       icon: Clock,
       current: pathname === "/worktimer",
+      notifications: 0
+    },
+    {
+      name: "Uitleg",
+      href: "/uitleg",
+      icon: BookOpen,
+      current: pathname === "/uitleg",
       notifications: 0
     },
     {
