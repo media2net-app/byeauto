@@ -161,7 +161,7 @@ export default function TVDashboard() {
                 <div className="flex justify-between">
                   <span className="text-lg text-gray-300">{t('normal_time')}:</span>
                   <span className="text-xl font-bold text-white">
-                    {currentDayHours ? `${currentDayHours.open} - ${currentDayHours.close}` : 'Closed'}
+                    {currentDayHours ? `${currentDayHours.open} - ${currentDayHours.close}` : t('closed')}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -264,19 +264,19 @@ export default function TVDashboard() {
               <h3 className="text-2xl font-bold text-white mb-4">{t('today_schedule')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Program:</span>
+                  <span className="text-lg text-gray-300">{t('program')}:</span>
                   <span className="text-xl font-bold text-white">
                     {currentDayHours ? `${currentDayHours.open} - ${currentDayHours.close}` : t('closed')}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Status:</span>
+                  <span className="text-lg text-gray-300">{t('status')}:</span>
                   <span className={`text-xl font-bold ${isWorkTime ? 'text-green-400' : 'text-red-400'}`}>
                     {isWorkTime ? t('working') : t('outside_work_hours')}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Rămas:</span>
+                  <span className="text-lg text-gray-300">{t('remaining')}:</span>
                   <span className="text-xl font-bold text-blue-400">
                     {remainingWorkHours.toFixed(1)}h
                   </span>
@@ -286,28 +286,28 @@ export default function TVDashboard() {
 
             {/* Time Registration */}
             <div className="bg-gray-900 rounded-xl p-6 shadow-lg">
-              <h3 className="text-2xl font-bold text-white mb-4">Registrare Timp</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">{t('time_registration')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Total estimat:</span>
+                  <span className="text-lg text-gray-300">{t('total_estimated')}:</span>
                   <span className="text-3xl font-bold text-blue-400">
                     {totalWorkHours.toFixed(1)}h
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Lucrat efectiv:</span>
+                  <span className="text-lg text-gray-300">{t('worked_actual')}:</span>
                   <span className="text-3xl font-bold text-green-400">
                     {totalActualHours.toFixed(1)}h
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Ore suplimentare:</span>
+                  <span className="text-lg text-gray-300">{t('overtime_hours')}:</span>
                   <span className="text-3xl font-bold text-red-400">
                     {totalOvertimeHours.toFixed(1)}h
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg text-gray-300">Eficiență:</span>
+                  <span className="text-lg text-gray-300">{t('efficiency_percentage')}:</span>
                   <span className={`text-xl font-bold ${totalActualHours > 0 ? 'text-green-400' : 'text-gray-400'}`}>
                     {totalActualHours > 0 ? ((totalWorkHours / totalActualHours) * 100).toFixed(1) : 0}%
                   </span>
@@ -419,10 +419,10 @@ export default function TVDashboard() {
                 </div>
                 {item.actualWorkHours && (
                   <div className="flex justify-between text-sm text-green-300 mt-1">
-                    <span>Timp efectiv: {item.actualWorkHours.toFixed(1)}h</span>
-                    <span>Estimat: {item.estimatedTime}</span>
+                    <span>{t('actual_time')}: {item.actualWorkHours.toFixed(1)}h</span>
+                    <span>{t('estimated')}: {item.estimatedTime}</span>
                     {item.isOverTime && (
-                      <span className="text-red-400">+{item.overtimeHours?.toFixed(1)}h</span>
+                      <span className="text-red-400">+{item.overtimeHours?.toFixed(1)}h {t('overtime')}</span>
                     )}
                   </div>
                 )}
@@ -456,13 +456,13 @@ export default function TVDashboard() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className={`text-sm font-bold ${getPriorityColor(item.priority)}`}>
-                    {t('priority')}: {item.priority}
+                    {t('priority')}: {t(item.priority)}
                   </span>
                   <span className="text-sm text-blue-300">{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
                 {item.actualStartTime && !item.actualEndTime && (
                   <div className="text-sm text-blue-300 mt-1">
-                    Început la: {item.startTime}
+                    {t('started_at')}: {item.startTime}
                   </div>
                 )}
               </div>
@@ -494,7 +494,7 @@ export default function TVDashboard() {
                   <span>{t('estimated_time')}: {item.estimatedTime}</span>
                 </div>
                 <div className={`text-sm font-bold ${getPriorityColor(item.priority)}`}>
-                  {t('priority')}: {item.priority}
+                  {t('priority')}: {t(item.priority)}
                 </div>
               </div>
             ))}
