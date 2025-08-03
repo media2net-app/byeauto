@@ -20,7 +20,8 @@ import {
   LogOut,
   MessageCircle,
   Clock,
-  BookOpen
+  BookOpen,
+  Monitor
 } from "lucide-react";
 
 interface SidebarProps {
@@ -106,6 +107,14 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       notifications: 0
     }
   ];
+
+  const tvDashboardLink = {
+    name: t('tv_dashboard'),
+    href: `/${locale}/tvdashboard`,
+    icon: Monitor,
+    current: pathname === `/${locale}/tvdashboard`,
+    notifications: 0
+  };
 
   const externalLinks = [
     {
@@ -200,6 +209,32 @@ export default function Sidebar({ onLogout }: SidebarProps) {
                 </Link>
               </li>
             ))}
+          </ul>
+        </div>
+
+        {/* TV Dashboard Button */}
+        <div className="mb-4">
+          <ul className="space-y-1">
+            <li>
+              <Link
+                href={tvDashboardLink.href}
+                className={`flex items-center px-2 sm:px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors relative border border-purple-500 ${
+                  tvDashboardLink.current
+                    ? "bg-purple-600 text-white"
+                    : "text-purple-400 hover:bg-purple-500 hover:text-white"
+                }`}
+                onClick={() => setIsMobileOpen(false)}
+              >
+                <div className="relative">
+                  <tvDashboardLink.icon className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                </div>
+                {!isCollapsed && (
+                  <div className="flex items-center justify-between flex-1">
+                    <span className="text-xs sm:text-sm">{tvDashboardLink.name}</span>
+                  </div>
+                )}
+              </Link>
+            </li>
           </ul>
         </div>
 
