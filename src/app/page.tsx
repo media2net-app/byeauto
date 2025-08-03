@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import Logo from "@/components/Logo";
 import { 
   Wrench, 
   Settings, 
@@ -66,20 +67,12 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-b border-gray-800 sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
+      <header className="bg-black border-b border-gray-800 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-3 sm:py-4">
             {/* Logo */}
             <div className="flex items-center">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">BA</span>
-                </div>
-                <div>
-                  <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">BYE AUTO</h1>
-                  <span className="text-blue-400 text-xs sm:text-sm hidden sm:block font-medium">BMW TUNING & PERFORMANCE</span>
-                </div>
-              </div>
+              <Logo size="xl" />
             </div>
 
             {/* Desktop Navigation */}
@@ -150,71 +143,85 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 py-12 sm:py-16 lg:py-20 overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-          <div className="absolute top-40 right-20 w-24 h-24 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-          <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-red-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000"></div>
-        </div>
+      <section className="relative h-screen overflow-hidden">
+        {/* BMW M4 CSL Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/bmw-m4-csl-bg.jpg')`
+          }}
+        ></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <div className="mb-6">
-              <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-                🏎️ BMW TUNING SPECIALISTS
-              </span>
-            </div>
-            
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
-                UNLEASH YOUR
-              </span>
-              <br />
-                             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-red-400 bg-clip-text text-transparent">
-                 BMW&apos;S POTENTIAL
-               </span>
-            </h1>
-            
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto px-4 leading-relaxed">
-              Professional <span className="text-blue-400 font-semibold">BMW tuning & performance</span> in Dragodana. 
-              From <span className="text-purple-400 font-semibold">Stage 1</span> to <span className="text-red-400 font-semibold">Stage 3+</span> builds, 
-              we transform your BMW into a <span className="text-yellow-400 font-semibold">performance beast</span>.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4 mb-8">
-              <a 
-                href="#contact"
-                className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 sm:px-10 py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-bold flex items-center justify-center text-base sm:text-lg shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105"
-              >
-                START YOUR TUNING JOURNEY
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a 
-                href="#services"
-                className="group border-2 border-white text-white px-8 sm:px-10 py-4 rounded-xl hover:bg-white hover:text-black transition-all duration-300 font-bold text-base sm:text-lg backdrop-blur-sm hover:shadow-2xl transform hover:scale-105"
-              >
-                VIEW TUNING STAGES
-              </a>
-            </div>
-            
-            {/* Performance Stats Preview */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
-              <div className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-lg p-4">
-                <div className="text-2xl font-bold text-blue-400">+25%</div>
-                <div className="text-xs text-gray-400">POWER GAIN</div>
+        {/* Black Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        
+        {/* Content */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              {/* Left Side - Text Content */}
+              <div className="text-white">
+                <div className="mb-6">
+                  <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                    🏎️ BMW TUNING SPECIALISTS
+                  </span>
+                </div>
+                
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                  <span className="block text-white">
+                    MORE POWER.
+                  </span>
+                  <span className="block text-white">
+                    MORE DRIVING PLEASURE.
+                  </span>
+                  <span className="block text-white">
+                    SAFE AND FAST.
+                  </span>
+                </h1>
+                
+                <p className="text-lg sm:text-xl lg:text-2xl text-white mb-8 max-w-2xl leading-relaxed">
+                  Professional BMW tuning & performance in Dragodana. 
+                  From Stage 1 to Stage 3+ builds, 
+                  we transform your BMW into a performance beast.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a 
+                    href="#contact"
+                    className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-bold flex items-center justify-center text-lg shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105"
+                  >
+                    START YOUR TUNING JOURNEY
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <a 
+                    href="#services"
+                    className="group border-2 border-white text-white px-8 py-4 rounded-xl hover:bg-white hover:text-black transition-all duration-300 font-bold text-lg backdrop-blur-sm hover:shadow-2xl transform hover:scale-105"
+                  >
+                    VIEW TUNING STAGES
+                  </a>
+                </div>
               </div>
-              <div className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-lg p-4">
-                <div className="text-2xl font-bold text-purple-400">+35%</div>
-                <div className="text-xs text-gray-400">TORQUE BOOST</div>
-              </div>
-              <div className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-lg p-4">
-                <div className="text-2xl font-bold text-red-400">-1.2s</div>
-                <div className="text-xs text-gray-400">0-100 TIME</div>
-              </div>
-              <div className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-lg p-4">
-                <div className="text-2xl font-bold text-yellow-400">100+</div>
-                <div className="text-xs text-gray-400">TUNED BMWs</div>
+              
+              {/* Right Side - Stats */}
+              <div className="hidden lg:block">
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="bg-black/40 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+                    <div className="text-3xl font-bold text-blue-400">+25%</div>
+                    <div className="text-sm text-gray-300">POWER GAIN</div>
+                  </div>
+                  <div className="bg-black/40 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+                    <div className="text-3xl font-bold text-purple-400">+35%</div>
+                    <div className="text-sm text-gray-300">TORQUE BOOST</div>
+                  </div>
+                  <div className="bg-black/40 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+                    <div className="text-3xl font-bold text-red-400">-1.2s</div>
+                    <div className="text-sm text-gray-300">0-100 TIME</div>
+                  </div>
+                  <div className="bg-black/40 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+                    <div className="text-3xl font-bold text-yellow-400">100+</div>
+                    <div className="text-sm text-gray-300">TUNED BMWs</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -222,7 +229,17 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+      <section id="services" className="py-16 sm:py-20 lg:py-24 relative overflow-hidden">
+        {/* Carbon Fiber Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/black-carbon-fiber-material-texture-vector.jpg')`
+          }}
+        ></div>
+        
+        {/* Black Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/75"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 sm:mb-20">
             <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -282,13 +299,17 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 sm:py-20 bg-gradient-to-r from-purple-900 via-blue-900 to-purple-900 relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-purple-600/10 via-blue-600/10 to-purple-600/10"></div>
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
-        </div>
+      <section className="py-16 sm:py-20 relative overflow-hidden">
+        {/* BMW Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/bmw-performance-bg.jpg')`
+          }}
+        ></div>
+        
+        {/* Black Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/50"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
@@ -451,7 +472,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-400">
-            <p className="text-sm sm:text-base">&copy; 2024 BYE AUTO. All rights reserved.</p>
+                            <p className="text-sm sm:text-base">&copy; 2025 BYE AUTO. All rights reserved.</p>
           </div>
         </div>
       </footer>

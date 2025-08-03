@@ -38,12 +38,16 @@ export default function Dashboard() {
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const vehicles = [
+    { id: "bmw1", name: "BMW X5 2020", client: "Ion Popescu", status: t('in_service'), priority: t('high_priority'), indicator: t('active_repairs'), type: "active" },
+    { id: "bmw2", name: "BMW 320i 2019", client: "Maria Ionescu", status: t('waiting'), priority: t('medium_priority'), indicator: t('scheduled'), type: "maintenance" },
+    { id: "bmw3", name: "BMW 520d 2021", client: "Alexandru Dumitrescu", status: t('completed'), priority: t('low_priority'), indicator: t('ready_for_delivery'), type: "completed" },
+    { id: "bmw4", name: "BMW X3 2018", client: "Elena Vasilescu", status: t('diagnostic'), priority: t('high_priority'), indicator: t('urgent'), type: "urgent" },
+  ];
 
   const handleLogout = () => {
     router.push("/");
   };
-
-
 
   const handleVehicleClick = (vehicleId: string) => {
     // Simulate fetching vehicle data
@@ -109,13 +113,6 @@ export default function Dashboard() {
     { id: 3, action: t('urgent_repair_alert'), vehicle: t('bmw_x3_transmission_inspection'), time: t('5_hours_ago') },
   ];
 
-  const vehicles = [
-    { id: "bmw1", name: "BMW X5 2020", client: "Ion Popescu", status: t('in_service'), priority: t('high_priority'), indicator: t('active_repairs'), type: "active" },
-    { id: "bmw2", name: "BMW 320i 2019", client: "Maria Ionescu", status: t('waiting'), priority: t('medium_priority'), indicator: t('scheduled'), type: "maintenance" },
-    { id: "bmw3", name: "BMW 520d 2021", client: "Alexandru Dumitrescu", status: t('completed'), priority: t('low_priority'), indicator: t('ready_for_delivery'), type: "completed" },
-    { id: "bmw4", name: "BMW X3 2018", client: "Elena Vasilescu", status: t('diagnostic'), priority: t('high_priority'), indicator: t('urgent'), type: "urgent" },
-  ];
-
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
@@ -135,10 +132,10 @@ export default function Dashboard() {
           <div className="px-4 sm:px-6 py-4">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
               <div className="flex items-center">
-                <h1 className="text-xl sm:text-2xl font-bold text-white">{t('dashboard')}</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-white drop-shadow-lg">{t('dashboard')}</h1>
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                <div className="text-sm text-gray-400 text-center sm:text-left">
+                <div className="text-sm text-gray-200 text-center sm:text-left drop-shadow-md">
                   {t('welcome_back_bye_auto')}
                 </div>
               </div>

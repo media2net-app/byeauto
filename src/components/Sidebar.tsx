@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "./Logo";
 import { 
   BarChart3, 
   Car, 
@@ -112,13 +113,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
         <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700">
           {!isCollapsed && (
             <div className="flex items-center space-x-2">
-              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white text-xs sm:text-sm font-bold">BA</span>
-              </div>
-              <div>
-                <h2 className="text-white font-bold text-sm sm:text-lg">BYE AUTO</h2>
-                <p className="text-gray-400 text-xs">CARS & SERVICE</p>
-              </div>
+              <Logo size="sm" />
             </div>
           )}
           <div className="flex items-center space-x-1 sm:space-x-2">
@@ -213,9 +208,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       {/* Footer */}
       <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 border-t border-gray-700">
         <div className="flex items-center space-x-2 sm:space-x-3">
-          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-600 rounded-full flex items-center justify-center">
-            <span className="text-white text-xs sm:text-sm font-medium">BA</span>
-          </div>
+          <Logo size="sm" />
           {!isCollapsed && (
             <div className="flex-1">
               <p className="text-xs sm:text-sm font-medium text-white">BYE AUTO</p>
