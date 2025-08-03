@@ -272,7 +272,7 @@ export default function HomePage() {
                 
                 {/* Features List */}
                 <div className="grid grid-cols-2 gap-3 mb-6">
-                  {service.features.map((feature, featureIndex) => (
+                  {service.features.map((feature: string, featureIndex: number) => (
                     <div key={featureIndex} className="flex items-center space-x-2">
                       <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
                       <span className="text-sm text-gray-300">{feature}</span>
@@ -366,7 +366,7 @@ export default function HomePage() {
             <div className="bg-gray-800 border border-gray-700 rounded-lg p-6 sm:p-8">
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">{t('why_choose_bye_auto')}</h3>
               <ul className="space-y-2 sm:space-y-3">
-                {t.raw('why_choose_features').map((feature, index) => (
+                {t.raw('why_choose_features').map((feature: string, index: number) => (
                   <li key={index} className="flex items-center text-gray-300 text-sm sm:text-base">
                     <div className="w-2 h-2 bg-purple-500 rounded-full mr-3 flex-shrink-0"></div>
                     {feature}
@@ -432,7 +432,7 @@ export default function HomePage() {
             <div>
               <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">{t('footer_services')}</h4>
               <ul className="space-y-1 sm:space-y-2 text-gray-400 text-sm sm:text-base">
-                {t.raw('footer_services_list').map((service, index) => (
+                {t.raw('footer_services_list').map((service: string, index: number) => (
                   <li key={index}>{service}</li>
                 ))}
               </ul>
