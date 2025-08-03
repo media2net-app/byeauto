@@ -25,6 +25,7 @@ interface WorkContextType {
   deleteWorkItem: (id: string) => void;
   getWorkItemsByStatus: (status: WorkItem['status']) => WorkItem[];
   getWorkItemsByAssignee: (assignee: string) => WorkItem[];
+  triggerUpdate: () => void;
 }
 
 const WorkContext = createContext<WorkContextType | undefined>(undefined);
@@ -37,84 +38,100 @@ export const useWork = () => {
   return context;
 };
 
+// Custom hook for real-time updates
+export const useWorkUpdates = () => {
+  const [lastUpdate, setLastUpdate] = useState<number>(Date.now());
+
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'workItems' || e.key === 'workUpdateTrigger') {
+        setLastUpdate(Date.now());
+      }
+    };
+
+    const handleCustomEvent = () => {
+      setLastUpdate(Date.now());
+    };
+
+    // Listen for localStorage changes (cross-tab)
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Listen for custom events (same tab)
+    window.addEventListener('workUpdate', handleCustomEvent);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('workUpdate', handleCustomEvent);
+    };
+  }, []);
+
+  return lastUpdate;
+};
+
 const initialWorkItems: WorkItem[] = [
   {
     id: "1",
-    vehicle: "BMW X5 2020",
-    client: "Ion Popescu",
-    workType: "Oil Change & Filters",
+    vehicle: "BMW X5",
+    client: "Maria Ionescu",
+    workType: "Engine Diagnostic",
     status: "completed",
     priority: "high",
-    estimatedTime: "1.5h",
+    estimatedTime: "3h",
     startTime: "08:00",
-    endTime: "09:30",
+    endTime: "11:00",
     assignedTo: "Marius",
-    createdAt: new Date('2024-01-01T08:00:00'),
-    updatedAt: new Date('2024-01-01T09:30:00')
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "2",
-    vehicle: "BMW 320i 2019",
-    client: "Maria Ionescu",
-    workType: "Brake Pad Replacement",
+    vehicle: "BMW 320i",
+    client: "Alexandru Popescu",
+    workType: "Brake System Repair",
     status: "in-progress",
-    priority: "high",
+    priority: "medium",
     estimatedTime: "2h",
     startTime: "09:30",
     assignedTo: "Alexandru",
-    createdAt: new Date('2024-01-01T09:30:00'),
-    updatedAt: new Date('2024-01-01T09:30:00')
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "3",
-    vehicle: "BMW 520d 2021",
-    client: "Alexandru Dumitrescu",
-    workType: "Electrical Diagnostic",
+    vehicle: "BMW X3",
+    client: "Vasile Dumitrescu",
+    workType: "Transmission Inspection",
     status: "pending",
-    priority: "medium",
-    estimatedTime: "1h",
+    priority: "low",
+    estimatedTime: "1.5h",
     assignedTo: "Vasile",
-    createdAt: new Date('2024-01-01T10:00:00'),
-    updatedAt: new Date('2024-01-01T10:00:00')
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "4",
-    vehicle: "BMW X3 2018",
-    client: "Elena Vasilescu",
-    workType: "Transmission Inspection",
+    vehicle: "BMW 420d",
+    client: "Elena Marin",
+    workType: "Oil Change & Filter",
     status: "pending",
-    priority: "high",
-    estimatedTime: "2.5h",
+    priority: "medium",
+    estimatedTime: "1h",
     assignedTo: "Marius",
-    createdAt: new Date('2024-01-01T11:00:00'),
-    updatedAt: new Date('2024-01-01T11:00:00')
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "5",
-    vehicle: "BMW M4 2022",
-    client: "Stefan Popa",
-    workType: "Tuning & Performance",
+    vehicle: "BMW M4",
+    client: "Cristian Stoica",
+    workType: "Performance Tuning",
     status: "in-progress",
-    priority: "medium",
+    priority: "high",
     estimatedTime: "4h",
-    startTime: "10:00",
+    startTime: "08:00",
     assignedTo: "Alexandru",
-    createdAt: new Date('2024-01-01T10:00:00'),
-    updatedAt: new Date('2024-01-01T10:00:00')
-  },
-  {
-    id: "6",
-    vehicle: "BMW 118i 2020",
-    client: "Ana Ionescu",
-    workType: "AC System Check",
-    status: "completed",
-    priority: "low",
-    estimatedTime: "1h",
-    startTime: "07:00",
-    endTime: "08:00",
-    assignedTo: "Vasile",
-    createdAt: new Date('2024-01-01T07:00:00'),
-    updatedAt: new Date('2024-01-01T08:00:00')
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 ];
 
@@ -146,6 +163,17 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [workItems]);
 
+  // Function to trigger updates across tabs/windows
+  const triggerUpdate = () => {
+    if (typeof window !== 'undefined') {
+      // Update localStorage to trigger storage event
+      localStorage.setItem('workUpdateTrigger', Date.now().toString());
+      
+      // Dispatch custom event for same tab
+      window.dispatchEvent(new CustomEvent('workUpdate'));
+    }
+  };
+
   const addWorkItem = (item: Omit<WorkItem, 'id' | 'createdAt' | 'updatedAt'>) => {
     const newItem: WorkItem = {
       ...item,
@@ -154,36 +182,36 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updatedAt: new Date()
     };
     setWorkItems(prev => [...prev, newItem]);
+    triggerUpdate();
   };
 
   const updateWorkItemStatus = (id: string, status: WorkItem['status']) => {
     setWorkItems(prev => prev.map(item => {
       if (item.id === id) {
-        const updates: Partial<WorkItem> = {
+        const updatedItem = {
+          ...item,
           status,
           updatedAt: new Date()
         };
         
-        // Add start time when moving to in-progress
+        // Add start/end times based on status
         if (status === 'in-progress' && !item.startTime) {
-          updates.startTime = new Date().toLocaleTimeString('nl-NL', {
+          updatedItem.startTime = new Date().toLocaleTimeString('ro-RO', {
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+        } else if (status === 'completed' && !item.endTime) {
+          updatedItem.endTime = new Date().toLocaleTimeString('ro-RO', {
             hour: '2-digit',
             minute: '2-digit'
           });
         }
         
-        // Add end time when moving to completed
-        if (status === 'completed' && !item.endTime) {
-          updates.endTime = new Date().toLocaleTimeString('nl-NL', {
-            hour: '2-digit',
-            minute: '2-digit'
-          });
-        }
-        
-        return { ...item, ...updates };
+        return updatedItem;
       }
       return item;
     }));
+    triggerUpdate();
   };
 
   const updateWorkItem = (id: string, updates: Partial<WorkItem>) => {
@@ -192,10 +220,12 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
         ? { ...item, ...updates, updatedAt: new Date() }
         : item
     ));
+    triggerUpdate();
   };
 
   const deleteWorkItem = (id: string) => {
     setWorkItems(prev => prev.filter(item => item.id !== id));
+    triggerUpdate();
   };
 
   const getWorkItemsByStatus = (status: WorkItem['status']) => {
@@ -213,7 +243,8 @@ export const WorkProvider: React.FC<{ children: React.ReactNode }> = ({ children
     updateWorkItem,
     deleteWorkItem,
     getWorkItemsByStatus,
-    getWorkItemsByAssignee
+    getWorkItemsByAssignee,
+    triggerUpdate
   };
 
   return (

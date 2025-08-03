@@ -2,12 +2,21 @@
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useWork } from "@/contexts/WorkContext";
+import { useWork, useWorkUpdates } from "@/contexts/WorkContext";
 
 export default function TVDashboard() {
   const { t } = useLanguage();
   const { workItems } = useWork();
+  const lastUpdate = useWorkUpdates(); // Real-time updates
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showUpdateIndicator, setShowUpdateIndicator] = useState(false);
+
+  // Show update indicator when data changes
+  useEffect(() => {
+    setShowUpdateIndicator(true);
+    const timer = setTimeout(() => setShowUpdateIndicator(false), 2000);
+    return () => clearTimeout(timer);
+  }, [lastUpdate]);
 
   // Update time every second
   useEffect(() => {
@@ -113,6 +122,13 @@ export default function TVDashboard() {
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
+      {/* Update Indicator */}
+      {showUpdateIndicator && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-pulse">
+          🔄 Date actualizate
+        </div>
+      )}
+      
       {/* Header with Live Time and Date */}
       <div className="bg-gray-900 rounded-xl p-6 mb-6 shadow-lg">
         <div className="flex justify-between items-center">

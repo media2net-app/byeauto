@@ -92,6 +92,10 @@ export default function WorkManagement() {
           <div className="px-6 py-4">
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold text-white">Werkbeheer</h1>
+              <div className="text-sm text-green-400 flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span>Real-time updates</span>
+              </div>
               <button
                 onClick={() => setIsAddModalOpen(true)}
                 className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center space-x-2"
