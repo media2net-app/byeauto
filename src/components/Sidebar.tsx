@@ -72,7 +72,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       notifications: 0
     },
     {
-      name: t('work'),
+      name: t('repairs'),
       href: `/${locale}/dashboard/repairs`,
       icon: Wrench,
       current: pathname === `/${locale}/dashboard/repairs`,

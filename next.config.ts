@@ -6,6 +6,10 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Improve Fast Refresh stability
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
 };
 
 export default withNextIntl(nextConfig);
