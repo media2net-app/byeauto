@@ -319,10 +319,7 @@ const translations = {
     'today_schedule': 'Today\'s Schedule',
     
     // Additional TV Dashboard
-    'waiting': 'Waiting',
     'urgent': 'Urgent',
-    'client': 'Client',
-    'priority': 'Priority',
     'actual_time': 'Actual Time',
     'estimated': 'Estimated',
     'overtime': 'Overtime',
@@ -663,10 +660,7 @@ const translations = {
     'today_schedule': 'Programul de Astăzi',
     
     // Additional TV Dashboard
-    'waiting': 'În Așteptare',
     'urgent': 'Urgent',
-    'client': 'Client',
-    'priority': 'Prioritate',
     'actual_time': 'Timp Efectiv',
     'estimated': 'Estimativ',
     'overtime': 'Ore Suplimentare',
