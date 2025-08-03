@@ -295,6 +295,23 @@ const translations = {
     'estimated_time_placeholder': 'e.g. 2h',
     'confirm_delete': 'Are you sure you want to delete this task?',
 
+    // Opening Hours
+    'opening_hours': 'Opening Hours',
+    'business_hours': 'Business Hours',
+    'quick_actions': 'Quick Actions',
+    'set_all_days': 'Set All Days 08:00-18:00',
+    'weekdays_only': 'Weekdays Only',
+    'close_all_days': 'Close All Days',
+    'save_opening_hours': 'Save Opening Hours',
+    'closed': 'Closed',
+    'monday': 'Monday',
+    'tuesday': 'Tuesday',
+    'wednesday': 'Wednesday',
+    'thursday': 'Thursday',
+    'friday': 'Friday',
+    'saturday': 'Saturday',
+    'sunday': 'Sunday',
+
     // Common
     'close': 'Close',
     'logout': 'Logout',
@@ -583,6 +600,23 @@ const translations = {
     'select_team_member': 'Selectează Membru Echipă',
     'estimated_time_placeholder': 'ex. 2h',
     'confirm_delete': 'Ești sigur că vrei să ștergi această sarcină?',
+
+    // Opening Hours
+    'opening_hours': 'Program de Funcționare',
+    'business_hours': 'Program de Lucru',
+    'quick_actions': 'Acțiuni Rapide',
+    'set_all_days': 'Setează Toate Zilele 08:00-18:00',
+    'weekdays_only': 'Doar Zile Lucrătoare',
+    'close_all_days': 'Închide Toate Zilele',
+    'save_opening_hours': 'Salvează Programul',
+    'closed': 'Închis',
+    'monday': 'Luni',
+    'tuesday': 'Marți',
+    'wednesday': 'Miercuri',
+    'thursday': 'Joi',
+    'friday': 'Vineri',
+    'saturday': 'Sâmbătă',
+    'sunday': 'Duminică',
 
     // Common
     'close': 'Închide',

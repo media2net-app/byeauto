@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Settings, User, Bell, Shield, Database, Globe, Save, X } from "lucide-react";
+import { Settings, User, Bell, Shield, Database, Globe, Save, X, Clock } from "lucide-react";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -20,6 +20,16 @@ export default function SettingsPage() {
     clients: false
   });
 
+  const [openingHours, setOpeningHours] = useState({
+    monday: { open: "08:00", close: "18:00", enabled: true },
+    tuesday: { open: "08:00", close: "18:00", enabled: true },
+    wednesday: { open: "08:00", close: "18:00", enabled: true },
+    thursday: { open: "08:00", close: "18:00", enabled: true },
+    friday: { open: "08:00", close: "18:00", enabled: true },
+    saturday: { open: "08:00", close: "18:00", enabled: true },
+    sunday: { open: "08:00", close: "18:00", enabled: true }
+  });
+
   const handleLogout = () => {
     router.push("/");
   };
@@ -29,7 +39,8 @@ export default function SettingsPage() {
     { id: "notifications", name: "Notifications", icon: Bell },
     { id: "security", name: "Security", icon: Shield },
     { id: "data", name: "Data & Backup", icon: Database },
-    { id: "preferences", name: "Preferences", icon: Settings }
+    { id: "preferences", name: "Preferences", icon: Settings },
+    { id: "openinghours", name: t('opening_hours'), icon: Clock }
   ];
 
   return (
@@ -290,6 +301,127 @@ export default function SettingsPage() {
                         </button>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Opening Hours Tab */}
+            {activeTab === "openinghours" && (
+              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-white mb-6">{t('opening_hours')}</h3>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-md font-medium text-white mb-4">{t('business_hours')}</h4>
+                    <div className="space-y-4">
+                      {Object.entries(openingHours).map(([day, hours]) => (
+                        <div key={day} className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex items-center space-x-2">
+                              <button
+                                onClick={() => setOpeningHours(prev => ({
+                                  ...prev,
+                                  [day]: { ...prev[day as keyof typeof prev], enabled: !hours.enabled }
+                                }))}
+                                className={`w-6 h-6 rounded border-2 transition-colors ${
+                                  hours.enabled ? 'bg-purple-600 border-purple-600' : 'bg-transparent border-gray-500'
+                                }`}
+                              >
+                                {hours.enabled && (
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                )}
+                              </button>
+                              <span className="text-white font-medium capitalize w-20">{t(day)}</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <input
+                                type="time"
+                                value={hours.open}
+                                onChange={(e) => setOpeningHours(prev => ({
+                                  ...prev,
+                                  [day]: { ...prev[day as keyof typeof prev], open: e.target.value }
+                                }))}
+                                disabled={!hours.enabled}
+                                className={`px-3 py-1 bg-gray-700 border border-gray-600 rounded text-white text-sm ${
+                                  hours.enabled ? 'focus:ring-2 focus:ring-purple-500' : 'opacity-50 cursor-not-allowed'
+                                }`}
+                              />
+                              <span className="text-gray-400">-</span>
+                              <input
+                                type="time"
+                                value={hours.close}
+                                onChange={(e) => setOpeningHours(prev => ({
+                                  ...prev,
+                                  [day]: { ...prev[day as keyof typeof prev], close: e.target.value }
+                                }))}
+                                disabled={!hours.enabled}
+                                className={`px-3 py-1 bg-gray-700 border border-gray-600 rounded text-white text-sm ${
+                                  hours.enabled ? 'focus:ring-2 focus:ring-purple-500' : 'opacity-50 cursor-not-allowed'
+                                }`}
+                              />
+                            </div>
+                          </div>
+                          <div className="text-sm text-gray-400">
+                            {hours.enabled ? `${hours.open} - ${hours.close}` : t('closed')}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="text-md font-medium text-white mb-4">{t('quick_actions')}</h4>
+                    <div className="flex space-x-4">
+                      <button
+                        onClick={() => setOpeningHours({
+                          monday: { open: "08:00", close: "18:00", enabled: true },
+                          tuesday: { open: "08:00", close: "18:00", enabled: true },
+                          wednesday: { open: "08:00", close: "18:00", enabled: true },
+                          thursday: { open: "08:00", close: "18:00", enabled: true },
+                          friday: { open: "08:00", close: "18:00", enabled: true },
+                          saturday: { open: "08:00", close: "18:00", enabled: true },
+                          sunday: { open: "08:00", close: "18:00", enabled: true }
+                        })}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                                              >
+                          {t('set_all_days')}
+                        </button>
+                      <button
+                        onClick={() => setOpeningHours({
+                          monday: { open: "08:00", close: "18:00", enabled: true },
+                          tuesday: { open: "08:00", close: "18:00", enabled: true },
+                          wednesday: { open: "08:00", close: "18:00", enabled: true },
+                          thursday: { open: "08:00", close: "18:00", enabled: true },
+                          friday: { open: "08:00", close: "18:00", enabled: true },
+                          saturday: { open: "08:00", close: "18:00", enabled: false },
+                          sunday: { open: "08:00", close: "18:00", enabled: false }
+                        })}
+                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                                              >
+                          {t('weekdays_only')}
+                        </button>
+                      <button
+                        onClick={() => setOpeningHours({
+                          monday: { open: "08:00", close: "18:00", enabled: false },
+                          tuesday: { open: "08:00", close: "18:00", enabled: false },
+                          wednesday: { open: "08:00", close: "18:00", enabled: false },
+                          thursday: { open: "08:00", close: "18:00", enabled: false },
+                          friday: { open: "08:00", close: "18:00", enabled: false },
+                          saturday: { open: "08:00", close: "18:00", enabled: false },
+                          sunday: { open: "08:00", close: "18:00", enabled: false }
+                        })}
+                        className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                                              >
+                          {t('close_all_days')}
+                        </button>
+                    </div>
+                  </div>
+                  <div className="mt-6">
+                    <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2">
+                      <Save className="w-4 h-4" />
+                      <span>{t('save_opening_hours')}</span>
+                    </button>
                   </div>
                 </div>
               </div>
