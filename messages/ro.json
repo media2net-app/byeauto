@@ -320,5 +320,10 @@
   "scheduled": "Programat",
   "ready_for_delivery": "Gata pentru Livrare",
   "urgent": "Urgent",
-  "all_cars_done": "Toate mașinile gata pentru astăzi"
+  "all_cars_done": "Toate mașinile gata pentru astăzi",
+  "selected_vehicle": "Vehicul Selectat",
+  "no_work_items_available": "Nu există elemente de lucru disponibile",
+  "ready_to_start": "Gata de Început",
+  "work_in_progress": "Lucru în Desfășurare",
+  "work_paused": "Lucru Pus pe Pauză"
 } 

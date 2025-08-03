@@ -33,6 +33,10 @@ export default function WorkTimer() {
     item.status === 'pending' || item.status === 'in-progress'
   );
 
+  // Get waiting cars count
+  const waitingCars = workItems.filter(item => item.status === 'pending');
+  const inProgressCars = workItems.filter(item => item.status === 'in-progress');
+
   // Format time display
   const formatTime = (milliseconds: number) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -156,7 +160,19 @@ export default function WorkTimer() {
       {/* Header */}
       <div className="p-6 text-white">
         <h1 className="text-4xl font-bold text-center mb-2">BYE AUTO</h1>
-        <p className="text-xl text-center opacity-90">{t('work_timer')}</p>
+        <p className="text-xl text-center opacity-90 mb-4">{t('work_timer')}</p>
+        
+        {/* Queue Status */}
+        <div className="flex justify-center space-x-8">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold text-yellow-400">{waitingCars.length}</div>
+            <div className="text-sm opacity-90">{t('waiting')}</div>
+          </div>
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold text-blue-400">{inProgressCars.length}</div>
+            <div className="text-sm opacity-90">{t('in_progress')}</div>
+          </div>
+        </div>
       </div>
 
       {/* Work Item Selection */}
@@ -271,8 +287,18 @@ export default function WorkTimer() {
                 {timerState === 'paused' && t('work_paused')}
               </span>
             </div>
-            <div className="text-sm opacity-75">
-              {selectedWorkItem && `${t('estimated_time')}: ${selectedWorkItem.estimatedTime}`}
+            <div className="flex items-center space-x-6 text-sm opacity-75">
+              {selectedWorkItem && (
+                <span>{t('estimated_time')}: {selectedWorkItem.estimatedTime}</span>
+              )}
+              <span className="flex items-center">
+                <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></span>
+                {t('waiting')}: {waitingCars.length}
+              </span>
+              <span className="flex items-center">
+                <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                {t('in_progress')}: {inProgressCars.length}
+              </span>
             </div>
           </div>
         </div>
