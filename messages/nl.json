@@ -319,5 +319,6 @@
   "active_repairs": "Actieve Reparaties",
   "scheduled": "Gepland",
   "ready_for_delivery": "Klaar voor Aflevering",
-  "urgent": "Dringend"
+  "urgent": "Dringend",
+  "all_cars_done": "Alle auto's klaar voor vandaag"
 } 

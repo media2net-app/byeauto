@@ -133,6 +133,42 @@ export default function TVDashboard() {
   const needsOvertime = expectedEndTime && currentDayHours && expectedEndTime.getHours() >= parseInt(currentDayHours.close.split(':')[0]);
   const overtimeHours = expectedEndTime && currentDayHours ? Math.max(0, expectedEndTime.getHours() - parseInt(currentDayHours.close.split(':')[0])) : 0;
 
+  // Check if all cars are done for today
+  const allCarsDone = workItems.length > 0 && pendingItems.length === 0 && inProgressItems.length === 0;
+
+  // Show "All cars done" screen if no cars are waiting or in progress
+  if (allCarsDone) {
+    return (
+      <div className="h-screen bg-black text-white flex flex-col items-center justify-center">
+        {/* Update Indicator */}
+        {showUpdateIndicator && (
+          <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-pulse">
+            🔄 Date actualizate
+          </div>
+        )}
+        
+        {/* BYE AUTO Logo */}
+        <div className="mb-8">
+          <img 
+            src="/bye-auto-logo.png" 
+            alt="BYE AUTO" 
+            className="w-96 h-96 object-contain"
+          />
+        </div>
+        
+        {/* All Cars Done Message */}
+        <div className="text-center">
+          <h1 className="text-6xl font-bold text-white mb-4">
+            {t('all_cars_done')}
+          </h1>
+          <p className="text-2xl text-gray-300">
+            {formatTime(currentTime)} - {formatDate(currentTime)}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen bg-black text-white p-4 overflow-hidden flex flex-col">
       {/* Update Indicator */}

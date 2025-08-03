@@ -319,5 +319,6 @@
   "active_repairs": "Reparații Active",
   "scheduled": "Programat",
   "ready_for_delivery": "Gata pentru Livrare",
-  "urgent": "Urgent"
+  "urgent": "Urgent",
+  "all_cars_done": "Toate mașinile gata pentru astăzi"
 } 
