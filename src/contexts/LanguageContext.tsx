@@ -319,10 +319,8 @@ const translations = {
     'today_schedule': 'Today\'s Schedule',
     
     // Additional TV Dashboard
-    'urgent': 'Urgent',
     'actual_time': 'Actual Time',
     'estimated': 'Estimated',
-    'overtime': 'Overtime',
     'time_registration': 'Time Registration',
     'total_estimated': 'Total Estimated',
     'worked_actual': 'Worked Actual',
@@ -660,10 +658,8 @@ const translations = {
     'today_schedule': 'Programul de Astăzi',
     
     // Additional TV Dashboard
-    'urgent': 'Urgent',
     'actual_time': 'Timp Efectiv',
     'estimated': 'Estimativ',
-    'overtime': 'Ore Suplimentare',
     'time_registration': 'Registrare Timp',
     'total_estimated': 'Total Estimativ',
     'worked_actual': 'Lucrat Efectiv',
