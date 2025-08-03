@@ -318,24 +318,11 @@ const translations = {
     'hours_overtime': 'hours overtime',
     'today_schedule': 'Today\'s Schedule',
     
-    // TV Dashboard Specific
-    'workshop_dashboard': 'Workshop Dashboard',
-    'total_work': 'Total Work',
-    'ready': 'Ready',
-    'in_progress': 'In Progress',
+    // Additional TV Dashboard
     'waiting': 'Waiting',
-    'team': 'Team',
-    'tasks': 'tasks',
-    'efficiency': 'Efficiency',
-    'average_time': 'Average Time',
-    'time_saved': 'Time Saved',
-    'customer_satisfaction': 'Customer Satisfaction',
     'urgent': 'Urgent',
     'client': 'Client',
-    'assigned_to': 'Assigned To',
     'priority': 'Priority',
-    'estimated_time': 'Estimated Time',
-    'started_at': 'Started At',
     'actual_time': 'Actual Time',
     'estimated': 'Estimated',
     'overtime': 'Overtime',
@@ -347,7 +334,6 @@ const translations = {
     'program': 'Program',
     'status': 'Status',
     'remaining': 'Remaining',
-    'closed': 'Closed',
     
     // Priority Levels
     'high': 'High',
@@ -666,24 +652,11 @@ const translations = {
     'hours_overtime': 'ore suplimentare',
     'today_schedule': 'Programul de Astăzi',
     
-    // TV Dashboard Specific
-    'workshop_dashboard': 'Panou de Control Atelier',
-    'total_work': 'Total Lucru',
-    'ready': 'Gata',
-    'in_progress': 'În Lucru',
+    // Additional TV Dashboard
     'waiting': 'În Așteptare',
-    'team': 'Echipă',
-    'tasks': 'sarcini',
-    'efficiency': 'Eficiență',
-    'average_time': 'Timp Mediu',
-    'time_saved': 'Timp Economisit',
-    'customer_satisfaction': 'Satisfacția Clienților',
     'urgent': 'Urgent',
     'client': 'Client',
-    'assigned_to': 'Atribuit La',
     'priority': 'Prioritate',
-    'estimated_time': 'Timp Estimativ',
-    'started_at': 'Început La',
     'actual_time': 'Timp Efectiv',
     'estimated': 'Estimativ',
     'overtime': 'Ore Suplimentare',
@@ -695,7 +668,6 @@ const translations = {
     'program': 'Program',
     'status': 'Status',
     'remaining': 'Rămas',
-    'closed': 'Închis',
     
     // Priority Levels
     'high': 'Ridicată',
