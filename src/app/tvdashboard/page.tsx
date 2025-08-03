@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Clock, Calendar, CheckCircle, AlertCircle, PlayCircle, XCircle, Plus, Edit, Trash2, User, Clock as ClockIcon } from 'lucide-react';
+import { Clock, Calendar, CheckCircle, AlertCircle, PlayCircle, XCircle, Plus, Trash2 } from 'lucide-react';
 
 interface Task {
   id: string;
@@ -87,11 +87,8 @@ export default function TVDashboard() {
 
   // Drag & Drop state
   const [draggedTask, setDraggedTask] = useState<Task | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
 
   // Mobile management state
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
@@ -162,7 +159,6 @@ export default function TVDashboard() {
   // Drag & Drop handlers
   const handleDragStart = (e: React.DragEvent, task: Task) => {
     setDraggedTask(task);
-    setIsDragging(true);
     e.dataTransfer.effectAllowed = 'move';
   };
 
@@ -183,12 +179,10 @@ export default function TVDashboard() {
       );
     }
     setDraggedTask(null);
-    setIsDragging(false);
   };
 
   const handleDragEnd = () => {
     setDraggedTask(null);
-    setIsDragging(false);
   };
 
   // Task management functions
@@ -508,7 +502,7 @@ function TaskForm({ task, onSave, onCancel }: TaskFormProps) {
           </label>
           <select
             value={formData.status}
-            onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
+            onChange={(e) => setFormData({ ...formData, status: e.target.value as 'todo' | 'in-progress' | 'done' })}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="todo">Te Doen</option>
@@ -523,7 +517,7 @@ function TaskForm({ task, onSave, onCancel }: TaskFormProps) {
           </label>
           <select
             value={formData.priority}
-            onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
+            onChange={(e) => setFormData({ ...formData, priority: e.target.value as 'low' | 'medium' | 'high' })}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="low">Laag</option>
